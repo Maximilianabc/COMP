@@ -1,0 +1,61 @@
+TASK 2
+[Example: print verbosely.]
++-----+
+|x    |
+|xx   |
+|x x  |
+|x  x |
+|xxxxx|
++-----+
+@(0, 2)
++-----+
+|a    |
+|aa   |
+|a a  |
+|a  a |
+|aaaaa|
++-----+
+@(4, 6)
++----------------+
+|  x             |
+|  xx            |
+|  x x           |
+|  x  x          |
+|  xxxxx         |
+|      aa        |
+|      a a       |
+|      a  a      |
++----------------+
+[Example: select top, move down then print.]
++----------------+
+|                |
+|  @             |
+|  @@            |
+|  @ @           |
+|  @  @a         |
+|  @@@@@a        |
+|      a a       |
+|      a  a      |
++----------------+
+[Example: move right then print.]
++----------------+
+|                |
+|   @            |
+|   @@           |
+|   @ @          |
+|   @  @         |
+|   @@@@@        |
+|      a a       |
+|      a  a      |
++----------------+
+[Example: deselect and move left (failed) then print.]
++----------------+
+|                |
+|   x            |
+|   xx           |
+|   x x          |
+|   x  x         |
+|   xxxxx        |
+|      a a       |
+|      a  a      |
++----------------+

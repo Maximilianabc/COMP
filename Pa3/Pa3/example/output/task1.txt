@@ -1,0 +1,19 @@
+TASK 1
+[Example case: show patch.]
++---+
+|123|
+|456|
++---+
+@(-3, 3)
+[Example: flip horizontally.]
++---+
+|321|
+|654|
++---+
+@(-3, 3)
+[Example: flip verticallyly.]
++---+
+|654|
+|321|
++---+
+@(-3, 3)

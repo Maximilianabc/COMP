@@ -1,0 +1,142 @@
+TASK 4
+[Example: selections.]
++----------------+
+|x               |
+|xx              |
+|xdx             |
+|xd x            |
+|xxxox           |
+| ddddd          |
+|              h |
+|              hh|
++----------------+
+select (1, 1) and get:
++----------------+
+|@               |
+|@@              |
+|@d@             |
+|@d @            |
+|@@@o@           |
+| ddddd          |
+|              h |
+|              hh|
++----------------+
+select (3, 1) and get:
++----------------+
+|x               |
+|xx              |
+|x@x             |
+|x@ x            |
+|xxxox           |
+| @@@@@          |
+|              h |
+|              hh|
++----------------+
+select (3, 2) and get:
++----------------+
+|x               |
+|xx              |
+|xdx             |
+|xd x            |
+|xxxox           |
+| ddddd          |
+|              h |
+|              hh|
++----------------+
+select (7, 15) and get:
++----------------+
+|x               |
+|xx              |
+|xdx             |
+|xd x            |
+|xxxox           |
+| ddddd          |
+|              @ |
+|              @@|
++----------------+
+select (8, 16) and get:
++----------------+
+|x               |
+|xx              |
+|xdx             |
+|xd x            |
+|xxxox           |
+| ddddd          |
+|              h |
+|              hh|
++----------------+
+[Example: erase.]
+Before erasing:
++-+
+|o|
++-+
+@(4, 3)
++-----+
+|x    |
+|xx   |
+|x x  |
+|x  x |
+|xxxxx|
++-----+
+@(0, 0)
++-----+
+|d    |
+|dd   |
+|d d  |
+|d  d |
+|ddddd|
++-----+
+@(1, 1)
++-----+
+|h    |
+|hhhhh|
++-----+
+@(6, 14)
++----------------+
+|x               |
+|xx              |
+|xdx             |
+|xd x            |
+|xxxox           |
+| ddddd          |
+|              h |
+|              hh|
++----------------+
+Start erasing:
+erase (3, 1)
+erase (3, 2)
+erase (4, 3)
+erase (7, 15)
+erase (7, 17)
+After erasing, get:
++-----+
+|x    |
+|xx   |
+|x x  |
+|x  x |
+|xxx x|
++-----+
+@(0, 0)
++-----+
+|d    |
+|dd   |
+|  d  |
+|d  d |
+|ddddd|
++-----+
+@(1, 1)
++-----+
+|h    |
+|h h h|
++-----+
+@(6, 14)
++----------------+
+|x               |
+|xx              |
+|xdx             |
+|x  x            |
+|xxx x           |
+| ddddd          |
+|              h |
+|              h |
++----------------+
