@@ -199,7 +199,7 @@ int main()
     // uncomment the conrespoding line when you finished one task
     // task1("example/input/task1.txt");
     // task2("example/input/task2.txt");
-    task3("example/input/task3.txt");
-    // task4("example/input/task4.txt");
+    // task3("example/input/task3.txt");
+    task4("example/input/task4.txt");
     return 0;
 }

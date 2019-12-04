@@ -114,10 +114,25 @@ char **render(const Canvas *canvas)
 void bring_selected_above(Canvas *canvas)
 {
     if (canvas->selected == canvas->top) return;
-    canvas->selected->above->below = canvas->selected->below;
-    canvas->selected->below->above = canvas->selected->above;
-    canvas->selected->above = canvas->selected->above->above;
+    if (canvas->selected != canvas->bottom)
+    {
+        canvas->selected->above->below = canvas->selected->below;
+        canvas->selected->below->above = canvas->selected->above;
+    }
     canvas->selected->below = canvas->selected->above;
+    canvas->selected->above = canvas->selected->above->above;
+    if (canvas->selected->above == nullptr)
+    {
+        canvas->top = canvas->selected;
+        return;
+    }
+    canvas->selected->above->below = canvas->selected;
+    canvas->selected->below->above = canvas->selected;
+    if (canvas->selected == canvas->bottom)
+    {
+        canvas->selected->below->below = nullptr;
+        canvas->bottom = canvas->selected->above;
+    }
 }
 
 /**
@@ -128,25 +143,24 @@ void bring_selected_above(Canvas *canvas)
 void send_selected_below(Canvas *canvas)
 {
     if (canvas->selected == canvas->bottom) return;
+    if (canvas->selected != canvas->top)
+    {
+        canvas->selected->above->below = canvas->selected->below;
+        canvas->selected->below->above = canvas->selected->above;
+    }
+    canvas->selected->above = canvas->selected->below;
+    canvas->selected->below = canvas->selected->below->below;
+    canvas->selected->above->below = canvas->selected;
+    if (canvas->selected->below == nullptr)
+    {
+        canvas->bottom = canvas->selected;
+        return;
+    }
+    canvas->selected->below->above = canvas->selected;
     if (canvas->selected == canvas->top)
     {
-        /* 
-        canvas->selected->above = canvas->selected->below;
-        canvas->selected->below = canvas->selected->below->below;
-
-        canvas->selected->above->above = NULL;
-        canvas->selected->above->below = canvas->selected;
-        canvas->selected->below->above = canvas->selected;
-        canvas->top = canvas->selected->above; */
-        canvas->selected->above = canvas->selected->below;
-
-
-        canvas->selected->below = canvas->selected->below->below;
-        canvas->selected->below->below = canvas->selected;
-    }
-    else
-    {
-
+        canvas->selected->above->above = nullptr;
+        canvas->top = canvas->selected->above;
     }
 }
 
@@ -159,6 +173,7 @@ void send_selected_below(Canvas *canvas)
 */
 void select_at(Canvas *canvas, int x, int y)
 {
+
 }
 
 /**

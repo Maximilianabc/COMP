@@ -1,0 +1,234 @@
+TASK 3
+[Example: print verbosely.]
++-----+
+|x    |
+|xx   |
+|x x  |
+|x  x |
+|xxxxx|
++-----+
+@(0, 2)
++-----+
+|a    |
+|aa   |
+|a a  |
+|a  a |
+|aaaaa|
++-----+
+@(4, 6)
++-----+
+|b    |
+|bb   |
+|b b  |
+|b  b |
+|bbbbb|
++-----+
+@(3, 5)
++-----+
+|c    |
+|cc   |
+|c c  |
+|c  c |
+|ccccc|
++-----+
+@(2, 4)
++-----+
+|d    |
+|dd   |
+|d d  |
+|d  d |
+|ddddd|
++-----+
+@(1, 3)
++-----+
+|h    |
+|hh   |
+|h h  |
+|h  h |
+|hhhhh|
++-----+
+@(6, -1)
++--------------------+
+|  x                 |
+|  xx                |
+|  xdx               |
+|  xdcx              |
+|  xxxxx             |
+|   dcbaa            |
+|    cbaca           |
+|h    babba          |
+| h    aaaaa         |
+|  h                 |
++--------------------+
+[Example: send the top to the bottom.]
++--------------------+
+|  @                 |
+|  @@                |
+|  @d@               |
+|  @dc@              |
+|  @@@@@             |
+|   dcbaa            |
+|    cbaca           |
+|h    babba          |
+| h    aaaaa         |
+|  h                 |
++--------------------+
++--------------------+
+|  @                 |
+|  @@                |
+|  @d@               |
+|  @dc@              |
+|  @@@@a             |
+|   dcbaa            |
+|    cbaca           |
+|h    babba          |
+| h    aaaaa         |
+|  h                 |
++--------------------+
++--------------------+
+|  @                 |
+|  @@                |
+|  @d@               |
+|  @dcb              |
+|  @@@ba             |
+|   dcbaa            |
+|    cbaca           |
+|h    babba          |
+| h    aaaaa         |
+|  h                 |
++--------------------+
++--------------------+
+|  @                 |
+|  @@                |
+|  @dc               |
+|  @dcb              |
+|  @@cba             |
+|   dcbaa            |
+|    cbaca           |
+|h    babba          |
+| h    aaaaa         |
+|  h                 |
++--------------------+
++--------------------+
+|  @                 |
+|  @d                |
+|  @dc               |
+|  @dcb              |
+|  @dcba             |
+|   dcbaa            |
+|    cbaca           |
+|h    babba          |
+| h    aaaaa         |
+|  h                 |
++--------------------+
++--------------------+
+|  @                 |
+|  @d                |
+|  @dc               |
+|  @dcb              |
+|  @dcba             |
+|   dcbaa            |
+|    cbaca           |
+|h    babba          |
+| h    aaaaa         |
+|  h                 |
++--------------------+
+deselect (remove highlight):
++--------------------+
+|  x                 |
+|  xd                |
+|  xdc               |
+|  xdcb              |
+|  xdcba             |
+|   dcbaa            |
+|    cbaca           |
+|h    babba          |
+| h    aaaaa         |
+|  h                 |
++--------------------+
+[Example: bring the bottom to the top.]
++--------------------+
+|  @                 |
+|  @d                |
+|  @dc               |
+|  @dcb              |
+|  @dcba             |
+|   dcbaa            |
+|    cbaca           |
+|h    babba          |
+| h    aaaaa         |
+|  h                 |
++--------------------+
++--------------------+
+|  @                 |
+|  @d                |
+|  @dc               |
+|  @dcb              |
+|  @dcba             |
+|   dcbaa            |
+|    cbaca           |
+|h    babba          |
+| h    aaaaa         |
+|  h                 |
++--------------------+
++--------------------+
+|  @                 |
+|  @@                |
+|  @dc               |
+|  @dcb              |
+|  @@cba             |
+|   dcbaa            |
+|    cbaca           |
+|h    babba          |
+| h    aaaaa         |
+|  h                 |
++--------------------+
++--------------------+
+|  @                 |
+|  @@                |
+|  @d@               |
+|  @dcb              |
+|  @@@ba             |
+|   dcbaa            |
+|    cbaca           |
+|h    babba          |
+| h    aaaaa         |
+|  h                 |
++--------------------+
++--------------------+
+|  @                 |
+|  @@                |
+|  @d@               |
+|  @dc@              |
+|  @@@@a             |
+|   dcbaa            |
+|    cbaca           |
+|h    babba          |
+| h    aaaaa         |
+|  h                 |
++--------------------+
++--------------------+
+|  @                 |
+|  @@                |
+|  @d@               |
+|  @dc@              |
+|  @@@@@             |
+|   dcbaa            |
+|    cbaca           |
+|h    babba          |
+| h    aaaaa         |
+|  h                 |
++--------------------+
+deselect (remove highlight):
++--------------------+
+|  x                 |
+|  xx                |
+|  xdx               |
+|  xdcx              |
+|  xxxxx             |
+|   dcbaa            |
+|    cbaca           |
+|h    babba          |
+| h    aaaaa         |
+|  h                 |
++--------------------+
