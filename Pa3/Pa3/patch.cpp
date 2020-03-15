@@ -32,7 +32,18 @@ void append_to_bottom(Patch *patch, Line *line)
 */
 void clear(Patch *&patch)
 {
-    delete patch;
+    Line* current = patch->head;
+    Line* next;
+
+    while (current != NULL)
+    {
+        next = current->next;
+        delete(current);
+        current = next;
+    }
+    patch->head = NULL;
+    delete(patch);
+    patch = NULL;
 }
 
 /**

@@ -1,0 +1,222 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <title>COMP2011 Lab 1: CSD account, facbook page, Eclipse, and program exercise</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+
+  <!-- include CSS stylesheets -->
+  <link rel="stylesheet" href="../css/underground.css" type="text/css" />
+
+  <!-- include JQuery library  -->
+  <script type="text/javascript" src="../jQuery/jquery.min.js"></script>
+
+  <!-- Users script: A very simple usage of JQuery library -->
+  <script type="text/javascript" src="../jQuery/show.js"></script>
+
+</head>
+
+
+<!-- Start of the main html body -->
+<body>
+<div id="body_wrap">
+
+  <!-- wrap starts here -->
+
+  <div id="wrap">
+
+    <!-- header -->
+    <div id="header">
+      <span id="slogan"></span>
+
+      <!-- tabs -->
+      <ul>
+      <li id="tabShowNormalView"><a href="#" title="The normal webpage view"><span>Web view</span></a></li>
+      <li id="tabShowAllOnePage"><a href="#" title="The view which is suitable for printing"><span>Printable view</span></a></li>
+			
+      <li><a href="https://course.cse.ust.hk/comp2011" title="COMP2011 Course homepage"><span>Course homepage</span></a></li>
+      <li id="tabIncFontSize"><a href="#" title="Increase the font size" ><span >++ Font size</span></a></li>
+      <li id="tabDecFontSize"><a href="#" title="Decrease the font size" ><span >-- Font size</span></a></li>
+      </ul>
+    </div>
+
+    <div id="header-logo">
+      <div id="logo">COMP<span class="blue">2011</span></div>
+      <div id="header-educ">Introduction to Object-oriented Programming</div>
+    </div>
+
+    <!-- siderbar -->
+    <div id="sidebar" >
+      <div class="left-box">
+    
+        <!-- Lab Title -->
+        <h3>Lab 1: CSD account, facbook page, Eclipse, and program exercise</h3>
+      </div>
+			
+      <h1>Menu</h1>
+      <div class="left-box">
+
+        <!-- Lab's table of contents -->
+        <ul class="sidemenu">
+          <!-- menu0 corresponds to block 0 -->
+          <li id="menu0"><a href="#"> Register a CSD account </a></li>
+          <!-- menu1 corresponds to block 1 -->
+          <li id="menu1"><a href="#"> Add Facebook group</a></li>
+          <!-- menu2 corresponds to block 2 -->
+          <li id="menu2"><a href="#"> Using Eclipse </a></li>
+          <!-- menu3 corresponds to block 3 -->
+          <li id="menu3"><a href="#"> Lab exercise and demo </a></li> 
+        </ul>
+      </div>
+    </div>
+
+    <!-- main block: right panel -->
+    <div id="main">
+
+      <!-- Lab's main contents -->
+
+      <!-- block 0 starts here --> 
+      <div id='block0' style="display:block;">
+        <h1>Register a CSD account</h1>
+
+        <p>Remember to register your CS account using the <a href="https://cssu3.cs.ust.hk:8443/pass.html" title = "The webpage to activate your CSE account"><b>CSD Password Setting Service</b></a>, then you can login to the CS lab computers.</p>
+
+        <p><b>Enter your CSD username which should be the same as your ITSC username. Pick a password. Then take the 2nd and 3rd option in the account activation page: Unix A/C for UG domain, PC A/C at domain CSD.</b></p>
+
+        <p>The screenshot is as follows:</p>
+        <p><img src="img/login-scr.png"></img></p>
+      </div>
+      <!-- block 0 ends here --> 
+
+      <!-- block 1 starts here --> 
+      <div id='block1' style="display:block;">
+        <h1>Add Facebook group</h1>
+
+        <p>The course has a <a href="https://www.facebook.com/groups/comp2011fall2014/"><strong>Facebook group</strong></a> that students are welcome to join if 
+they are interested. The course staff will check the group regularly 
+for questions.</p>
+
+        <p> If you do not have a Facebook account and wish to 
+        get one in order to use the facebook group, please do so before you move 
+        on to the next lab task. The account can be created by following 
+        instructions in the <b><a href="http://www.facebook.com">Facebook</a></b> 
+        web page.</p>
+
+      </div>
+      <!-- block 1 ends here --> 
+
+      <div id='block2' style="display:block;">
+        <h1>Using Eclipse</h1>
+        <p>First, read through the following Eclipse tutorial, which is also linked from the course main page: 
+          <ul>
+      	    <li> <a href="labs/eclipse_intro/index.html" target="_blank"> <b>Introduction to Eclipse in C++</b></a> </li>
+          </ul>
+        </p>
+        <p><br /></p>
+        <p><h3>Test your Eclipse Setup</h3></p>
+        <p>Simply copy the program below into your Eclipse editing window, and then compile and execute the program to ensure that your Eclipse programming environment is properly setup. </p>
+
+        <pre>
+#include &lt;iostream&gt;
+using namespace std;
+
+int main()
+{
+   int x, y, z;
+
+   x = 1;
+   y = 2;
+   z = x+y;
+
+   cout << "The sum of " << x << " and " << y << " is " << z << endl;
+
+   return 0;
+}
+        </pre>
+
+        <p> <br> </p>
+        <p>Try to follow the code to understand what the program does. The <b>cout</b> statement at the end is used to output the value of <b>z</b>. This value should appear in the output window near the bottom of the screen.
+        </p>
+      </div>
+      <!-- block 2 ends here --> 
+
+      <!-- block 3 starts here --> 
+      <div id='block3' style="display:block;">
+
+        <h1>Lab exercise and demo</h1>
+        <h3>Grading scheme for each COMP2011 lab</h3>
+        <p> We have 2 marks for each lab:
+          <ul>
+	    <li>Attendance (1 mark)</li>
+	    <li>Complete and demonstrate your solution to a TA, and answer a simple question in your lab session (1 mark) </li>
+          </ul>
+        </p>
+
+        <p> <br /> </p>
+        <h3>Lab exercise: Compute the perimeter of a rectangle given the width and the height</h3>
+
+        <p>Ask the user to <strong>input two numbers (
+		integers)</strong>, namely, <em>width</em> and <em>height</em>, which
+		represent the width and height of a rectangle. Calculate its
+		perimenter and <strong>print the result</strong> to the screen.
+		Note that you have to check whether <em>width</em> and
+		<em>height</em> are <strong>positive</strong> before computing the result. If the
+		<em>width</em> or <em>height</em> is zero or negative, <strong>print
+		an error message</strong> to tell the user that the input has error and stop the program. A solution program (machine code runnable in Windows) can be downloaded: <a href="sol/lab1-sol.exe"><font color="blue">here</font></a> for you to try out.</p>
+
+        <p><strong>Sample #1:</strong></p>
+        <p><pre>
+Please input the width of the rectangle: 3
+Please input the height of the rectangle: 4
+The perimeter of the rectangle is 14
+</pre></p>
+
+        <p><strong>Sample #2:</strong></p>
+        <p><pre>
+Please input the width of the rectangle: 0
+Please input the height of the rectangle: 5  
+Error: the width and height must be positive!
+</pre></p>
+
+        <p><strong>Sample #3:</strong></p>
+        <p><pre>
+Please input the width of the rectangle: 5
+Please input the height of the rectangle: -5 
+Error: the width and height must be positive!
+</pre></p>
+
+        <p> <br> </p>
+        <p>Once you finish the above exercise, you may find a TA to show the result. </p>
+      </div>
+      <!-- block 3 ends here --> 
+
+      <!-- new block starts here --> 
+      <!--div id='block' style="display:block;">
+        <h1>block title</h1>
+
+      </div-->
+      <!-- new block ends here --> 
+
+    </div>
+    <!-- main ends here -->
+
+  </div>
+  <!-- wrap ends here --> 
+
+  <!-- footer starts here -->
+  <div class="footer">
+    <p>
+    Page maintained by <a href="mailto:kccecia@cse.ust.hk">Cecia Chan</a>&nbsp;&nbsp;
+    <!--Valid <a href="http://validator.w3.org/check/referer">XHTML</a> |
+    <a href="http://jigsaw.w3.org/css-validator/check/referer">CSS</a>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+    | &nbsp;&nbsp; <a href="https://course.cse.ust.hk/comp2011" title="COMP2011 Course homepage">Course homepage</a>
+    </p>
+  </div> 
+  <!-- footer ends here --> 
+
+</div> 
+<!-- body_wrap ends here --> 
+
+</body>
+</html>

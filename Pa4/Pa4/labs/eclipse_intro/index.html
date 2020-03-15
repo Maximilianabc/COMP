@@ -1,0 +1,463 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>COMP 2011 Eclipse Setup</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="css/Underground.css" type="text/css" />
+
+  <!-- include JQuery library  -->
+  <script type="text/javascript" src="../jQuery/jquery.js"></script>
+
+  <!-- Users script: A very simple usage of JQuery library -->
+  <script type="text/javascript" src="../jQuery/show.js"></script>
+</head>
+
+<!-- Start of the main html body -->
+<body>
+<div id="body_wrap">
+<!-- wrap starts here -->
+
+<div id="wrap">
+
+		<!-- header -->
+		<div id="header">
+			<span id="slogan">HKUST / Computer Science and Engineering</span>
+
+			<!-- tabs -->
+			<ul>
+			
+			
+					
+			<li id="tabShowNormalView"><a href="#" title="The normal webpage view"><span>Web view</span></a></li>
+			<li id="tabShowAllOnePage"><a href="#" title="The view which is suitable for printing"><span>Printable view</span></a></li>
+			
+				<li><a href="https://course.cse.ust.hk/comp2011/" title="COMP2011 Course Homepage"><span>Course homepage</span></a></li>
+				<li id="tabIncFontSize"><a href="#" title="Increase the font size" ><span >++ Font size</span></a></li>
+				<li id="tabDecFontSize"><a href="#" title="Decrease the font size" ><span >-- Font size</span></a></li>
+			</ul>
+
+		</div>
+
+		<div id="header-logo">
+			<div id="logo">COMP<span class="blue">2011</span></div>
+			<div id="header-educ">Introduction to Objected-oriented Programming</div>
+		</div>
+
+		<!-- siderbar -->
+		<div id="sidebar" >
+			<div class="left-box">
+			<h3>Setting up Eclipse: A programming environment for C++</h3>
+			</div>
+
+			
+			<h1>Menu</h1>
+<div class="left-box">
+<ul class="sidemenu">
+<li id="menu0"><a href="#">
+Eclipse Overview
+</a></li>
+
+<li id="menu1"><a href="#">
+Using Eclipse/C++ in the labs
+</a></li>
+
+<li id="menu2"><a href="#">
+Using Eclipse on a USB thumb drive
+</a></li>
+
+<li id="menu3"><a href="#">
+Developing a HelloWorld application using Eclipse 
+</a></li>
+
+<li id="menu4"><a href="#">
+Moving C++ projects from one machine to another
+</a></li>
+
+<li id="menu5"><a href="#">
+Eclipse (Microsoft Windows) (* Read it at home *)
+</a></li>
+
+<li id="menu6"><a href="#">
+Eclipse (Mac OS X) <br />(* Read it at home *)
+</a></li>
+
+
+</ul>
+</div>
+<!--HTML-MENU-TEMPLATE-->
+			
+
+
+		</div>
+
+
+		<!-- main block: right panel -->
+		<div id="main">
+
+			<!--HTML-BLOCK-TEMPLATE--><div id='block0' style="display:block;">
+<h1>Eclipse Overview</h1>
+
+<p>
+<b>Eclipse in C++ provides an Integrated Development Environment (IDE) that allows developers to write, build, and debug C++ programs. </b> Eclipse itself is written in Java and can be used in multiple platforms (Microsoft Windows, Linux and Mac OS X). 
+
+Except C++, Eclipse can also be used to develop applications in various programming languages such as Java, PHP, Python and more.
+</p>
+
+
+
+
+
+<blockquote>
+<br />
+<br />
+<br />
+
+<b> &lt;== Please click the items on the left menu</b>
+
+<p>The package can be downloaded here (<a href="eclipse-4.4-cpp-win.zip"><strong>eclipse-4.4-cpp-win.zip</strong></a>).</p> 
+
+<p>For Mac OS X users, you need to install them by yourself (see Eclipse (Mac OS X) ).</p> 
+
+
+<br />
+<br />
+<br />
+</blockquote>
+
+
+</div>
+<div id='block1' style="display:block;">
+<h1>Using Eclipse/C++ in the labs</h1>
+
+<p><b style="color: rgb(0, 0, 170);"><u> Step 1: Launch Eclipse</u></b></p> 
+
+<img src="lab_img/1.png" />
+
+<p>The installed Eclipse can be found in the folder: <b>L:\apps\eclipse-4.4\cpp</b></p>
+
+<p><b style="color: rgb(0, 0, 170);"><u> Step 2: Execute the windows batch file, i.e. eclipse.bat</u></b></p> 
+
+<img src="lab_img/2.png" />
+
+<p><b style="color: rgb(0, 0, 170);"><u> Step 3: Set the default workspace</u></b></p> 
+
+<img src="lab_img/3.png" />
+
+<p>For students, we only provide read/write access to specific folders (e.g. C:\Temp). Please remember to back up your work because the content will be removed when the computer is rebooted.</p>
+
+
+
+</div>
+<div id='block2' style="display:block;">
+<h1>Using Eclipse on a USB thumb drive</h1>
+
+<p style="#ff0000">(Warnings: Installing Eclipse on a USB thumb drive is portable, but Eclipse usually runs slower on a USB thumb drive. If you usually bring your own laptop, it is better to install Eclipse on your own laptop)</p>
+
+<p><b style="color: rgb(0, 0, 170);"><u> Step 1: Plug a USB thumb drive to a computer</u></b></p> 
+
+<img src="raw_usb/step01_mount_usb_thumb.png" />
+
+<p>Record down the drive letter. It may be different from yours. In this example, the drive letter is <strong>H:\</strong>. About 500MB free space is required to install Eclipse on a USB thumb drive. </p>
+
+
+<p><b style="color: rgb(0, 0, 170);"><u> Step 2: Create an empty folder to store the Eclipse</u></b></p> 
+
+<img src="raw_usb/step02_create_empty_folder.png" />
+
+<p>Eclipse is very portable. You can simply install Eclipse in an USB thumb drive. The first step is to create an empty folder (e.g. <strong>H:\usb_eclipse</strong>). </p>
+
+<p><b style="color: rgb(0, 0, 170);"><u> Step 3: Extract the Eclipse to the empty folder</u></b></p> 
+
+<img src="raw_usb/s3.png" />
+
+<p>After you have unzipped the Eclipse to the empty folder (located at <strong>H:\usb_eclipse</strong>), you can delete the zip file.</p>
+
+<p><b style="color: rgb(0, 0, 170);"><u> Step 4: Create an empty folder to store all the C++ projects</u></b></p> 
+
+<img src="raw_usb/s4.png" />
+
+<p>In Eclipse, we need to specify a location to store all the C++ projects (i.e. all the C++ source code files, executable files and other system files). We call this location a <strong>workspace</strong>.
+In this example, we create an empty folder located at <strong>H:\usb_eclipse\workspace</strong></p>
+
+<p><b style="color: rgb(0, 0, 170);"><u> Step 5: Start Eclipse on the USB thumb drive</u></b></p> 
+
+<img src="raw_usb/s5.png" />
+
+<p>Enter the folder (<strong>H:\usb_eclipse\eclipse3.5-cpp-win</strong>) and double-click <strong>eclipse.exe</strong></p>
+
+<p><strong>Note:</strong> you may need to setup the MinGW and JAVA path before running the Eclipse.<br />
+See the sections <strong>"Eclipse (Microsoft Windows) (* Read it at home *)"</strong> or <strong>"Eclipse (Mac OS X) 
+(* Read it at home *)"</strong>
+</p>
+
+<p><b style="color: rgb(0, 0, 170);"><u> Step 6: Specify the workspace directory (<strong>H:\usb_eclipse\workspace</strong>) and click "Ok"</u></b></p> 
+
+<img src="raw_usb/step06_workspace_dir.png" />
+
+<p>Now, all the C++ source codes will be placed inside the workspace folder. </p>
+
+
+
+
+
+</div>
+<div id='block3' style="display:block;">
+<h1>Developing a HelloWorld application using Eclipse </h1>
+
+<p><b style="color: rgb(0, 0, 170);"><u> Step 1: Launch Eclipse</u></b></p> 
+<p>(For details, see <b>"Using Eclipse/C++ in the labs"</b> or <b>"Using Eclipse on a USB thumb drive")</b></p>
+
+<!--table>
+	<tr>
+		<td><b>Microsoft Windows</b></td>
+		<td><b>Mac OS X</b></td>
+	</tr>
+	
+	<tr>
+		<td><img src="raw_helloworld/m1a.jpg"></img></td>
+		<td>
+		<img src="raw_mac/m5_small.jpg"></img> <br />
+		<img src="raw_mac/m5b.jpg"></img></td>
+	</tr>
+
+</table-->
+
+<p><b style="color: rgb(0, 0, 170);"><u> Step 2: Select the workspace</u></b></p> 
+
+
+<p>
+<b>Workspace</b> stores all your C++ source codes. <br />
+1. Please <b>click "browse" to choose a path that you can memorize</b> (e.g. Your desktop). In this example, a path "C:\Temp" is used. <br />
+2. After that, <b>click "OK"</b>.
+</p>
+
+<img src="raw_helloworld/m2.jpg"></img>
+
+<p><b style="color: rgb(0, 0, 170);"><u> Step 3: Close the Welcome screen</u></b></p> 
+
+<img src="raw_helloworld/m3.jpg" width="700px"></img>
+
+<p><b style="color: rgb(0, 0, 170);"><u> Step 4: Create a new C++ project</u></b></p>
+
+<p><b>Project</b> helps you to organize your C++ source code file(s).</p>
+<img src="raw_helloworld/m4.jpg"></img>
+
+<p><b style="color: rgb(0, 0, 170);"><u> Step 5: Give the name of a project and select the C++ compiler tool</u></b></p> 
+
+<p>A compiler converts C++ source codes to object codes. These object codes can be used to create executable files</p>
+<img src="raw_helloworld/m5.jpg"></img>
+
+<p><b style="color: rgb(0, 0, 170);"><u> Step 6: Add a source code file to the project</u></b></p> 
+
+<img src="raw_helloworld/m6.jpg"></img>
+
+<p><b style="color: rgb(0, 0, 170);"><u> Step 7: Name the source code file </u></b></p> 
+
+<p><b>You can choose your favorite file name.</b> In this example, we use "main.cpp". Then click <b>Finish</b>.</p>
+<img src="raw_helloworld/m7.jpg"></img>
+
+
+<p><b style="color: rgb(0, 0, 170);"><u> Step 8: Edit and save the C++ source code file </u></b></p> 
+
+
+<img src="raw_helloworld/m8.jpg" width="700px"></img>
+
+
+<p>
+<b><font color="red">** Notice ** </font> </b> remember to save the file. A star (*) is used to indicate that the file is unsaved. You will encounter some unknown errors if you forget to save the file. 
+</p>
+
+
+
+<img src="raw_helloworld/problem_unsaved.jpg"></img>
+
+
+<p><b style="color: rgb(0, 0, 170);"><u> Step 9: Click the hammer button to compile the source code</u></b></p> 
+
+
+<img src="raw_helloworld/m9.jpg"></img>
+
+<p><b style="color: rgb(0, 0, 170);"><u> Step 10: Click the play button to execute the program and view the output result. </u></b></p> 
+
+
+<img src="raw_helloworld/m10.jpg" width="700px"></img>
+
+
+</div>
+<div id='block4' style="display:block;">
+<h1>Moving C++ projects from one machine to another</h1>
+
+
+<p><b style="color: rgb(0, 0, 170);"><u> Motivation: </u></b></p>
+
+<img src="raw_moving/step00_motivation.png"></img>
+
+
+<p><b style="color: rgb(0, 0, 170);"><u> Step 1: Select the project to be exported </u></b></p>
+
+<img src="raw_moving/step01_select_project.png"></img>
+
+<p><b style="color: rgb(0, 0, 170);"><u> Step 2: Select File, then select "Export..." </u></b></p>
+
+<img src="raw_moving/step02_select_export.png"></img>
+
+<p><b style="color: rgb(0, 0, 170);"><u> Step 3: Select an export format (Archive) </u></b></p>
+
+<img src="raw_moving/step03_select_archive.png"></img>
+
+<p><b style="color: rgb(0, 0, 170);"><u> Step 4: Start to export the project</u></b></p>
+
+<img src="raw_moving/step04_export.png"></img>
+
+<p><b style="color: rgb(0, 0, 170);"><u> Step 5: Delete the project (Right-click, choose "Delete")</u></b></p>
+
+<img src="raw_moving/step05_delete_project.png"></img>
+
+<p><b style="color: rgb(0, 0, 170);"><u> Step 6: Delete the project from the disk</u></b></p>
+
+<img src="raw_moving/step06_remove_from_disk.png"></img>
+
+<p><b style="color: rgb(0, 0, 170);"><u> Step 7: Import a project (Choose "File" and then "Import...")</u></b></p>
+
+<img src="raw_moving/step07_import_project.png"></img>
+
+<p><b style="color: rgb(0, 0, 170);"><u> Step 8: Import an existing project</u></b></p>
+
+<img src="raw_moving/step08_existing_projects.png"></img>
+
+<p><b style="color: rgb(0, 0, 170);"><u> Step 9: Select the project archive </u></b></p>
+
+<img src="raw_moving/step09_select_archive.png"></img>
+
+<p><b style="color: rgb(0, 0, 170);"><u> Step 10: Result</u></b></p>
+
+<img src="raw_moving/step10_finale.png"></img>
+
+
+
+
+
+
+</div>
+<div id='block5' style="display:block;">
+<h1>Eclipse (Microsoft Windows) (* Read it at home *)</h1>
+
+<p><b style="color: rgb(0, 0, 170);"><u> Step 1: Download the Eclipse/C++ package for Mircosoft Windows</u></b></p> 
+
+<p>The package can be downloaded here (<b><a href="eclipse-4.4-cpp-win.zip">eclipse-4.4-cpp-win.zip</a></b>) </p>
+
+<p>You can download this file into any folder in your PC. See the figure below: </p>
+
+<img src="raw_win/g1.jpg"></img>
+
+<p><b style="color: rgb(0, 0, 170);"><u> Step 2: Extract the file using WinZip or WinRar</u></b></p> 
+
+<img src="raw_win/g2.jpg"></img>
+
+<p><b style="color: rgb(0, 0, 170);"><u>Step 3: Setup the MinGW and JAVA path<br />
+</u></b></p>
+<p>Before you run the Eclipse, please set the Java and MinGW paths in your window environment. To know how to setup a window environment path: you can visit:<a href="http://www.computerhope.com/issues/ch000549.htm"> http://www.computerhope.com/issues/ch000549.htm</a>. <br />
+<ol>
+  <li>Java Path - For example, if you have installed a JDK (Java Development Kit: <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">http://www.oracle.com/technetwork/java/javase/downloads/index.html</a>), the Java path is:<br />
+C:\Progra~1\Java\jre7\bin (please check your java installation path) <br /></li><li>MinGW Paths - For example, if you unzip your Eclipse under C drive, the mingw paths are : C:\eclipse-4.4-cpp-win\mingw\bin and C:\eclipse-4.4-cpp-win\mingw\msys\1.0\bin <br /></li><li>You should not delete your original path. You should add a semi-colon to separate the new path. Then the path should be: C:\Progra~1\Java\jre7\bin;C:\eclipse-4.4-cpp-win\mingw\bin;C:\eclipse-4.4-cpp-win\mingw\msys\1.0\bin;%PATH%</li></ol></p>
+
+<p><b style="color: rgb(0, 0, 170);"><u>Step 4: Launch Eclipse</u></b></p> 
+
+<img src="raw_win/g3.jpg"></img>
+
+
+
+
+
+</div>
+<div id='block6' style="display:block;">
+<h1>Eclipse (Mac OS X) <br />(* Read it at home *)</h1>
+
+<p><b style="color: rgb(0, 0, 170);"><u> Step 1: Access the XCode web site</u></b></p> 
+
+Access the following URL using a web browser: <br />
+ <a href="http://developer.apple.com/technologies/xcode.html"> http://developer.apple.com/technologies/xcode.html </a>
+ 
+ <br /> <p> <b>You will be asked to apply for an Apple ID/Password, which is free of charge. </b> </p>
+
+<img src="raw_mac/m0.jpg"></img>
+
+<p><b style="color: rgb(0, 0, 170);"><u> Step 2: Downloading XCode </u></b></p> 
+<img src="raw_mac/m1.jpg"></img>
+
+<p><b style="color: rgb(0, 0, 170);"><u> Step 3: Installing XCode </u></b></p> 
+<img src="raw_mac/m2.jpg"></img>
+
+
+<p><b style="color: rgb(0, 0, 170);"><u> Step 4: Installed XCode successfully</u></b></p> 
+<img src="raw_mac/m3.jpg"></img>
+
+<p><b style="color: rgb(0, 0, 170);"><u> Step 5: Download Eclipse for C++</u></b></p> 
+
+Access the download page via the URL: <br />
+
+<a href="http://www.eclipse.org/downloads/">http://www.eclipse.org/downloads/</a>
+
+<p>After that, double-click the downloaded file.</p>
+
+<img src="raw_mac/m4.jpg"></img>
+
+
+<p><b style="color: rgb(0, 0, 170);"><u> Step 6: Launch Eclipse</u></b></p> 
+
+<p>Access the download page via the URL: 
+
+<a href="http://www.eclipse.org/downloads/">http://www.eclipse.org/downloads/</a></p> 
+
+<img src="raw_mac/m5.jpg"></img>
+
+<p>After that, you can access the Eclipse from the Desktop icons</p>
+
+<img src="raw_mac/m5a.jpg"></img>
+<img src="raw_mac/m5b.jpg"></img>
+
+
+
+
+
+</div>
+
+			
+						
+			
+			<!--
+			<div id='block' style="display:block;">
+				<h1>block title</h1>
+
+			</div>
+			-->
+		<!-- main ends here -->
+		</div>
+
+
+<!-- wrap ends here --> 
+</div> 
+	<br>
+	<br>
+<!-- footer starts here -->
+<div class="footer">
+
+	<p> Page created by <strong>Eddie CHAN</strong> &nbsp;&nbsp;
+	<!--p> Page maintained by <strong><a href="mailto:csclchan@cse.ust.hk" title="Email me!">Eddie CHAN</a></strong> &nbsp;&nbsp;-->
+          <!--Valid <a href="http://validator.w3.org/check/referer">XHTML</a> |
+   	<a href="http://jigsaw.w3.org/css-validator/check/referer">CSS</a>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+          <a href="https://course.cse.ust.hk/comp2011" title="COMP2011 Course homepage">Course homepage</a>&nbsp;&nbsp;
+		Based on design by: <a href="http://www.styleshout.com/" title="Source of this template">styleshout</a></p>
+	<br>
+	<br>
+
+</div>
+
+<!-- body_main ends here -->
+</div> 
+
+
+</body>
+</html>
+

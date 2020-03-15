@@ -50,7 +50,18 @@ void append_to_bottom(Canvas *canvas, Patch *patch)
 */
 void clear(Canvas *&canvas)
 {
-    delete canvas;
+    PatchNode* current = canvas->top;
+    PatchNode* next;
+
+    while (current != NULL)
+    {
+        next = current->below;
+        delete(current);
+        current = next;
+    }
+    canvas->top = NULL;
+    delete(canvas);
+    canvas = NULL;
 }
 
 /**
@@ -173,7 +184,33 @@ void send_selected_below(Canvas *canvas)
 */
 void select_at(Canvas *canvas, int x, int y)
 {
-
+    bool found = false;
+    canvas->selected = nullptr;
+    PatchNode* lastpatch = canvas->top;
+    while (lastpatch != NULL && !found)
+    {
+        if (lastpatch->patch->x <= x && lastpatch->patch->y <= y)
+        {
+            Line* lastline = lastpatch->patch->head;
+            int k = 0;
+            while (lastline != NULL && k != x - lastpatch->patch->x)
+            {
+                lastline = lastline->next;
+                k++;
+            }
+            if (lastline != NULL)
+            {
+                char* cstr = new char[lastline->data.size() + 1];
+                strcpy_s(cstr, lastline->data.size() + 1, lastline->data.c_str());
+                if (cstr[y - lastpatch->patch->y] != ' ')
+                {
+                    canvas->selected = lastpatch;
+                    found = true;
+                }
+            }
+        }
+        lastpatch = lastpatch->below;
+    }
 }
 
 /**
@@ -185,4 +222,68 @@ void select_at(Canvas *canvas, int x, int y)
 */
 void erase_pixel_at(Canvas *canvas, int x, int y)
 {
+    PatchNode* lastpatch = canvas->top;
+    while (lastpatch != NULL)
+    {
+        if (lastpatch->patch->x <= x && lastpatch->patch->y <= y)
+        {
+            Line* lastline = lastpatch->patch->head;
+            int k = 0;
+            while (lastline != NULL && k != x - lastpatch->patch->x)
+            {
+                lastline = lastline->next;
+                k++;
+            }
+            if (lastline != NULL)
+            {
+                char* cstr = new char[lastline->data.size() + 1];
+                strcpy_s(cstr, lastline->data.size() + 1, lastline->data.c_str());
+                cstr[y - lastpatch->patch->y] = ' ';
+                string s(cstr);
+                lastline->data = s;
+            }
+        }
+        lastpatch = lastpatch->below;
+    }
+
+    lastpatch = canvas->top;
+    bool Empty = true;
+    while (lastpatch != NULL)
+    {
+        Line* lastline = lastpatch->patch->head;
+        while (lastline != NULL)
+        {
+            char* cstr = new char[lastline->data.size() + 1];
+            strcpy_s(cstr, lastline->data.size() + 1, lastline->data.c_str());
+            for (int y = 0; y < lastline->data.size(); y++)
+            {
+                if (y >= canvas->width) break;
+                if (cstr[y] != ' ')
+                {
+                    Empty = false;
+                    break;
+                }
+            }
+            lastline = lastline->next;
+        }
+        if (Empty)
+        {
+            if (canvas->top == lastpatch)
+            {
+                if (canvas->top->below == NULL) return;
+                canvas->top->patch = canvas->top->below->patch;
+                lastpatch = canvas->top->below;
+                canvas->top->below = canvas->top->below->below;
+            }
+            else
+            {
+                PatchNode* prev = canvas->top;
+                while (prev->below != NULL && prev->below != lastpatch)
+                    prev = prev->below;
+                if (prev->below == NULL) return;
+                prev->below = prev->below->below;
+            }
+        }
+        lastpatch = lastpatch->below;
+    }
 }
