@@ -29,6 +29,7 @@ void Invoice::createTransaction(int _qty){
 		{
 			cost = quantity * productSale->getUnitPrice() * discount;
 			productSale->setUnit(productSale->getUnit() - quantity);
+			cout << "Customer Discount: " << discount << endl;
 			cout << "Transaction done, product stock updated: " << productSale->getUnit() << endl;
 		}
 	}
@@ -42,10 +43,9 @@ void Invoice::createTransaction(int _qty){
 //Todo: implement the print function to output the Invoice data as same as result
 void Invoice::print() const
 {
-	Customer* customer = static_cast<Customer*>(buyer);
 	cout << "Invoice: " << id << " | Date: " << date << " Quantity: " << quantity << " | Cost: " << cost
-		<< " | Buyer: " << customer->getName() << " | Salesman: " << seller->getName()
-		<< " | Product: " << productSale->getName() << " Customer Discount: " << customer->getDiscount() << endl;
+		<< " | Buyer: " << buyer->getName() << " | Salesman: " << seller->getName()
+		<< " | Product: " << productSale->getName() << endl;
 }
 
  
