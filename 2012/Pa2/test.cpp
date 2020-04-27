@@ -19,7 +19,7 @@ void runTestCase1();
 void runTestCase2();
 void runTestCase3();
 
-int main() {
+int a_main() {
     cout << endl;
     cout << "TEST PROGRAM" << endl;
     cout << "This program is to help you test your code." <<endl;
@@ -176,7 +176,7 @@ void runTestCase2() {
         exit(-1);
     }
     delete []employee_list;
-    /*
+
     // Step4: Test assignEmployee after removeDiedCow
     int tmp2_4_fx, tmp2_4_fy;
     int tmp2_4_cx, tmp2_4_cy;
@@ -194,7 +194,7 @@ void runTestCase2() {
             << "You might wrongly set the X, Y of new employee."<<endl;
         exit(-1);
     } 
-    delete []employee_list;*/
+    delete []employee_list;
     delete cattlefarm;
     cout << "->TEST CASE 2: PASS." << endl << endl;
     return;

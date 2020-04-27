@@ -20,8 +20,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{BE57C151-1C3B-443A-A782-CD9600AA1B2C}</ProjectGuid>
-    <RootNamespace>Pa2</RootNamespace>
+    <ProjectGuid>{4D00CB94-9B8A-4E61-B6BD-555AB6899719}</ProjectGuid>
+    <RootNamespace>Lab6</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -71,7 +71,6 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>C:\Users\Maximilian\source\repos\COMP\2012\Pa2\ncurses_lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -88,13 +87,10 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\Maximilian\source\repos\COMP\2012\Pa2\ncurses_lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>pdcurses.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\Maximilian\source\repos\COMP\2012\Pa2\ncurses_lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -142,33 +138,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Controller.cpp" />
+    <ClCompile Include="Customer.cpp" />
+    <ClCompile Include="Invoice.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Object.cpp" />
-    <ClCompile Include="test.cpp" />
-    <ClCompile Include="TodoCattlefarm.cpp" />
-    <ClCompile Include="TodoCow.cpp" />
-    <ClCompile Include="TodoEmployee.cpp" />
-    <ClCompile Include="TodoFarmer.cpp" />
-    <ClCompile Include="TodoFarmland.cpp" />
-    <ClCompile Include="TodoFeeder.cpp" />
-    <ClCompile Include="TodoProperty.cpp" />
-    <ClCompile Include="TodoScene.cpp" />
-    <ClCompile Include="View.cpp" />
+    <ClCompile Include="Person.cpp" />
+    <ClCompile Include="Product.cpp" />
+    <ClCompile Include="Salesman.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Controller.h" />
-    <ClInclude Include="definition.h" />
-    <ClInclude Include="Employee.h" />
-    <ClInclude Include="Object.h" />
-    <ClInclude Include="Property.h" />
-    <ClInclude Include="Scene.h" />
-    <ClInclude Include="TodoCattlefarm.h" />
-    <ClInclude Include="TodoCow.h" />
-    <ClInclude Include="TodoFarmer.h" />
-    <ClInclude Include="TodoFarmland.h" />
-    <ClInclude Include="TodoFeeder.h" />
-    <ClInclude Include="View.h" />
+    <ClInclude Include="Customer.h" />
+    <ClInclude Include="Invoice.h" />
+    <ClInclude Include="Person.h" />
+    <ClInclude Include="Product.h" />
+    <ClInclude Include="Salesman.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
