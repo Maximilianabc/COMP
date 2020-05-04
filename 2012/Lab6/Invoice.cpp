@@ -10,7 +10,7 @@ Invoice::Invoice(const string _id, const string _date,  Person* _buyer,  Person*
 	quantity = 0;
 }
 Invoice::~Invoice(){
-	cout << "Invoice " << id << " data deleted" << endl;
+	cout << "Invoice " << id << " data deleted" << endl;               
 }
 void Invoice::createTransaction(int _qty){
 	if(_qty <= productSale->getUnit()){
