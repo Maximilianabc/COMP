@@ -6,6 +6,7 @@
 
 #ifndef VIEW_H_
 #define VIEW_H_
+
 #include "Scene.h"
 #ifdef _WIN_
 #include "./ncurses_lib/curses.h"
