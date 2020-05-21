@@ -29,16 +29,19 @@ int main()
     cout << "===================================================" << endl;
     cout << "Testing tree.addRoot..." << endl;
     cout << "tree.addRoot(\"A\") returns " << tree.addRoot("A") << endl;
+    
     cout << "===================================================" << endl;
     cout << "Testing tree.addChild..." << endl;
     cout << "tree.addChild(\"A\",\"B\") returns " << tree.addChild("A","B") << endl;
+    
     cout << "tree.addChild(\"A\",\"C\") returns " << tree.addChild("A","C") << endl;
+    
     cout << "tree.addChild(\"A\",\"D\") returns " << tree.addChild("A","D") << endl;
     cout << "tree.addChild(\"C\",\"C1\") returns " << tree.addChild("C","C1") << endl;
     cout << "tree.addChild(\"C\",\"C2\") returns " << tree.addChild("C","C2") << endl;
     cout << "tree.addChild(\"K\",\"KK\") returns " << tree.addChild("K","KK") << endl;
     cout << endl << tree << endl;
-
+    
     cout << "===================================================" << endl;
     cout << "Testing tree.getDepth..." << endl;
     cout << "tree.getDepth(\"A\") returns " << tree.getDepth("A") << endl;
@@ -48,9 +51,10 @@ int main()
     cout << "tree.getDepth(\"C2\") returns " << tree.getDepth("C2") << endl;
     cout << "tree.getDepth(\"D\") returns " << tree.getDepth("D") << endl;
     cout << "tree.getDepth(\"Z\") returns " << tree.getDepth("Z") << endl;
-
+    
     cout << "===================================================" << endl;
     cout << "Testing tree.getDescendantCount..." << endl;
+    cout << "tree.getDescendantCount() returns " << tree.getDescendantCount() << endl;
     cout << "tree.getDescendantCount(\"A\") returns " << tree.getDescendantCount("A") << endl;
     cout << "tree.getDescendantCount(\"B\") returns " << tree.getDescendantCount("B") << endl;
     cout << "tree.getDescendantCount(\"C\") returns " << tree.getDescendantCount("C") << endl;
@@ -58,14 +62,14 @@ int main()
     cout << "tree.getDescendantCount(\"C2\") returns " << tree.getDescendantCount("C2") << endl;
     cout << "tree.getDescendantCount(\"D\") returns " << tree.getDescendantCount("D") << endl;
     cout << "tree.getDescendantCount(\"Z\") returns " << tree.getDescendantCount("Z") << endl;
-
+    
     cout << "===================================================" << endl;
     cout << "Testing Tree's deep copy constructor" << endl;
     Tree<string> tree2(tree);
     tree.addChild("C","C3");
     cout << endl << tree << endl;
     cout << endl << tree2 << endl;
-
+    
     cout << "===================================================" << endl;
     cout << "Testing infectionAnalyzer1.loadInfectionFile..." << endl;
     InfectionAnalyzer infectionAnalyzer1;
@@ -85,20 +89,20 @@ int main()
     InfectionAnalyzer infectionAnalyzer2a;
     cout << "Loaded? " << infectionAnalyzer2a.loadInfectionFile("infections2.txt") << endl;
     infectionAnalyzer2a.printInfectionTrees(cout);
-
+    
     cout << "===================================================" << endl;
     cout << "Testing infectionAnalyzer2b.loadInfectionFile with tricky input..." << endl;
     InfectionAnalyzer infectionAnalyzer2b;
     cout << "Loaded? " << infectionAnalyzer2b.loadInfectionFile("infections4.txt") << endl;
     infectionAnalyzer2b.printInfectionTrees(cout);
-
+    
     cout << "===================================================" << endl;
     cout << "Testing infectionAnalyzer1.isInfected..." << endl;
     infectionAnalyzer1.printInfectionTrees(cout);
     cout << "infectionAnalyzer1.isInfected(\"A\") returns \"" << infectionAnalyzer1.isInfected("A") << "\"" << endl;
     cout << "infectionAnalyzer1.isInfected(\"B\") returns \"" << infectionAnalyzer1.isInfected("B") << "\"" << endl;
     cout << "infectionAnalyzer1.isInfected(\"X\") returns \"" << infectionAnalyzer1.isInfected("X") << "\"" << endl;
-
+    
     cout << "===================================================" << endl;
     cout << "Testing infectionAnalyzer1.getInfectionSource..." << endl;
     infectionAnalyzer1.printInfectionTrees(cout);
@@ -111,7 +115,7 @@ int main()
     cout << "infectionAnalyzer1.getInfectionSource(\"C\") returns \"" << infectionAnalyzer1.getInfectionSource("C") << "\"" << endl;
     cout << "infectionAnalyzer1.getInfectionSource(\"C1\") returns \"" << infectionAnalyzer1.getInfectionSource("C1") << "\"" << endl;
     cout << "infectionAnalyzer1.getInfectionSource(\"C2\") returns \"" << infectionAnalyzer1.getInfectionSource("C2") << "\"" << endl;
-
+    
     cout << "===================================================" << endl;
     cout << "Testing infectionAnalyzer3.getInfectionSource..." << endl;
     InfectionAnalyzer infectionAnalyzer3;
@@ -124,7 +128,7 @@ int main()
     cout << "infectionAnalyzer3.getInfectionSource(\"G\") returns \"" << infectionAnalyzer3.getInfectionSource("G") << "\"" << endl;
     cout << "infectionAnalyzer3.getInfectionSource(\"I\") returns \"" << infectionAnalyzer3.getInfectionSource("I") << "\"" << endl;
     cout << "infectionAnalyzer3.getInfectionSource(\"J\") returns \"" << infectionAnalyzer3.getInfectionSource("J") << "\"" << endl;
-
+    
     cout << "===================================================" << endl;
     cout << "Testing infectionAnalyzer3.getInfectionGeneration..." << endl;
     cout << "infectionAnalyzer3.getInfectionGeneration(\"A\") returns \"" << infectionAnalyzer3.getInfectionGeneration("A") << "\"" << endl;
@@ -134,14 +138,14 @@ int main()
     cout << "infectionAnalyzer3.getInfectionGeneration(\"G\") returns \"" << infectionAnalyzer3.getInfectionGeneration("G") << "\"" << endl;
     cout << "infectionAnalyzer3.getInfectionGeneration(\"I\") returns \"" << infectionAnalyzer3.getInfectionGeneration("I") << "\"" << endl;
     cout << "infectionAnalyzer3.getInfectionGeneration(\"J\") returns \"" << infectionAnalyzer3.getInfectionGeneration("J") << "\"" << endl;
-
+    
     cout << "===================================================" << endl;
     cout << "Testing infectionAnalyzer3.getInfectionPowerVector..." << endl;
     const vector<pair<string,int>>& v = infectionAnalyzer3.getInfectionPowerVector();
     cout << endl << "Infection power chart:" << endl;
     for (pair<string,int> p: v)
         cout << "(" << p.first << "," << p.second << ")" << endl;
-
+    
     cout << "===================================================" << endl;
     cout << "Special case analysis: hotpot family" << endl;
     InfectionAnalyzer hotpotInfectionAnalyzer;
@@ -154,5 +158,6 @@ int main()
     
     cout << "===================================================" << endl;
     cout << "Done! Please take care, and stay healthy! :)" << endl;
-    return 0;
+
+    return 0; 
 }

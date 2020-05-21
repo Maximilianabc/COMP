@@ -33,7 +33,7 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="treeImplementation.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
