@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=Spaceship
+comment0.text=\r\n\ The\ main\ actor\ of\ the\ game\ that\ can\ be\ controlled\ by\ the\ player.\r\n
+comment1.params=
+comment1.target=void\ act()
+comment1.text=\r\n\ Move\ the\ spaceship\r\n
+numComments=2

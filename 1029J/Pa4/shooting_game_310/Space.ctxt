@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=Space
+comment0.text=\r\n\ The\ space\ world\ of\ the\ game.\r\n
+comment1.params=
+comment1.target=Space()
+comment1.text=\r\n\ The\ constructor\ of\ the\ space\ world.\r\n
+comment2.params=
+comment2.target=void\ act()
+comment2.text=\r\n\ Add\ rocks\ to\ the\ game\r\n
+numComments=3

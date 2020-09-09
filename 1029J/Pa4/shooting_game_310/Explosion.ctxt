@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=Explosion
+comment0.text=\r\n\ This\ actor\ shows\ the\ explosion\ of\ the\ spaceship.\r\n
+comment1.params=
+comment1.target=void\ act()
+comment1.text=\r\n\ The\ explosion\ does\ nothing\ at\ all\r\n
+numComments=2
