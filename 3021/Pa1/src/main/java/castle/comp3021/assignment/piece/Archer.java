@@ -7,7 +7,10 @@ import castle.comp3021.assignment.protocol.Place;
 import castle.comp3021.assignment.protocol.Player;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * Archer piece that moves similar to cannon in chinese chess.
@@ -46,89 +49,119 @@ public class Archer extends Piece {
     @Override
     public Move[] getAvailableMoves(Game game, Place source) {
         // student implementation
-
-        boolean canCapture = game.getConfiguration().getNumMovesProtection() <= game.getNumMoves();
         int boundary = game.getConfiguration().getSize();
         List<Move> possibleMoves = new ArrayList<>();
+        List<Place> occupied = new ArrayList<>();
 
-        boolean hasPotentialPlatform = false;
-        for (int x = source.x() + 1; x < boundary; x++) // traverse to +ve x-direction w.r.t. archer
+        for (int i = 0; i < boundary; i++)
         {
-            Piece p = game.getPiece(x, source.y());
+            if (i == source.x()) continue;
+            Piece p = game.getPiece(i, source.y());
             if (p != null)
             {
-                if (!hasPotentialPlatform)
-                    hasPotentialPlatform = true;
-                // found platform and now find another piece behind it w.r.t. archer
-                // && it is not own piece && not in protected rounds --> can capture
-                else if (canCapture
-                        && (p.getPlayer().getName() != game.getCurrentPlayer().getName()))
-                {
-                    possibleMoves.add(new Move(source, x, source.y()));
-                    hasPotentialPlatform = false; // reset
-                    break;
-                }
+                occupied.add(new Place(i, source.y()));
             }
-            if (!hasPotentialPlatform) // cannot move behind the platform
-                possibleMoves.add(new Move(source, x, source.y()));
+            possibleMoves.add(new Move(source, i, source.y()));
         }
-        // do the same for -ve x-direction
-        for (int x = source.x() - 1; x >= 0; x--)
+        for (int j = 0; j < boundary; j++)
         {
-            Piece p = game.getPiece(x, source.y());
+            if (j == source.y()) continue;
+            Piece p = game.getPiece(source.x(), j);
             if (p != null)
             {
-                if (!hasPotentialPlatform)
-                    hasPotentialPlatform = true;
-                else if (canCapture
-                        && (p.getPlayer().getName() != game.getCurrentPlayer().getName()))
-                {
-                    possibleMoves.add(new Move(source, x, source.y()));
-                    hasPotentialPlatform = false;
-                    break;
-                }
+                occupied.add(new Place(source.x(), j));
             }
-            if (!hasPotentialPlatform)
-                possibleMoves.add(new Move(source, x, source.y()));
+            possibleMoves.add(new Move(source, source.x(), j));
         }
-        //do the same for +ve y-direction
-        for (int y = source.y() + 1; y < boundary; y++)
-        {
-            Piece p = game.getPiece(source.x(), y);
-            if (p != null)
-            {
-                if (!hasPotentialPlatform)
-                    hasPotentialPlatform = true;
-                else if (canCapture
-                        && (p.getPlayer().getName() != game.getCurrentPlayer().getName()))
-                {
-                    possibleMoves.add(new Move(source, source.x(), y));
-                    hasPotentialPlatform = false;
-                    break;
-                }
-            }
-            if (!hasPotentialPlatform)
-                possibleMoves.add(new Move(source, source.x(), y));
-        }
-        //do the same for -ve y-direction
-        for (int y = source.y() - 1; y >= 0; y--)
-        {
-            Piece p = game.getPiece(source.x(), y);
-            if (p != null)
-            {
-                if (!hasPotentialPlatform)
-                    hasPotentialPlatform = true;
-                else if (canCapture
-                        && (p.getPlayer().getName() != game.getCurrentPlayer().getName()))
-                {
-                    possibleMoves.add(new Move(source, source.x(), y));
-                    hasPotentialPlatform = false;
-                    break;
-                }
-            }
-            if (!hasPotentialPlatform)
-                possibleMoves.add(new Move(source, source.x(), y));
-        }
+
+        Predicate<Place> left = o -> o.x() < source.x();
+        Predicate<Place> right = o -> o.x() > source.x();
+        Predicate<Place> up = o -> o.y() > source.y();
+        Predicate<Place> down = o -> o.y() < source.y();
+
+        List<Place> ps = occupied.stream().filter(up).sorted(Comparator.comparing(Place::y)).collect(Collectors.toList());
+        RemoveInvalidMoves(game, possibleMoves, ps, 0);
+        ps = occupied.stream().filter(right).sorted(Comparator.comparing(Place::x)).collect(Collectors.toList());
+        RemoveInvalidMoves(game, possibleMoves, ps, 1);
+        ps = occupied.stream().filter(down).sorted(Comparator.comparing(Place::y).reversed()).collect(Collectors.toList());
+        RemoveInvalidMoves(game, possibleMoves, ps, 2);
+        ps = occupied.stream().filter(left).sorted(Comparator.comparing(Place::x).reversed()).collect(Collectors.toList());
+        RemoveInvalidMoves(game, possibleMoves, ps, 3);
+
         return possibleMoves.toArray(new Move[possibleMoves.size()]);
+    }
+
+    private void RemoveInvalidMoves(Game game, List<Move> possibleMoves, List<Place> ps, int direction)
+    {
+        /* platform ('P'), target ('T'), blockage ('B')
+        * when there's one piece only in ps, it's blockage, not platform, e.g.
+        * | . . . B . A |
+        * when there are more than two pieces, the closet is platform, the 2nd closet is target, e.g.
+        * | . T . P . A |
+        * */
+        boolean canCapture = game.getConfiguration().getNumMovesProtection() <= game.getNumMoves();
+        long psSize = ps.size();
+
+        Predicate<Move> furtherToBlockage = null;
+        Predicate<Move> furtherToTarget = null;
+        Predicate<Move> betweenTargetAndPlatform = null;
+        Predicate<Move> target = null;
+        
+        if (psSize > 0)
+        {
+            switch (direction)
+            {
+                case 0: // up
+                    furtherToBlockage = m -> m.getDestination().y() >= ps.get(0).y();
+                    if (psSize > 1) // need to have more than 1 piece inorder to have platform and target
+                    {
+                        int t = ps.get(1).y();
+                        furtherToTarget = m -> m.getDestination().y() > t;
+                        betweenTargetAndPlatform = m -> m.getDestination().y() < t && m.getDestination().y() >= ps.get(0).y();
+                        target = m -> m.getDestination().y() == t;
+                    }
+                    break;
+                case 1: // right
+                    furtherToBlockage = m -> m.getDestination().x() >= ps.get(0).x();
+                    if (psSize > 1)
+                    {
+                        int t = ps.get(1).x();
+                        furtherToTarget = m -> m.getDestination().x() > t;
+                        betweenTargetAndPlatform = m -> m.getDestination().x() < t && m.getDestination().x() >= ps.get(0).x();
+                        target = m -> m.getDestination().x() == t;
+                    }
+                    break;
+                case 2: // down
+                    furtherToBlockage = m -> m.getDestination().y() <= ps.get(0).y();
+                    if (psSize > 1)
+                    {
+                        int t = ps.get(1).y();
+                        furtherToTarget = m -> m.getDestination().y() < t;
+                        betweenTargetAndPlatform = m -> m.getDestination().y() > t && m.getDestination().y() <= ps.get(0).y();
+                        target = m -> m.getDestination().y() == t;
+                    }
+                    break;
+                case 3: // left
+                    furtherToBlockage = m -> m.getDestination().x() <= ps.get(0).x();
+                    if (psSize > 1)
+                    {
+                        int t = ps.get(1).x();
+                        furtherToTarget = m -> m.getDestination().x() < t;
+                        betweenTargetAndPlatform = m -> m.getDestination().x() > t && m.getDestination().x() <= ps.get(0).x();
+                        target = m -> m.getDestination().x() == t;
+                    }
+                    break;
+            }
+            if (psSize == 1) // blockage only
+                possibleMoves.removeIf(furtherToBlockage);
+            else if (psSize > 1)
+            {
+                possibleMoves.removeIf(furtherToTarget.or(betweenTargetAndPlatform));
+
+                Piece p = game.getPiece(ps.get(1));
+                if (p.getPlayer().getName() == game.getCurrentPlayer().getName() || !canCapture)
+                    possibleMoves.removeIf(target); // remove the move to target
+            }
+        }
     }
 }
