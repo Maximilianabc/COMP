@@ -5,6 +5,7 @@ import castle.comp3021.assignment.protocol.*;
 import org.jetbrains.annotations.NotNull;
 import java.lang.Math;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * This class extends {@link Game}, implementing the game logic of JesonMor game.
@@ -50,18 +51,17 @@ public class JesonMor extends Game {
             if (ms.length > 0)
             {
                 m = currentPlayer.nextMove(this, ms);
-                if (m.getSource().x() >= 0)
+                if (m.getSource().x() != -1) // Error returned from nextMove
                 {
                     p = board[m.getSource().x()][m.getSource().y()];
+                    movePiece(m);
+                    updateScore(currentPlayer, p, m);
+                    refreshOutput();
                 }
                 else
                 {
-                    System.out.println("Invalid move.");
                     continue;
                 }
-                movePiece(m);
-                updateScore(currentPlayer, p, m);
-                refreshOutput();
             }
             winner = getWinner(currentPlayer, p, m);
 
@@ -91,44 +91,46 @@ public class JesonMor extends Game {
     @Override
     public Player getWinner(Player lastPlayer, Piece lastPiece, Move lastMove) {
         // student implementation
-        if (lastPiece == null && lastMove == null)
+        if (lastPiece == null && lastMove == null) // no moves, can be tie-break or no pieces
         {
-            int count0 = 0;
-            int count1 = 0;
+            int count0 = 0; // no. of pieces of player1
+            int count1 = 0; // no. of pieces of player2
             for (int x = 0; x < configuration.getSize(); x++)
             {
                 for (int y = 0; y < configuration.getSize(); y++)
                 {
                     if (board[x][y] != null)
                     {
-                        if (board[x][y].getPlayer().getName() == getPlayers()[0].getName())
+                        if (board[x][y].getPlayer() == getPlayers()[0])
                             count0++;
                         else
                             count1++;
                     }
                 }
             }
-            if (count0 > 0 && count1 > 0)
+            if (count0 > 0 && count1 > 0) // both players still have at least 1 piece --> tie-break
             {
-                return getPlayers()[0].getScore() != getPlayers()[1].getScore()
-                        ? ( getPlayers()[0].getScore() > getPlayers()[1].getScore()
-                        ? getPlayers()[1] : getPlayers()[0])
-                        : currentPlayer;
+                int p1s = getPlayers()[0].getScore();
+                int p2s = getPlayers()[1].getScore();
+                return p1s != p2s // scores are different
+                            ? ( p1s > p2s // player with lower score wins
+                                ? getPlayers()[1] : getPlayers()[0])
+                            : currentPlayer; // scores equal --> current player wins
             }
-            else
+            else // either player has no pieces left
             {
                 return count0 == 0 ? getPlayers()[1] : getPlayers()[0];
             }
         }
-        else
+        else // a move was made
         {
-            if (this.numMoves > configuration.getNumMovesProtection()
-                    && (lastPiece instanceof Knight || lastPiece.getLabel() == 'M'))
+            if (this.numMoves > configuration.getNumMovesProtection() // can win by leaving centre
+                    && (lastPiece instanceof Knight || lastPiece.getLabel() == 'M')) // is Knight (or Mock)
             {
                 Place centre = configuration.getCentralPlace();
                 if (lastPiece.getPlayer() == lastPlayer
                         && lastMove.getSource().x() == centre.x()
-                        && lastMove.getSource().y() == centre.y())
+                        && lastMove.getSource().y() == centre.y()) // moved out from centre
                 {
                     return lastPlayer;
                 }
@@ -155,19 +157,13 @@ public class JesonMor extends Game {
      * @param move   the move that is just made
      */
     public void updateScore(Player player, Piece piece, Move move) {
-        /*boolean moveIsFound = false;
-        for (Move m : piece.getAvailableMoves(this, move.getSource()))
+        Piece p = board[move.getDestination().x()][move.getDestination().y()];
+        if (p == piece)
         {
-            if (m.getDestination().x() == move.getDestination().x()
-                && m.getDestination().y() == move.getDestination().y())
-            {
-                moveIsFound = true;
-            }
+            int distance = Math.abs(move.getDestination().x() - move.getSource().x())
+                + Math.abs(move.getDestination().y() - move.getSource().y());
+            player.setScore(player.getScore() + distance);
         }
-        if (!moveIsFound) return;*/
-        int distance = Math.abs(move.getDestination().x() - move.getSource().x())
-                        + Math.abs(move.getDestination().y() - move.getSource().y());
-        player.setScore(player.getScore() + distance);
     }
 
 
@@ -188,6 +184,7 @@ public class JesonMor extends Game {
      */
     public void movePiece(@NotNull Move move) {
         // student implementation
+        board[move.getDestination().x()][move.getDestination().y()] = null;
         board[move.getDestination().x()][move.getDestination().y()] = board[move.getSource().x()][move.getSource().y()];
         board[move.getSource().x()][move.getSource().y()] = null;
         numMoves++;

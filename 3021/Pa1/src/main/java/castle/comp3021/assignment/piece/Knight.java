@@ -85,7 +85,7 @@ public class Knight extends Piece {
         // Cannot capture --> cannot move there no matter whose piece it is
         // Name same as current player --> own piece --> cannot move there
         possibleMoves.removeIf(m -> game.getPiece(m.getDestination()) != null
-                &&  (!canCapture || game.getPiece(m.getDestination()).getPlayer().getName() == game.getCurrentPlayer().getName()));
+                &&  (!canCapture || game.getPiece(m.getDestination()).getPlayer() == game.getCurrentPlayer()));
 
         return possibleMoves.toArray(new Move[possibleMoves.size()]);
     }

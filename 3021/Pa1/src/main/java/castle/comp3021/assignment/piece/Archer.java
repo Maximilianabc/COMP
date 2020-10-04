@@ -111,7 +111,8 @@ public class Archer extends Piece {
         {
             switch (direction)
             {
-                case 0: // up
+// up
+                case 0 -> {
                     furtherToBlockage = m -> m.getDestination().y() >= ps.get(0).y();
                     if (psSize > 1) // need to have more than 1 piece inorder to have platform and target
                     {
@@ -120,8 +121,9 @@ public class Archer extends Piece {
                         betweenTargetAndPlatform = m -> m.getDestination().y() < t && m.getDestination().y() >= ps.get(0).y();
                         target = m -> m.getDestination().y() == t;
                     }
-                    break;
-                case 1: // right
+                }
+// right
+                case 1 -> {
                     furtherToBlockage = m -> m.getDestination().x() >= ps.get(0).x();
                     if (psSize > 1)
                     {
@@ -130,8 +132,9 @@ public class Archer extends Piece {
                         betweenTargetAndPlatform = m -> m.getDestination().x() < t && m.getDestination().x() >= ps.get(0).x();
                         target = m -> m.getDestination().x() == t;
                     }
-                    break;
-                case 2: // down
+                }
+// down
+                case 2 -> {
                     furtherToBlockage = m -> m.getDestination().y() <= ps.get(0).y();
                     if (psSize > 1)
                     {
@@ -140,8 +143,9 @@ public class Archer extends Piece {
                         betweenTargetAndPlatform = m -> m.getDestination().y() > t && m.getDestination().y() <= ps.get(0).y();
                         target = m -> m.getDestination().y() == t;
                     }
-                    break;
-                case 3: // left
+                }
+// left
+                case 3 -> {
                     furtherToBlockage = m -> m.getDestination().x() <= ps.get(0).x();
                     if (psSize > 1)
                     {
@@ -150,16 +154,15 @@ public class Archer extends Piece {
                         betweenTargetAndPlatform = m -> m.getDestination().x() > t && m.getDestination().x() <= ps.get(0).x();
                         target = m -> m.getDestination().x() == t;
                     }
-                    break;
+                }
             }
             if (psSize == 1) // blockage only
                 possibleMoves.removeIf(furtherToBlockage);
-            else if (psSize > 1)
+            else
             {
                 possibleMoves.removeIf(furtherToTarget.or(betweenTargetAndPlatform));
-
                 Piece p = game.getPiece(ps.get(1));
-                if (p.getPlayer().getName() == game.getCurrentPlayer().getName() || !canCapture)
+                if (p.getPlayer() == game.getCurrentPlayer() || !canCapture)
                     possibleMoves.removeIf(target); // remove the move to target
             }
         }

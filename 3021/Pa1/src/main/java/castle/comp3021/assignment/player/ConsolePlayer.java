@@ -3,8 +3,7 @@ package castle.comp3021.assignment.player;
 import castle.comp3021.assignment.protocol.*;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -12,12 +11,15 @@ import java.util.regex.Pattern;
 /**
  * The player that makes move according to user input from console.
  */
-public class ConsolePlayer extends Player {
-    public ConsolePlayer(String name, Color color) {
+public class ConsolePlayer extends Player
+{
+    public ConsolePlayer(String name, Color color)
+    {
         super(name, color);
     }
 
-    public ConsolePlayer(String name) {
+    public ConsolePlayer(String name)
+    {
         this(name, Color.GREEN);
     }
 
@@ -45,7 +47,8 @@ public class ConsolePlayer extends Player {
      * @return the chosen move
      */
     @Override
-    public @NotNull Move nextMove(Game game, Move[] availableMoves) {
+    public @NotNull Move nextMove(Game game, Move[] availableMoves)
+    {
         // student implementation
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
@@ -59,25 +62,26 @@ public class ConsolePlayer extends Player {
             int dy = Integer.parseInt(m.group(4)) - 1;
             int size = game.getConfiguration().getSize();
 
-            if (sx > size || sy > size || dx > size || dy > size)
-                return new Move(-1, -1, -1, -1);
-
-            boolean valid = false;
-            for (Move move : availableMoves)
+            if (sx > size || sy > size || dx > size || dy > size) // out of boundary
             {
-                if (move.getSource().x() == sx && move.getSource().y() == sy
-                    && move.getDestination().x() == dx && move.getDestination().y() == dy)
-                {
-                    valid = true;
-                    break;
-                }
+                System.out.println("Invalid move.");
+                return new Move(-1, -1, -1, -1);
             }
-            return (!valid
-                    ? new Move(-1, -1, -1, -1)
-                    : new Move(sx, sy, dx, dy));
+
+            Move move = new Move(sx, sy, dx, dy);
+            if (!Arrays.asList(availableMoves).contains(move))
+            {
+                System.out.println("Invalid move.");
+                return new Move(-1, -1, -1, -1);
+            }
+            else
+            {
+                return move;
+            }
         }
         else
         {
+            System.out.println("Invalid move.");
             return new Move(-1, -1, -1, -1);
         }
     }
