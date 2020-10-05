@@ -15,13 +15,16 @@ import java.util.List;
  *
  * @see <a href='https://en.wikipedia.org/wiki/Knight_(chess)'>Wikipedia</a>
  */
-public class Knight extends Piece {
-    public Knight(Player player) {
+public class Knight extends Piece
+{
+    public Knight(Player player)
+    {
         super(player);
     }
 
     @Override
-    public char getLabel() {
+    public char getLabel()
+    {
         return 'K';
     }
 
@@ -41,10 +44,11 @@ public class Knight extends Piece {
      * @return an array of available moves
      */
     @Override
-    public Move[] getAvailableMoves(Game game, Place source) {
+    public Move[] getAvailableMoves(Game game, Place source)
+    {
         // student implementation
         int boundary = game.getConfiguration().getSize() - 1;
-        List<Move> possibleMoves = new ArrayList<Move>()
+        List<Move> possibleMoves = new ArrayList<>()
         {
             {
                 add(new Move(source, source.x() + 1, source.y() + 2));
@@ -58,8 +62,8 @@ public class Knight extends Piece {
             }
         };
         possibleMoves.removeIf(m ->
-                m.getDestination().x() < 0 || m.getDestination().y() < 0
-                || m.getDestination().x() > boundary || m.getDestination().y() > boundary); // remove moves with -ve coordinates
+        m.getDestination().x() < 0 || m.getDestination().y() < 0
+        || m.getDestination().x() > boundary || m.getDestination().y() > boundary); // remove moves with -ve coordinates
 
         // check blockage
         if (source.x() + 1 < boundary && game.getPiece(source.x() + 1, source.y()) != null) // right-blocked
@@ -85,7 +89,7 @@ public class Knight extends Piece {
         // Cannot capture --> cannot move there no matter whose piece it is
         // Name same as current player --> own piece --> cannot move there
         possibleMoves.removeIf(m -> game.getPiece(m.getDestination()) != null
-                &&  (!canCapture || game.getPiece(m.getDestination()).getPlayer() == game.getCurrentPlayer()));
+        && (!canCapture || game.getPiece(m.getDestination()).getPlayer() == game.getCurrentPlayer()));
 
         return possibleMoves.toArray(new Move[possibleMoves.size()]);
     }

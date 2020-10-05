@@ -3,9 +3,9 @@ package castle.comp3021.assignment;
 import castle.comp3021.assignment.piece.Knight;
 import castle.comp3021.assignment.protocol.*;
 import org.jetbrains.annotations.NotNull;
+
 import java.lang.Math;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * This class extends {@link Game}, implementing the game logic of JesonMor game.
@@ -15,8 +15,10 @@ import java.util.stream.Collectors;
  * Several sample tests are provided to test your implementation of each method in the test directory.
  * Please make make sure all tests pass before submitting the assignment.
  */
-public class JesonMor extends Game {
-    public JesonMor(Configuration configuration) {
+public class JesonMor extends Game
+{
+    public JesonMor(Configuration configuration)
+    {
         super(configuration);
     }
 
@@ -35,14 +37,16 @@ public class JesonMor extends Game {
      * @return the winner
      */
     @Override
-    public Player start() {
+    public Player start()
+    {
         // reset all things
-        Player winner = null;
+        Player winner;
         this.numMoves = 0;
         this.board = configuration.getInitialBoard();
         this.currentPlayer = null;
         this.refreshOutput();
-        while (true) {
+        while (true)
+        {
             // student implementation starts here
             currentPlayer = configuration.getPlayers()[numMoves % 2];
             Move[] ms = getAvailableMoves(currentPlayer);
@@ -66,7 +70,8 @@ public class JesonMor extends Game {
             winner = getWinner(currentPlayer, p, m);
 
             // student implementation ends here
-            if (winner != null) {
+            if (winner != null)
+            {
                 System.out.println();
                 System.out.println("Congratulations! ");
                 System.out.printf("Winner: %s%s%s\n", winner.getColor(), winner.getName(), Color.DEFAULT);
@@ -89,7 +94,8 @@ public class JesonMor extends Game {
      * @return the winner if it exists, otherwise return null
      */
     @Override
-    public Player getWinner(Player lastPlayer, Piece lastPiece, Move lastMove) {
+    public Player getWinner(Player lastPlayer, Piece lastPiece, Move lastMove)
+    {
         // student implementation
         if (lastPiece == null && lastMove == null) // no moves, can be tie-break or no pieces
         {
@@ -102,9 +108,13 @@ public class JesonMor extends Game {
                     if (board[x][y] != null)
                     {
                         if (board[x][y].getPlayer() == getPlayers()[0])
+                        {
                             count0++;
+                        }
                         else
+                        {
                             count1++;
+                        }
                     }
                 }
             }
@@ -113,9 +123,9 @@ public class JesonMor extends Game {
                 int p1s = getPlayers()[0].getScore();
                 int p2s = getPlayers()[1].getScore();
                 return p1s != p2s // scores are different
-                            ? ( p1s > p2s // player with lower score wins
-                                ? getPlayers()[1] : getPlayers()[0])
-                            : currentPlayer; // scores equal --> current player wins
+                       ? (p1s > p2s // player with lower score wins
+                          ? getPlayers()[1] : getPlayers()[0])
+                       : currentPlayer; // scores equal --> current player wins
             }
             else // either player has no pieces left
             {
@@ -125,12 +135,12 @@ public class JesonMor extends Game {
         else // a move was made
         {
             if (this.numMoves > configuration.getNumMovesProtection() // can win by leaving centre
-                    && (lastPiece instanceof Knight || lastPiece.getLabel() == 'M')) // is Knight (or Mock)
+            && (lastPiece instanceof Knight || lastPiece.getLabel() == 'M')) // is Knight (or Mock)
             {
                 Place centre = configuration.getCentralPlace();
                 if (lastPiece.getPlayer() == lastPlayer
-                        && lastMove.getSource().x() == centre.x()
-                        && lastMove.getSource().y() == centre.y()) // moved out from centre
+                && lastMove.getSource().x() == centre.x()
+                && lastMove.getSource().y() == centre.y()) // moved out from centre
                 {
                     return lastPlayer;
                 }
@@ -156,12 +166,13 @@ public class JesonMor extends Game {
      * @param piece  the piece that is just moved
      * @param move   the move that is just made
      */
-    public void updateScore(Player player, Piece piece, Move move) {
+    public void updateScore(Player player, Piece piece, Move move)
+    {
         Piece p = board[move.getDestination().x()][move.getDestination().y()];
         if (p == piece)
         {
             int distance = Math.abs(move.getDestination().x() - move.getSource().x())
-                + Math.abs(move.getDestination().y() - move.getSource().y());
+            + Math.abs(move.getDestination().y() - move.getSource().y());
             player.setScore(player.getScore() + distance);
         }
     }
@@ -182,7 +193,8 @@ public class JesonMor extends Game {
      *
      * @param move the move to make
      */
-    public void movePiece(@NotNull Move move) {
+    public void movePiece(@NotNull Move move)
+    {
         // student implementation
         board[move.getDestination().x()][move.getDestination().y()] = null;
         board[move.getDestination().x()][move.getDestination().y()] = board[move.getSource().x()][move.getSource().y()];
@@ -201,17 +213,21 @@ public class JesonMor extends Game {
      * @param player the player whose available moves to get
      * @return an array of available moves
      */
-    public @NotNull Move[] getAvailableMoves(Player player) {
+    public @NotNull Move[] getAvailableMoves(Player player)
+    {
         // student implementation
         List<Move> moves = new ArrayList<>();
         for (int x = 0; x < configuration.getSize(); x++)
         {
             for (int y = 0; y < configuration.getSize(); y++)
             {
-                if (board[x][y] == null) continue;
-                if (board[x][y].getPlayer().getName() == player.getName())
+                if (board[x][y] == null)
                 {
-                    Collections.addAll(moves, board[x][y].getAvailableMoves(this, new Place(x,y)));
+                    continue;
+                }
+                if (board[x][y].getPlayer() == player)
+                {
+                    Collections.addAll(moves, board[x][y].getAvailableMoves(this, new Place(x, y)));
                 }
             }
         }

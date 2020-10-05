@@ -9,12 +9,15 @@ import org.jetbrains.annotations.NotNull;
 /**
  * A computer player that makes a move randomly.
  */
-public class RandomPlayer extends Player {
-    public RandomPlayer(String name, Color color) {
+public class RandomPlayer extends Player
+{
+    public RandomPlayer(String name, Color color)
+    {
         super(name, color);
     }
 
-    public RandomPlayer(String name) {
+    public RandomPlayer(String name)
+    {
         this(name, Color.BLUE);
     }
 
@@ -32,7 +35,8 @@ public class RandomPlayer extends Player {
      * @return the chosen move
      */
     @Override
-    public @NotNull Move nextMove(Game game, Move[] availableMoves) {
+    public @NotNull Move nextMove(Game game, Move[] availableMoves)
+    {
         // student implementation
         int Random = (int)(Math.random() * (availableMoves.length));
         return availableMoves[Random];

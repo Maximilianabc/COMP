@@ -231,9 +231,7 @@ public class AdditionalTests
             {
                 Piece p = game.getPiece(i, j);
                 if (p != null && p.getPlayer() == player1)
-                {
                     count++;
-                }
             }
         }
         assertEquals(0, count); // player1 has no pieces left
@@ -765,6 +763,7 @@ public class AdditionalTests
             "A5->B3\r\n", // capital
             "Ba5->b3C\r\n", // add sth before and at the end
             "a5->b7\r\n", // out of boundary
+            "a5->a6\r\n" // not a valid move
         };
 
         ConsolePlayer player3 = new ConsolePlayer("Test", Color.PURPLE);
@@ -811,6 +810,20 @@ public class AdditionalTests
 
         System.setIn(System.in);
         System.setOut(System.out);
+    }
+
+    @Test
+    public void testMain()
+    {
+        // arg length < 2
+        assertThrows(IllegalArgumentException.class, () -> Main.main(new String[] {"3"}),
+                    "two integer arguments are required specifying size of gameboard and number of moves with capturing protection ");
+        // arg[0] is not int
+        assertThrows(IllegalArgumentException.class, () -> Main.main(new String[] {"abc", "5"}),
+                    "the first argument is not a number");
+        // arg[1] is not int
+        assertThrows(IllegalArgumentException.class, () -> Main.main(new String[] {"5", "abc"}),
+                    "the second argument is not a number");
     }
 
     private void SwitchPlayer(Game game, int player)

@@ -21,13 +21,16 @@ import java.util.stream.Collectors;
  *
  * @see <a href='https://en.wikipedia.org/wiki/Xiangqi#Cannon'>Wikipedia</a>
  */
-public class Archer extends Piece {
-    public Archer(Player player) {
+public class Archer extends Piece
+{
+    public Archer(Player player)
+    {
         super(player);
     }
 
     @Override
-    public char getLabel() {
+    public char getLabel()
+    {
         return 'A';
     }
 
@@ -47,7 +50,8 @@ public class Archer extends Piece {
      * @return an array of available moves
      */
     @Override
-    public Move[] getAvailableMoves(Game game, Place source) {
+    public Move[] getAvailableMoves(Game game, Place source)
+    {
         // student implementation
         int boundary = game.getConfiguration().getSize();
         List<Move> possibleMoves = new ArrayList<>();
@@ -55,7 +59,10 @@ public class Archer extends Piece {
 
         for (int i = 0; i < boundary; i++)
         {
-            if (i == source.x()) continue;
+            if (i == source.x())
+            {
+                continue;
+            }
             Piece p = game.getPiece(i, source.y());
             if (p != null)
             {
@@ -65,7 +72,10 @@ public class Archer extends Piece {
         }
         for (int j = 0; j < boundary; j++)
         {
-            if (j == source.y()) continue;
+            if (j == source.y())
+            {
+                continue;
+            }
             Piece p = game.getPiece(source.x(), j);
             if (p != null)
             {
@@ -94,11 +104,11 @@ public class Archer extends Piece {
     private void RemoveInvalidMoves(Game game, List<Move> possibleMoves, List<Place> ps, int direction)
     {
         /* platform ('P'), target ('T'), blockage ('B')
-        * when there's one piece only in ps, it's blockage, not platform, e.g.
-        * | . . . B . A |
-        * when there are more than two pieces, the closet is platform, the 2nd closet is target, e.g.
-        * | . T . P . A |
-        * */
+         * when there's one piece only in ps, it's blockage, not platform, e.g.
+         * | . . . B . A |
+         * when there are more than two pieces, the closet is platform, the 2nd closet is target, e.g.
+         * | . T . P . A |
+         * */
         boolean canCapture = game.getConfiguration().getNumMovesProtection() <= game.getNumMoves();
         long psSize = ps.size();
 
@@ -106,12 +116,12 @@ public class Archer extends Piece {
         Predicate<Move> furtherToTarget = null;
         Predicate<Move> betweenTargetAndPlatform = null;
         Predicate<Move> target = null;
-        
+
         if (psSize > 0)
         {
             switch (direction)
             {
-// up
+                // up
                 case 0 -> {
                     furtherToBlockage = m -> m.getDestination().y() >= ps.get(0).y();
                     if (psSize > 1) // need to have more than 1 piece inorder to have platform and target
@@ -122,7 +132,7 @@ public class Archer extends Piece {
                         target = m -> m.getDestination().y() == t;
                     }
                 }
-// right
+                // right
                 case 1 -> {
                     furtherToBlockage = m -> m.getDestination().x() >= ps.get(0).x();
                     if (psSize > 1)
@@ -133,7 +143,7 @@ public class Archer extends Piece {
                         target = m -> m.getDestination().x() == t;
                     }
                 }
-// down
+                // down
                 case 2 -> {
                     furtherToBlockage = m -> m.getDestination().y() <= ps.get(0).y();
                     if (psSize > 1)
@@ -144,7 +154,7 @@ public class Archer extends Piece {
                         target = m -> m.getDestination().y() == t;
                     }
                 }
-// left
+                // left
                 case 3 -> {
                     furtherToBlockage = m -> m.getDestination().x() <= ps.get(0).x();
                     if (psSize > 1)
@@ -157,13 +167,15 @@ public class Archer extends Piece {
                 }
             }
             if (psSize == 1) // blockage only
-                possibleMoves.removeIf(furtherToBlockage);
+            { possibleMoves.removeIf(furtherToBlockage); }
             else
             {
                 possibleMoves.removeIf(furtherToTarget.or(betweenTargetAndPlatform));
                 Piece p = game.getPiece(ps.get(1));
                 if (p.getPlayer() == game.getCurrentPlayer() || !canCapture)
+                {
                     possibleMoves.removeIf(target); // remove the move to target
+                }
             }
         }
     }
