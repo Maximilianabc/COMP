@@ -84,7 +84,8 @@ public class Knight extends Piece
         }
 
         // check occupied
-        boolean canCapture = game.getConfiguration().getNumMovesProtection() <= game.getNumMoves();
+        int numProtect = game.getConfiguration().getNumMovesProtection();
+        boolean canCapture = numProtect == 0 ? true : numProtect <= game.getNumMoves();
         // != null --> occupied
         // Cannot capture --> cannot move there no matter whose piece it is
         // Name same as current player --> own piece --> cannot move there

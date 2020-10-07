@@ -109,7 +109,8 @@ public class Archer extends Piece
          * when there are more than two pieces, the closet is platform, the 2nd closet is target, e.g.
          * | . T . P . A |
          * */
-        boolean canCapture = game.getConfiguration().getNumMovesProtection() <= game.getNumMoves();
+        int numProtect = game.getConfiguration().getNumMovesProtection();
+        boolean canCapture = numProtect == 0 ? true : numProtect <= game.getNumMoves();
         long psSize = ps.size();
 
         Predicate<Move> furtherToBlockage = null;
