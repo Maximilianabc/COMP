@@ -1,0 +1,22 @@
+### FXJesonMor ###
+
+#Game setting
+size:9
+numMovesProtection:1
+centralPlace:(4,4)
+numPlayers:2
+
+#Player info
+#player1:
+name:White; score:9
+#player2:
+name:Black; score:7
+
+#Move records
+player:White; move:(2,0)->(3,2)
+player:Black; move:(5,8)->(5,4)
+player:White; move:(3,2)->(4,4)
+player:Black; move:(4,8)->(5,6)
+player:White; move:(4,4)->(5,6)
+
+END
