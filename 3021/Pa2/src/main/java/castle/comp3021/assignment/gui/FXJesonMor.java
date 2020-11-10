@@ -28,7 +28,11 @@ public class FXJesonMor extends JesonMor {
      * @param configuration
      */
     public FXJesonMor(Configuration configuration){
-        //TODO
+        super(configuration);
+        durationTimer = new DurationTimer();
+        addOnTickHandler(() -> {
+            startCountdown();
+        });
     }
 
     /**
@@ -92,6 +96,13 @@ public class FXJesonMor extends JesonMor {
         player.setScore(player.getScore() + newScore);
 
         // update score to 2 properties
-        // TODO: update scorePlayer1Property and scorePlayer2Property
+        // update scorePlayer1Property and scorePlayer2Property
+        if (piece.getPlayer().getName().equals(configuration.getPlayers()[0].getName())) {
+            scorePlayer1Property.set(player.getScore());
+        }
+        else {
+            scorePlayer2Property.set(player.getScore());
+        }
+        super.numMoves++;
     }
 }

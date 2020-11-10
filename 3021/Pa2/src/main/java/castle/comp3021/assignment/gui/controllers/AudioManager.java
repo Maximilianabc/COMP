@@ -1,7 +1,9 @@
 package castle.comp3021.assignment.gui.controllers;
 
+import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
+import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,7 +27,7 @@ public class AudioManager {
      * Enumeration of known sound resources.
      */
     public enum SoundRes {
-        WIN, PLACE, CLICK,LOSE;
+        WIN, PLACE, CLICK, LOSE, KILL;
         @Override
         public String toString() {
             return super.toString().toLowerCase();
@@ -62,8 +64,14 @@ public class AudioManager {
      * @param name the name of the sound file to be played, excluding .mp3
      */
     private void playFile(final String name) {
-        //TODO
-
+        if (!enabled) return;
+        String path = ResourceLoader.getResource("assets/audio/" + name + ".mp3");
+        MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File(path).toURI().toString()));
+        mediaPlayer.setOnEndOfMedia(() -> {
+            soundPool.remove(mediaPlayer);
+        });
+        soundPool.add(mediaPlayer);
+        mediaPlayer.play();
     }
 
     /**

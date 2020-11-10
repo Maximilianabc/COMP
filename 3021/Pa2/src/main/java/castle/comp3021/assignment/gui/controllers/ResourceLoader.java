@@ -4,7 +4,9 @@ import castle.comp3021.assignment.protocol.exception.ResourceNotFoundException;
 import javafx.scene.image.Image;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * Helper class for loading resources from the filesystem.
@@ -17,9 +19,9 @@ public class ResourceLoader {
     private static final Path RES_PATH;
 
     static {
-        // TODO: Initialize RES_PATH
+        // Initialize RES_PATH
         // replace null to the actual path
-        RES_PATH = null;
+        RES_PATH = Paths.get("src/main/resources/");
     }
 
     /**
@@ -31,8 +33,12 @@ public class ResourceLoader {
      */
     @NotNull
     public static String getResource(@NotNull final String relativePath) {
-        // TODO
-        return null;
+        String fullPath = Paths.get(RES_PATH.toString(), relativePath).toString();
+        if (new File(fullPath).exists()) {
+            return fullPath;
+        } else {
+            throw new ResourceNotFoundException("No resources is located at specified path.");
+        }
     }
 
     /**
@@ -49,8 +55,16 @@ public class ResourceLoader {
      */
     @NotNull
     public static Image getImage(char typeChar) {
-        // TODO
-        return null;
+        return switch (typeChar) {
+            case 'K' -> new Image(getResource("images/whiteK.png"));
+            case 'A' -> new Image(getResource("images/whiteA.png"));
+            case 'k' -> new Image(getResource("images/blackK.png"));
+            case 'a' -> new Image(getResource("images/blackA.png"));
+            case 'c' -> new Image(getResource("images/center.png"));
+            case 'l' -> new Image(getResource("images/lightboard.png"));
+            case 'd' -> new Image(getResource("images/darkBoard.png"));
+            default -> throw new IllegalStateException("Unexpected value: " + typeChar);
+        };
     }
 
 

@@ -2,10 +2,7 @@ package castle.comp3021.assignment.gui;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 
 /**
@@ -58,14 +55,21 @@ public class DurationTimer {
      *  - You may need to use {@link Timer#scheduleAtFixedRate(TimerTask, long, long)}
      */
     void start() {
-        //TODO
+        flowTimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run()
+            {
+                ticksElapsed += 1;
+            }
+        }, new Date(), 1000);
     }
 
     /**
      * Stop the timer
      */
     void stop() {
-        //TODO
+        flowTimer.cancel();
+        ticksElapsed = 0;
     }
 
 }

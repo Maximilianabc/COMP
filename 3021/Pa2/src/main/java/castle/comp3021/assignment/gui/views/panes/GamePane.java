@@ -6,13 +6,18 @@ import castle.comp3021.assignment.gui.controllers.SceneManager;
 import castle.comp3021.assignment.gui.views.BigButton;
 import castle.comp3021.assignment.gui.views.BigVBox;
 import castle.comp3021.assignment.gui.views.NumberTextField;
+import castle.comp3021.assignment.protocol.Configuration;
+import castle.comp3021.assignment.protocol.Player;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import org.intellij.lang.annotations.RegExp;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
+import java.util.regex.*;
 
 public class GamePane extends BasePane {
     @NotNull
@@ -54,7 +59,9 @@ public class GamePane extends BasePane {
 
     @Override
     void connectComponents() {
-        //TODO
+        container.getChildren().addAll(title, sizeBox, numMovesProtectionBox, isHumanPlayer1Button,
+        isHumanPlayer2Button, useDefaultButton, playButton, returnButton);
+        setCenter(container);
     }
 
     @Override
@@ -75,7 +82,47 @@ public class GamePane extends BasePane {
      */
     @Override
     void setCallbacks() {
-        //TODO
+        sizeFiled.textProperty().addListener((o, ov, nv) -> {
+            try {
+                Optional<String> msg = validate(Integer.parseInt(nv), 1);
+                if (msg.isEmpty()) {
+                    sizeFiled.textProperty().setValue(nv);
+                }
+                else {
+                    showError(String.valueOf(msg));
+                }
+            } catch (NumberFormatException e) {
+                showError("Size has to be an integer.");
+            }
+        });
+        numMovesProtectionField.textProperty().addListener((o, ov, nv) -> {
+            try {
+                Optional<String> msg = validate(3, Integer.parseInt(nv));
+                if (msg.isEmpty()) {
+                    numMovesProtectionField.textProperty().setValue(nv);
+                }
+                else {
+                    showError(String.valueOf(msg));
+                }
+            } catch (NumberFormatException e) {
+                showError("Number of protected moves has to be an integer.");
+            }
+        });
+        useDefaultButton.setOnAction((e) -> {
+            sizeFiled.textProperty().setValue(Integer.toString(globalConfiguration.getSize()));
+            numMovesProtectionField.textProperty().setValue(Integer.toString(globalConfiguration.getNumMovesProtection()));
+            changePlayerType(1, globalConfiguration.isFirstPlayerHuman());
+            changePlayerType(2, globalConfiguration.isSecondPlayerHuman());
+        });
+        isHumanPlayer1Button.setOnAction((e) -> changePlayerType(1, !isHumanPlayer1Button.textProperty().getValue().contains("Human")));
+        isHumanPlayer2Button.setOnAction((e) -> changePlayerType(2, !isHumanPlayer2Button.textProperty().getValue().contains("Human")));
+        playButton.setOnAction((e) -> {
+            Configuration config = new Configuration(sizeFiled.getValue(), new Player[2], numMovesProtectionField.getValue());
+            config.setFirstPlayerHuman(isHumanPlayer1Button.textProperty().getValue().contains("Human"));
+            config.setSecondPlayerHuman(isHumanPlayer2Button.textProperty().getValue().contains("Human"));
+            startGame(new FXJesonMor(config));
+        });
+        returnButton.setOnAction((e) -> SceneManager.getInstance().showPane(MainMenuPane.class));
     }
 
     /**
@@ -86,6 +133,7 @@ public class GamePane extends BasePane {
      */
     void startGame(@NotNull FXJesonMor fxJesonMor) {
         final var gameplayPane = SceneManager.getInstance().<GamePlayPane>getPane(GamePlayPane.class);
+        this.fxJesonMor = fxJesonMor;
         gameplayPane.initializeGame(fxJesonMor);
         SceneManager.getInstance().showPane(GamePlayPane.class);
     }
@@ -94,7 +142,10 @@ public class GamePane extends BasePane {
      * Fill in the default values for all editable fields.
      */
     void fillValues(){
-        // TODO
+        sizeFiled.setText("9");
+        numMovesProtectionField.setText("1");
+        isHumanPlayer1Button.textProperty().setValue("Player 1: Computer");
+        isHumanPlayer2Button.textProperty().setValue("Player 2: Computer");
     }
 
     /**
@@ -106,7 +157,24 @@ public class GamePane extends BasePane {
      *      * otherwise.
      */
     public static Optional<String> validate(int size, int numProtection) {
-        //TODO
-        return null;
+        if (size < 3) return Optional.of(ViewConfig.MSG_BAD_SIZE_NUM);
+        if (size % 2 != 1) return Optional.of(ViewConfig.MSG_ODD_SIZE_NUM);
+        if (size > 26) return Optional.of(ViewConfig.MSG_UPPERBOUND_SIZE_NUM);
+        if (numProtection < 0) return Optional.of(ViewConfig.MSG_NEG_PROT);
+        return Optional.empty();
+    }
+
+    private void showError(String msg) {
+        Alert a = new Alert(Alert.AlertType.ERROR);
+        a.setTitle("Error");
+        a.setContentText(msg);
+        a.showAndWait();
+    }
+    private void changePlayerType(int playerNum, boolean isHuman){
+        if (playerNum == 1){
+            isHumanPlayer1Button.textProperty().setValue("Player 1: " + (isHuman ? "Human" : "Computer"));
+        } else {
+            isHumanPlayer2Button.textProperty().setValue("Player 2: " + (isHuman ? "Human" : "Computer"));
+        }
     }
 }

@@ -191,7 +191,11 @@ public class JesonMor extends Game {
      */
     @Override
     public String toString() {
-        //TODO
-        return "";
+        String jm = configuration.toString();
+        for (MoveRecord m : moveRecords) {
+            jm += m.toString();
+        }
+        jm += "\nEND";
+        return jm;
     }
 }

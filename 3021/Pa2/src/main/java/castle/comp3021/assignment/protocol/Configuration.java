@@ -2,6 +2,7 @@ package castle.comp3021.assignment.protocol;
 
 import castle.comp3021.assignment.piece.Archer;
 import castle.comp3021.assignment.piece.Knight;
+import castle.comp3021.assignment.player.ConsolePlayer;
 import castle.comp3021.assignment.player.RandomPlayer;
 import castle.comp3021.assignment.protocol.exception.InvalidConfigurationError;
 
@@ -182,8 +183,7 @@ public class Configuration implements Cloneable {
      * @return boolean
      */
     public boolean isFirstPlayerHuman(){
-        //TODO
-        return false;
+        return players[0].getClass().getName().contains("ConsolePlayer");
     }
 
     /**
@@ -191,8 +191,7 @@ public class Configuration implements Cloneable {
      * @return boolean
      */
     public boolean isSecondPlayerHuman(){
-        //TODO
-        return false;
+        return players[1].getClass().getName().contains("ConsolePlayer");
     }
 
     /**
@@ -200,7 +199,7 @@ public class Configuration implements Cloneable {
      * @param isHuman whether the first is human or not
      */
     public void setFirstPlayerHuman(boolean isHuman){
-        //TODO
+        players[0] = isHuman ? new ConsolePlayer("White") : new RandomPlayer("White");
     }
 
     /**
@@ -208,7 +207,7 @@ public class Configuration implements Cloneable {
      * @param isHuman whether the second is human or not
      */
     public void setSecondPlayerHuman(boolean isHuman){
-        //TODO
+        players[1] = isHuman ? new ConsolePlayer("Black") : new RandomPlayer("Black");
     }
 
 
@@ -254,7 +253,9 @@ public class Configuration implements Cloneable {
      */
     @Override
     public String toString() {
-        // TODO
-        return "";
+        return String.format("size:%1$d\nnumMovesProtection:%2$d\ncentralPlace:%3$s\nnumPlayers:%4$d\n\n"
+        + "#Player info\n#player1:\nname:%5$s, score:%6$d\n#player2:\nname:%7$s, score:%8$d\n",
+        size, numMovesProtection, centralPlace.toString(), players.length, players[0].getName(),
+        players[0].getScore(), players[1].getName(), players[1].getScore());
     }
 }

@@ -1,10 +1,14 @@
 package castle.comp3021.assignment.gui.controllers;
 
+import castle.comp3021.assignment.gui.ViewConfig;
+import castle.comp3021.assignment.protocol.Configuration;
 import castle.comp3021.assignment.protocol.Piece;
 import castle.comp3021.assignment.protocol.Place;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import org.jetbrains.annotations.NotNull;
 
 
@@ -50,7 +54,8 @@ public class Renderer {
      * @param y     Y-coordinate relative to the graphics context to draw the oval.
      */
     public static void drawOval(@NotNull GraphicsContext gc, double x, double y) {
-        // TODO
+        gc.setFill(Color.rgb(255, 255, 220));
+        gc.fillOval(x, y, 12, 12);
     }
 
     /**
@@ -61,7 +66,8 @@ public class Renderer {
      * @param y Y-coordinate relative to the graphics context to draw the rectangle.
      */
     public static void drawRectangle(@NotNull GraphicsContext gc, double x, double y){
-        //TODO
+        gc.setFill(Color.rgb(255, 255, 220));
+        gc.fillRect(x, y, ViewConfig.PIECE_SIZE, ViewConfig.PIECE_SIZE);
     }
 
     /**
@@ -73,7 +79,20 @@ public class Renderer {
      * @param centerPlace the central place
      */
     public static void renderChessBoard(@NotNull Canvas canvas, int boardSize, Place centerPlace){
-        //TODO
+        CellImage darkBoardTile = new CellImage(new Image("file:" + ResourceLoader.getResource("assets/images/darkBoard.png")));
+        CellImage lightBoardTile = new CellImage(new Image("file:" + ResourceLoader.getResource("assets/images/lightBoard.png")));
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        for (int x = 0; x < boardSize; x++)
+        {
+            for (int y = 0; y < boardSize; y++)
+            {
+                gc.drawImage(((x + y) % 2 == 0 ? darkBoardTile.image : lightBoardTile.image), x * ViewConfig.PIECE_SIZE, y * ViewConfig.PIECE_SIZE);
+                if (x == centerPlace.x() && y == centerPlace.y())
+                {
+                    gc.drawImage(new Image("file:" + ResourceLoader.getResource("assets/images/center.png")), x * ViewConfig.PIECE_SIZE, y * ViewConfig.PIECE_SIZE);
+                }
+            }
+        }
     }
 
     /**
@@ -82,7 +101,20 @@ public class Renderer {
      * @param board board with pieces
      */
     public static void renderPieces(@NotNull Canvas canvas, @NotNull Piece[][] board) {
-        //TODO
-    }
+        Image blackK = new Image("file:" + ResourceLoader.getResource("assets/images/blackK.png"));
+        Image blackA = new Image("file:" + ResourceLoader.getResource("assets/images/blackA.png"));
+        Image whiteK = new Image("file:" + ResourceLoader.getResource("assets/images/whiteK.png"));
+        Image whiteA = new Image("file:" + ResourceLoader.getResource("assets/images/whiteA.png"));
 
+        for (int x = 0; x < board.length; x++) {
+            for (int y = 0; y < board[x].length; y++) {
+                if (board[x][y] == null) continue;
+                canvas.getGraphicsContext2D().drawImage(
+                board[x][y].getLabel() == 'K'
+                ? (board[x][y].getPlayer().getName().equals("Black") ? blackK : whiteK)
+                : (board[x][y].getPlayer().getName().equals("Black") ? blackA : whiteA),
+                x * ViewConfig.PIECE_SIZE, y * ViewConfig.PIECE_SIZE);
+            }
+        }
+    }
 }

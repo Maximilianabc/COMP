@@ -8,6 +8,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 //import castle.comp3021.assignment.gui.views.panes.*;
 
+import java.io.File;
+import java.net.MalformedURLException;
 import java.util.Map;
 
 /**
@@ -67,7 +69,20 @@ public class SceneManager {
      * Add CSS styles to every scene
      */
     private SceneManager() {
-        //TODO
+        String rss = null;
+        try
+        {
+            rss = new File(ResourceLoader.getResource("assets/styles/styles.css")).toURI().toURL().toString();
+        }
+        catch (MalformedURLException e)
+        {
+            e.printStackTrace();
+        }
+        mainMenuScene.getStylesheets().add(rss);
+        settingsScene.getStylesheets().add(rss);
+        validationScene.getStylesheets().add(rss);
+        gameplayScene.getStylesheets().add(rss);
+        settingEditorScene.getStylesheets().add(rss);
     }
 
     /**
@@ -110,7 +125,12 @@ public class SceneManager {
      *
      */
     public void showPane(@NotNull final Class<? extends BasePane> pane) {
-        //TODO
+        if (scenes.containsKey(pane)) {
+            showScene(scenes.get(pane));
+        }
+        else {
+            throw new IllegalArgumentException("Specified pane is not known.");
+        }
     }
 
     /**
