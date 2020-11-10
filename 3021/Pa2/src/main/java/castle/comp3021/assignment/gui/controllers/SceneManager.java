@@ -6,7 +6,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-//import castle.comp3021.assignment.gui.views.panes.*;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -70,12 +69,9 @@ public class SceneManager {
      */
     private SceneManager() {
         String rss = null;
-        try
-        {
+        try {
             rss = new File(ResourceLoader.getResource("assets/styles/styles.css")).toURI().toURL().toString();
-        }
-        catch (MalformedURLException e)
-        {
+        } catch (MalformedURLException e) {
             e.printStackTrace();
         }
         mainMenuScene.getStylesheets().add(rss);
@@ -127,8 +123,7 @@ public class SceneManager {
     public void showPane(@NotNull final Class<? extends BasePane> pane) {
         if (scenes.containsKey(pane)) {
             showScene(scenes.get(pane));
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("Specified pane is not known.");
         }
     }

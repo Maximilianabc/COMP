@@ -1,14 +1,12 @@
 package castle.comp3021.assignment.gui.controllers;
 
 import castle.comp3021.assignment.gui.ViewConfig;
-import castle.comp3021.assignment.protocol.Configuration;
 import castle.comp3021.assignment.protocol.Piece;
 import castle.comp3021.assignment.protocol.Place;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import org.jetbrains.annotations.NotNull;
 
 
@@ -65,7 +63,7 @@ public class Renderer {
      * @param x X-coordinate relative to the graphics context to draw the rectangle.
      * @param y Y-coordinate relative to the graphics context to draw the rectangle.
      */
-    public static void drawRectangle(@NotNull GraphicsContext gc, double x, double y){
+    public static void drawRectangle(@NotNull GraphicsContext gc, double x, double y) {
         gc.setFill(Color.rgb(255, 255, 220));
         gc.fillRect(x, y, ViewConfig.PIECE_SIZE, ViewConfig.PIECE_SIZE);
     }
@@ -82,14 +80,13 @@ public class Renderer {
         CellImage darkBoardTile = new CellImage(new Image("file:" + ResourceLoader.getResource("assets/images/darkBoard.png")));
         CellImage lightBoardTile = new CellImage(new Image("file:" + ResourceLoader.getResource("assets/images/lightBoard.png")));
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        for (int x = 0; x < boardSize; x++)
-        {
-            for (int y = 0; y < boardSize; y++)
-            {
-                gc.drawImage(((x + y) % 2 == 0 ? darkBoardTile.image : lightBoardTile.image), x * ViewConfig.PIECE_SIZE, y * ViewConfig.PIECE_SIZE);
-                if (x == centerPlace.x() && y == centerPlace.y())
-                {
-                    gc.drawImage(new Image("file:" + ResourceLoader.getResource("assets/images/center.png")), x * ViewConfig.PIECE_SIZE, y * ViewConfig.PIECE_SIZE);
+        for (int x = 0; x < boardSize; x++) {
+            for (int y = 0; y < boardSize; y++) {
+                gc.drawImage(((x + y) % 2 == 0 ? darkBoardTile.image : lightBoardTile.image),
+                x * ViewConfig.PIECE_SIZE, y * ViewConfig.PIECE_SIZE);
+                if (x == centerPlace.x() && y == centerPlace.y()) {
+                    gc.drawImage(new Image("file:" + ResourceLoader.getResource("assets/images/center.png")),
+                    x * ViewConfig.PIECE_SIZE, y * ViewConfig.PIECE_SIZE);
                 }
             }
         }

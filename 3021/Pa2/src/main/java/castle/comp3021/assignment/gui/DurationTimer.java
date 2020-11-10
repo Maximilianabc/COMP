@@ -2,7 +2,10 @@ package castle.comp3021.assignment.gui;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 /**
@@ -57,11 +60,10 @@ public class DurationTimer {
     void start() {
         flowTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
-            public void run()
-            {
+            public void run() {
                 ticksElapsed += 1;
             }
-        }, new Date(), 1000);
+        }, 0, 1000);
     }
 
     /**

@@ -1,8 +1,8 @@
 package castle.comp3021.assignment.gui;
 
-import castle.comp3021.assignment.textversion.JesonMor;
-import castle.comp3021.assignment.protocol.*;
 import castle.comp3021.assignment.gui.controllers.Renderer;
+import castle.comp3021.assignment.protocol.*;
+import castle.comp3021.assignment.textversion.JesonMor;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -31,7 +31,7 @@ public class FXJesonMor extends JesonMor {
         super(configuration);
         durationTimer = new DurationTimer();
         addOnTickHandler(() -> {
-            startCountdown();
+            durationTimer.start();
         });
     }
 
@@ -99,8 +99,7 @@ public class FXJesonMor extends JesonMor {
         // update scorePlayer1Property and scorePlayer2Property
         if (piece.getPlayer().getName().equals(configuration.getPlayers()[0].getName())) {
             scorePlayer1Property.set(player.getScore());
-        }
-        else {
+        } else {
             scorePlayer2Property.set(player.getScore());
         }
         super.numMoves++;

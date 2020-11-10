@@ -1,12 +1,7 @@
 package castle.comp3021.assignment.gui.views;
 
-import castle.comp3021.assignment.gui.ViewConfig;
-import castle.comp3021.assignment.gui.controllers.ResourceLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.VBox;
-
-import java.io.File;
-import java.net.MalformedURLException;
 
 /**
  * Helper class for a {@link VBox} with "big-vbox" style applied.

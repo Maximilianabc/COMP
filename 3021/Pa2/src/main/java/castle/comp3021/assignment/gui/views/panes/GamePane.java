@@ -13,11 +13,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import org.intellij.lang.annotations.RegExp;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
-import java.util.regex.*;
 
 public class GamePane extends BasePane {
     @NotNull
@@ -45,7 +43,8 @@ public class GamePane extends BasePane {
     private final NumberTextField numMovesProtectionField = new NumberTextField("");
 
     @NotNull
-    private final BorderPane numMovesProtectionBox = new BorderPane(null, null, numMovesProtectionField, null, new Label("Protection Moves:"));
+    private final BorderPane numMovesProtectionBox = new BorderPane(null, null, numMovesProtectionField, null,
+    new Label("Protection Moves:"));
 
 
     private FXJesonMor fxJesonMor = null;
@@ -87,8 +86,7 @@ public class GamePane extends BasePane {
                 Optional<String> msg = validate(Integer.parseInt(nv), 1);
                 if (msg.isEmpty()) {
                     sizeFiled.textProperty().setValue(nv);
-                }
-                else {
+                } else {
                     showError(String.valueOf(msg));
                 }
             } catch (NumberFormatException e) {
@@ -100,8 +98,7 @@ public class GamePane extends BasePane {
                 Optional<String> msg = validate(3, Integer.parseInt(nv));
                 if (msg.isEmpty()) {
                     numMovesProtectionField.textProperty().setValue(nv);
-                }
-                else {
+                } else {
                     showError(String.valueOf(msg));
                 }
             } catch (NumberFormatException e) {

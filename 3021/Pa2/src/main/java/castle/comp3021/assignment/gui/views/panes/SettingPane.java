@@ -1,6 +1,6 @@
 package castle.comp3021.assignment.gui.views.panes;
+
 import castle.comp3021.assignment.gui.DurationTimer;
-import castle.comp3021.assignment.gui.FXJesonMor;
 import castle.comp3021.assignment.gui.ViewConfig;
 import castle.comp3021.assignment.gui.controllers.AudioManager;
 import castle.comp3021.assignment.gui.controllers.SceneManager;
@@ -9,13 +9,11 @@ import castle.comp3021.assignment.gui.views.BigVBox;
 import castle.comp3021.assignment.gui.views.NumberTextField;
 import castle.comp3021.assignment.gui.views.SideMenuVBox;
 import castle.comp3021.assignment.protocol.Configuration;
-import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import org.jetbrains.annotations.NotNull;
 
@@ -110,8 +108,7 @@ public class SettingPane extends BasePane {
                 Optional<String> msg = validate(Integer.parseInt(nv), 1, 30);
                 if (msg.isEmpty()) {
                     sizeFiled.textProperty().setValue(nv);
-                }
-                else {
+                } else {
                     showError(String.valueOf(msg));
                 }
             } catch (NumberFormatException e) {
@@ -123,8 +120,7 @@ public class SettingPane extends BasePane {
                 Optional<String> msg = validate(3, Integer.parseInt(nv), 30);
                 if (msg.isEmpty()) {
                     numMovesProtectionField.textProperty().setValue(nv);
-                }
-                else {
+                } else {
                     showError(String.valueOf(msg));
                 }
             } catch (NumberFormatException e) {
@@ -136,8 +132,7 @@ public class SettingPane extends BasePane {
                 Optional<String> msg = validate(3, 1, Integer.parseInt(nv));
                 if (msg.isEmpty()) {
                     numMovesProtectionField.textProperty().setValue(nv);
-                }
-                else {
+                } else {
                     showError(String.valueOf(msg));
                 }
             } catch (NumberFormatException e) {

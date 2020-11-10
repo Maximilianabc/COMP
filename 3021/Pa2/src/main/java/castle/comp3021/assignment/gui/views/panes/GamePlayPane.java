@@ -4,6 +4,7 @@ import castle.comp3021.assignment.gui.DurationTimer;
 import castle.comp3021.assignment.gui.FXJesonMor;
 import castle.comp3021.assignment.gui.ViewConfig;
 import castle.comp3021.assignment.gui.controllers.AudioManager;
+import castle.comp3021.assignment.gui.controllers.Renderer;
 import castle.comp3021.assignment.gui.controllers.SceneManager;
 import castle.comp3021.assignment.gui.views.BigButton;
 import castle.comp3021.assignment.gui.views.BigVBox;
@@ -12,7 +13,6 @@ import castle.comp3021.assignment.gui.views.SideMenuVBox;
 import castle.comp3021.assignment.piece.Knight;
 import castle.comp3021.assignment.player.ConsolePlayer;
 import castle.comp3021.assignment.protocol.*;
-import castle.comp3021.assignment.gui.controllers.Renderer;
 import castle.comp3021.assignment.protocol.io.Serializer;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -28,6 +28,8 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Optional;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * fxJesonMor class implements the main playing function of Jeson Mor
@@ -48,7 +50,7 @@ import java.util.Optional;
  *      - If one player runs out of time of each round {@link DurationTimer#getDefaultEachRound()}, then the player loses the game.
  * Hint:
  *      - You may find it useful to synchronize javafx UI-thread using {@link javafx.application.Platform#runLater}
- */ 
+ */
 
 public class GamePlayPane extends BasePane {
     @NotNull
@@ -97,7 +99,7 @@ public class GamePlayPane extends BasePane {
     private Configuration c = null;
     private Move lastMove = null;
     private Piece lastPiece = null;
-    private IntegerProperty countDown = new SimpleIntegerProperty();
+    private Timer timer = null;
     private int ox;
     private int oy;
     private int numMove = 0;
@@ -161,14 +163,13 @@ public class GamePlayPane extends BasePane {
         isWon = false;
         this.fxJesonMor = fxJesonMor;
         c = fxJesonMor.getConfiguration();
-        countDown.set(DurationTimer.getDefaultEachRound());
         startButton.setDisable(false);
         restartButton.setDisable(true);
         infoPane = new GameplayInfoPane(
         fxJesonMor.getPlayer1Score(),
         fxJesonMor.getPlayer2Score(),
         fxJesonMor.getCurPlayerName(),
-        countDown);
+        ticksElapsed);
         centerContainer.getChildren().add(infoPane);
 
         Configuration c = fxJesonMor.getConfiguration();
@@ -217,30 +218,36 @@ public class GamePlayPane extends BasePane {
      *          - or you can take advantage of timer to automatically change player. (Bonus)
      */
     public void startGame() {
-        if (isWon) return;
+        if (isWon) {
+            endGame();
+            return;
+        }
+
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run()
+            {
+                ticksElapsed.set(ticksElapsed.getValue() + 1);
+            }
+        }, 0, 1000);
+
+        fxJesonMor.startCountdown();
         enableCanvas();
         c = fxJesonMor.getConfiguration();
         var player = c.getPlayers()[numMove % c.getPlayers().length];
         fxJesonMor.getCurPlayerName().setValue(player.getName());
         var availableMoves = fxJesonMor.getAvailableMoves(player);
-        if (availableMoves.length <= 0)
-        {
+        if (availableMoves.length <= 0) {
             isWon = true;
-            if (c.getPlayers()[0].getScore() < c.getPlayers()[1].getScore())
-            {
+            if (c.getPlayers()[0].getScore() < c.getPlayers()[1].getScore()) {
                 createWinPopup(c.getPlayers()[0].getName());
-            }
-            else if (c.getPlayers()[0].getScore() > c.getPlayers()[1].getScore())
-            {
+            } else if (c.getPlayers()[0].getScore() > c.getPlayers()[1].getScore()) {
                 createWinPopup(c.getPlayers()[1].getName());
-            }
-            else
-            {
+            } else {
                 createWinPopup(player.getName());
             }
-        }
-        else if (!(player instanceof ConsolePlayer))
-        {
+        } else if (!(player instanceof ConsolePlayer)) {
             disnableCanvas();
             var move = player.nextMove(fxJesonMor, availableMoves);
             var movedPiece = fxJesonMor.getPiece(move.getSource());
@@ -263,7 +270,7 @@ public class GamePlayPane extends BasePane {
      * Restart the game
      * Hint: end the current game and start a new game
      */
-    private void onRestartButtonClick(){
+    private void onRestartButtonClick() {
         endGame();
         startGame();
     }
@@ -293,7 +300,7 @@ public class GamePlayPane extends BasePane {
      *      - Refer to {@link GamePlayPane#toBoardCoordinate(double)} for help
      * @param event mouse position
      */
-    private void onCanvasDragged(MouseEvent event){
+    private void onCanvasDragged(MouseEvent event) {
         Renderer.drawOval(gamePlayCanvas.getGraphicsContext2D(), event.getX(), event.getY());
     }
 
@@ -305,7 +312,7 @@ public class GamePlayPane extends BasePane {
      *      - If the piece has been successfully moved, play place.mp3 here (or somewhere else)
      * @param event mouse release
      */
-    private void onCanvasReleased(MouseEvent event){
+    private void onCanvasReleased(MouseEvent event) {
         gamePlayCanvas.getGraphicsContext2D().clearRect(0, 0, gamePlayCanvas.getWidth(), gamePlayCanvas.getHeight());
         int x = toBoardCoordinate(event.getX());
         int y = toBoardCoordinate(event.getY());
@@ -354,7 +361,7 @@ public class GamePlayPane extends BasePane {
         ButtonType export = new ButtonType("Export Move Records", ButtonBar.ButtonData.NO);
         ButtonType returnToMain = new ButtonType("Return to Main menu", ButtonBar.ButtonData.OK_DONE);
         Alert a = new Alert(
-        Alert.AlertType.CONFIRMATION, 
+        Alert.AlertType.CONFIRMATION,
         String.format("%1$s wins!", winnerName),
         startNew, export, returnToMain);
         a.setTitle("Congratulations!");
@@ -363,16 +370,14 @@ public class GamePlayPane extends BasePane {
         Optional<ButtonType> result = a.showAndWait();
         if (result.orElse(returnToMain).equals(startNew)) {
             onRestartButtonClick();
-        }
-        else if (result.orElse(returnToMain).equals(export)) {
+        } else if (result.orElse(returnToMain).equals(export)) {
             try {
                 Serializer.getInstance().saveToFile(fxJesonMor);
                 endGame();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-        else {
+        } else {
             doQuitToMenuAction();
         }
     }
@@ -416,7 +421,7 @@ public class GamePlayPane extends BasePane {
      * Popup a window showing invalid move information
      * @param errorMsg error string stating why fxJesonMor move is invalid
      */
-    private void showInvalidMoveMsg(String errorMsg){
+    private void showInvalidMoveMsg(String errorMsg) {
         Alert a = new Alert(Alert.AlertType.ERROR);
         a.setTitle("Invalid Move");
         a.setHeaderText("Your movement is invalid due to following reason(s):");
@@ -449,7 +454,7 @@ public class GamePlayPane extends BasePane {
      * Update the move to the historyFiled
      * @param move the last move that has been made
      */
-    private void updateHistoryField(Move move){
+    private void updateHistoryField(Move move) {
         String ot = historyFiled.textProperty().getValue();
         historyFiled.textProperty().setValue(ot + String.format(
         "player: %1$s; move: %2$s->%3$s\n",
@@ -491,5 +496,8 @@ public class GamePlayPane extends BasePane {
         startButton.setDisable(false);
         restartButton.setDisable(true);
         historyFiled.textProperty().setValue("");
+        fxJesonMor.stopCountdown();
+        timer.cancel();
+        ticksElapsed.set(0);
     }
 }

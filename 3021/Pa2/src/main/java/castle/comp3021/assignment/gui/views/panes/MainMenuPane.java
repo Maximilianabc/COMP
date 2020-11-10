@@ -1,17 +1,13 @@
 package castle.comp3021.assignment.gui.views.panes;
 
 import castle.comp3021.assignment.gui.controllers.SceneManager;
-import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
+import castle.comp3021.assignment.gui.views.BigButton;
+import castle.comp3021.assignment.gui.views.BigVBox;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
-import castle.comp3021.assignment.gui.views.BigButton;
-import castle.comp3021.assignment.gui.views.BigVBox;
 
 public class MainMenuPane extends BasePane {
     @NotNull

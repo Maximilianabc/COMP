@@ -1,12 +1,8 @@
 package castle.comp3021.assignment.piece;
 
-import castle.comp3021.assignment.protocol.Game;
-import castle.comp3021.assignment.protocol.Move;
-import castle.comp3021.assignment.protocol.Piece;
-import castle.comp3021.assignment.protocol.Place;
-import castle.comp3021.assignment.protocol.Player;
 import castle.comp3021.assignment.gui.controllers.Renderer;
 import castle.comp3021.assignment.gui.controllers.ResourceLoader;
+import castle.comp3021.assignment.protocol.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;

@@ -4,7 +4,6 @@ import castle.comp3021.assignment.player.RandomPlayer;
 import castle.comp3021.assignment.protocol.*;
 import castle.comp3021.assignment.protocol.exception.InvalidConfigurationError;
 import castle.comp3021.assignment.protocol.exception.InvalidGameException;
-import javafx.css.Match;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -15,8 +14,8 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.*;
-import java.util.stream.Collectors;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Deserializer {
     @NotNull
@@ -109,8 +108,7 @@ public class Deserializer {
                 if (m.find()) {
                     ps.add(new RandomPlayer(m.group(1)));
                     scores.add(Integer.parseInt(m.group(2)));
-                }
-                else {
+                } else {
                     break;
                 }
             }
@@ -151,7 +149,8 @@ public class Deserializer {
                 if (m.find()) {
                     Player player = ps.stream().filter(a -> a.getName().equals(m.group(1))).findFirst().orElse(null);
                     if (player == null) {
-                        throw new InvalidConfigurationError("Player " + m.group(1) + " is not present in player info session of history record.");
+                        throw new InvalidConfigurationError("Player " + m.group(1) +
+                        " is not present in player info session of history record.");
                     }
                     moveRecords.add(new MoveRecord(player, new Move(
                     Integer.parseInt(m.group(2)),

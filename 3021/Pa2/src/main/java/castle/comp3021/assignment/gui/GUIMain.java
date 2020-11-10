@@ -1,10 +1,10 @@
 package castle.comp3021.assignment.gui;
 
-import castle.comp3021.assignment.textversion.Main;
 import castle.comp3021.assignment.gui.controllers.SceneManager;
+import castle.comp3021.assignment.gui.views.panes.MainMenuPane;
+import castle.comp3021.assignment.textversion.Main;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import castle.comp3021.assignment.gui.views.panes.MainMenuPane;
 
 import java.util.ArrayList;
 import java.util.Arrays;

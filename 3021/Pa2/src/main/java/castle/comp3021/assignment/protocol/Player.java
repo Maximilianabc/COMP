@@ -2,6 +2,7 @@ package castle.comp3021.assignment.protocol;
 
 import castle.comp3021.assignment.piece.*;
 import org.jetbrains.annotations.NotNull;
+
 import java.util.Objects;
 
 /**

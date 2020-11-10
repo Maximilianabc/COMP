@@ -8,11 +8,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
 
-import castle.comp3021.assignment.protocol.*;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.*;
-
 /**
  * A computer player that makes a move using smart strategy.
  */

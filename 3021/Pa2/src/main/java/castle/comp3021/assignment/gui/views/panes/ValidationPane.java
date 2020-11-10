@@ -4,9 +4,10 @@ import castle.comp3021.assignment.gui.FXJesonMor;
 import castle.comp3021.assignment.gui.ViewConfig;
 import castle.comp3021.assignment.gui.controllers.Renderer;
 import castle.comp3021.assignment.gui.controllers.SceneManager;
+import castle.comp3021.assignment.gui.views.BigButton;
+import castle.comp3021.assignment.gui.views.BigVBox;
 import castle.comp3021.assignment.protocol.*;
 import castle.comp3021.assignment.protocol.io.Deserializer;
-import castle.comp3021.assignment.textversion.JesonMor;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.concurrent.Task;
@@ -18,8 +19,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import castle.comp3021.assignment.gui.views.BigButton;
-import castle.comp3021.assignment.gui.views.BigVBox;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -117,8 +116,7 @@ public class ValidationPane extends BasePane{
      *                   {@link ValidationPane#storedScores}
      * @return whether the file and information have been loaded successfully.
      */
-    private boolean loadFromFile() throws FileNotFoundException
-    {
+    private boolean loadFromFile() throws FileNotFoundException {
         File target = getTargetLoadFile();
         if (target == null) return false;
         Deserializer d = new Deserializer(Path.of(target.getPath()));
@@ -156,14 +154,30 @@ public class ValidationPane extends BasePane{
      *      - Or you can refer to {@link Task} for implementation.
      */
     private void onClickReplayButton() {
-
-        Configuration c = loadedConfiguration;
-        FXJesonMor jm = new FXJesonMor(c);
-        for (MoveRecord mr : loadedMoveRecords) {
-            Renderer.renderChessBoard(gamePlayCanvas, c.getSize(), c.getCentralPlace());
-            Renderer.renderPieces(gamePlayCanvas, c.getInitialBoard());
-            jm.movePiece(mr.getMove());
+        Configuration c = null;
+        try {
+            c = loadedConfiguration.clone();
+            c.setAllInitialPieces();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
         }
+
+        FXJesonMor jm = new FXJesonMor(c);
+        List<MoveRecord> mrs = loadedMoveRecords.stream().collect(Collectors.toList());
+        Renderer.renderChessBoard(gamePlayCanvas, c.getSize(), c.getCentralPlace());
+        Renderer.renderPieces(gamePlayCanvas, c.getInitialBoard());
+
+        Configuration finalC = c;
+        new Timer().scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                Renderer.renderChessBoard(gamePlayCanvas, finalC.getSize(), finalC.getCentralPlace());
+                Renderer.renderPieces(gamePlayCanvas, finalC.getInitialBoard());
+                if (mrs.stream().count() == 0) return;
+                jm.movePiece(mrs.get(0).getMove());
+                mrs.remove(0);
+            }
+        }, 1000, 500);
     }
 
     /**
@@ -176,7 +190,13 @@ public class ValidationPane extends BasePane{
      *      - whether scores are correct
      */
     private boolean validateHistory(){
-        Configuration c = loadedConfiguration;
+        Configuration c = null;
+        try {
+            c = loadedConfiguration.clone();
+            c.setAllInitialPieces();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
         int size = c.getSize();
         int numProtection = c.getNumMovesProtection();
         if (size < 3) {
