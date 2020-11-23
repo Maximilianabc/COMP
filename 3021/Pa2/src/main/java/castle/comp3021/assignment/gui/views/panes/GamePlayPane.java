@@ -99,7 +99,6 @@ public class GamePlayPane extends BasePane {
     private Configuration c = null;
     private Move lastMove = null;
     private Piece lastPiece = null;
-    private Timer timer = null;
     private int ox;
     private int oy;
     private int numMove = 0;
@@ -141,8 +140,16 @@ public class GamePlayPane extends BasePane {
      */
     @Override
     void setCallbacks() {
-        startButton.setOnAction((e) -> startGame());
-        restartButton.setOnAction((e) -> onRestartButtonClick());
+        startButton.setOnAction((e) -> {
+            startButton.setDisable(true);
+            restartButton.setDisable(false);
+            startGame();
+        });
+        restartButton.setOnAction((e) -> {
+            startButton.setDisable(false);
+            restartButton.setDisable(true);
+            onRestartButtonClick();
+        });
         returnButton.setOnAction((e) -> doQuitToMenuAction());
         gamePlayCanvas.setOnMouseDragged((e) -> onCanvasDragged(e));
         gamePlayCanvas.setOnMousePressed((e) -> onCanvasPressed(e));
@@ -223,15 +230,6 @@ public class GamePlayPane extends BasePane {
             return;
         }
 
-        timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run()
-            {
-                ticksElapsed.set(ticksElapsed.getValue() + 1);
-            }
-        }, 0, 1000);
-
         fxJesonMor.startCountdown();
         enableCanvas();
         c = fxJesonMor.getConfiguration();
@@ -272,6 +270,9 @@ public class GamePlayPane extends BasePane {
      */
     private void onRestartButtonClick() {
         endGame();
+        Configuration c = fxJesonMor.getConfiguration();
+        Configuration newC = new Configuration(c.getSize(), c.getPlayers(), c.getNumMovesProtection());
+        initializeGame(new FXJesonMor(newC));
         startGame();
     }
 
@@ -493,11 +494,11 @@ public class GamePlayPane extends BasePane {
      */
     private void endGame() {
         gamePlayCanvas.getGraphicsContext2D().clearRect(0, 0, gamePlayCanvas.getWidth(), gamePlayCanvas.getHeight());
+        centerContainer.getChildren().remove(infoPane);
         startButton.setDisable(false);
         restartButton.setDisable(true);
         historyFiled.textProperty().setValue("");
         fxJesonMor.stopCountdown();
-        timer.cancel();
         ticksElapsed.set(0);
     }
 }

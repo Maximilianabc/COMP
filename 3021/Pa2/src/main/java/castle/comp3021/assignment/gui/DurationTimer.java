@@ -58,6 +58,7 @@ public class DurationTimer {
      *  - You may need to use {@link Timer#scheduleAtFixedRate(TimerTask, long, long)}
      */
     void start() {
+        flowTimer = new Timer();
         flowTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
