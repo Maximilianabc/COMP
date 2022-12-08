@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DataParser.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">PopNames3111</a> &gt; <a href="index.source.html" class="el_package">comp3111.popnames</a> &gt; <span class="el_source">DataParser.java</span></div><h1>DataParser.java</h1><pre class="source lang-java linenums">package comp3111.popnames;
+
+import edu.duke.FileResource;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
+
+import java.util.ArrayList;
+
+/**
+ *  A class to handle data parsing from CSV.
+ * @author ALL
+ */
+
+<span class="nc" id="L14">public class DataParser {</span>
+    /**
+     * Function to get the CSV file.
+     */
+    public static CSVParser getFileParser(int year) {
+<span class="fc" id="L19">        FileResource fr = new FileResource(String.format(&quot;dataset/yob%s.csv&quot;, year));</span>
+<span class="fc" id="L20">        return fr.getCSVParser(false);</span>
+    }
+
+    /**
+     * Wrapper functions for function that with the same name.
+     * Support gender in Gender type other than string.
+     * (Maisy)
+     */
+    public static int getRank(int year, String name, Gender gender){
+<span class="fc" id="L29">        return getRank(year, name, gender.convertToSymbol());</span>
+    }
+
+    /**
+     * Wrapper functions for function that with the same name.
+     * Support gender in Gender type other than string.
+     * (Maisy)
+     */
+    public static String getName(int year, int rank, Gender gender){
+<span class="fc" id="L38">        return getName(year, rank, gender.convertToSymbol());</span>
+    }
+
+    /**
+     * Wrapper functions for function that with the same name.
+     * Support gender in Gender type other than string.
+     * (Maisy)
+     */
+    public static int getCount(int year, String name, Gender gender){
+<span class="fc" id="L47">        return getCount(year, name, gender.convertToSymbol());</span>
+    }
+
+    /**
+     * Wrapper functions for function that with the same name.
+     * Support gender in Gender type other than string.
+     * (Maisy)
+     */
+    public static int getTotalCount(int year, Gender gender){
+<span class="fc" id="L56">        return getTotalCount(year, gender.convertToSymbol());</span>
+    }
+
+    /**
+     * Wrapper functions for function that with the same name.
+     * Support gender in Gender type other than string.
+     * (Maisy)
+     */
+    public static ArrayList getRecordOfTopN(int year, Gender gender, int top_N){
+<span class="fc" id="L65">        return getRecordOfTopN(year, gender.convertToSymbol(), top_N);</span>
+    }
+
+    /**
+     * Wrapper functions for function that with the same name.
+     * Support gender in Gender type other than string.
+     * (Maisy)
+     */
+    public static int getRankSameFrequencySameRank(int year, String name, Gender gender) {
+<span class="fc" id="L74">    	return getRankSameFrequencySameRank(year, name, gender.convertToSymbol());</span>
+    }
+
+    /**
+     * Wrapper functions for function that with the same name.
+     * Support gender in Gender type other than string.
+     * (Maisy)
+     */
+    public static ArrayList getNameSameFrequencySameRank(int year, int given_rank, Gender gender) {
+<span class="fc" id="L83">    	return getNameSameFrequencySameRank(year, given_rank, gender.convertToSymbol());</span>
+    }
+
+    /**
+     * A helper function help to wash away any special character in a name string
+     * so that only letters (upper case or lower case) are left.
+     * @param string_to_wash The string that needed to have special character (or number) be removed. 
+     * @return The washed string which only contain letters.
+     * (Maisy)
+     */
+    public static String RemoveSpecialCharacter(String string_to_wash){
+<span class="fc" id="L94">        String regex = &quot;[^a-z,A-Z]&quot;;</span>
+<span class="fc" id="L95">        return string_to_wash.replaceAll(regex, &quot;&quot;);</span>
+    }
+
+    /**
+     *  Implementation of getCount of a name in a year.
+     *  @author Frankie
+     *  @param year Year to get  count.
+     *  @param name Name to get count.
+     *  @param gender Gender of the name.
+     *  @return The count of the name or error -1 (Name found, Gender mismatch), -2 (Name not found)
+     */
+    private static int getCount(int year, String name, String gender) {
+<span class="fc" id="L107">        boolean foundName = false;</span>
+<span class="pc bpc" id="L108" title="1 of 2 branches missed.">        for (CSVRecord rec : getFileParser(year)) {</span>
+<span class="fc bfc" id="L109" title="All 2 branches covered.">            if (RemoveSpecialCharacter(rec.get(0)).equals(name)) {</span>
+<span class="fc bfc" id="L110" title="All 2 branches covered.">                if (rec.get(1).equals(gender)) {</span>
+<span class="fc" id="L111">                    return Integer.parseInt(rec.get(2));</span>
+                }
+<span class="fc" id="L113">                foundName = true;</span>
+            }
+<span class="fc" id="L115">        }</span>
+<span class="nc bnc" id="L116" title="All 2 branches missed.">        if (foundName)</span>
+<span class="nc" id="L117">            return -1; //Name found, Gender mismatch</span>
+        else
+<span class="nc" id="L119">            return -2; //Name not found</span>
+    }
+
+    /**
+     *  Implementation of geTotalCount of every name in a year.
+     *  @author Frankie
+     *  @param year Year to get  count.
+     *  @param gender Gender of the name.
+     *  @return The total count or error -1.
+     */
+    private static int getTotalCount(int year, String gender) {
+<span class="fc" id="L130">        int count = 0;</span>
+<span class="fc bfc" id="L131" title="All 2 branches covered.">        for (CSVRecord rec : getFileParser(year)) {</span>
+<span class="fc bfc" id="L132" title="All 2 branches covered.">            if (rec.get(1).equals(gender)) {</span>
+<span class="fc" id="L133">                count += Integer.parseInt(rec.get(2));</span>
+            }
+<span class="fc" id="L135">        }</span>
+<span class="pc bpc" id="L136" title="1 of 2 branches missed.">        if (count == 0)</span>
+<span class="nc" id="L137">            return -1; //cannot find total count</span>
+        else
+<span class="fc" id="L139">            return count;</span>
+    }
+
+    /**
+     *  Implementation of getRank of a name in a year by looping through the csv file.
+     *  @author Frankie
+     *  @param year Year to get  count.
+     *  @param name Name to get count.
+     *  @param gender Gender of the name.
+     *  @return The rank of the name or error -1 (Name found, Gender mismatch), -2 (Name not found)
+     */
+    private static int getRank(int year, String name, String gender) {
+<span class="fc" id="L151">        boolean foundName = false;</span>
+<span class="fc" id="L152">        int rank = 1;</span>
+<span class="fc bfc" id="L153" title="All 2 branches covered.">        for (CSVRecord rec : getFileParser(year)) {</span>
+<span class="fc bfc" id="L154" title="All 2 branches covered.">            if (rec.get(0).equals(name)) {</span>
+<span class="fc bfc" id="L155" title="All 2 branches covered.">                if (rec.get(1).equals(gender)){</span>
+<span class="fc" id="L156">                    return rank;</span>
+                }
+<span class="fc" id="L158">                foundName = true;</span>
+            }
+<span class="fc bfc" id="L160" title="All 2 branches covered.">            if (rec.get(1).equals(gender))</span>
+<span class="fc" id="L161">                rank++;</span>
+<span class="fc" id="L162">        }</span>
+<span class="pc bpc" id="L163" title="1 of 2 branches missed.">        if (foundName)</span>
+<span class="nc" id="L164">            return -1; //Name found, Gender mismatch</span>
+        else
+<span class="fc" id="L166">            return -2; //Name not found</span>
+    }
+
+    /**
+     * Get the rank of the given name in the given year. 
+     * Different name with the same frequency to have the same rank. 
+     * (Modified from getRank() by Maisy)
+     * @param year The given year to search with.
+     * @param name The given name to search with.
+     * @param gender The gender of the name corresponding to.
+     * @return Return the rank if the name appear. Return -1 if the given name is found
+     * but in different gender. Return -2 if the given name is not found.
+     */
+    private static int getRankSameFrequencySameRank(int year, String name, String gender) {
+<span class="fc" id="L180">        boolean foundName = false;</span>
+<span class="fc" id="L181">        int current_rank = 0, last_frequency = Integer.MAX_VALUE, this_frequency = 0;</span>
+        boolean same_gender;
+<span class="fc bfc" id="L183" title="All 2 branches covered.">        for (CSVRecord rec : getFileParser(year)) {</span>
+<span class="fc" id="L184">            same_gender = rec.get(1).equals(gender);</span>
+            
+<span class="fc bfc" id="L186" title="All 2 branches covered.">            if (same_gender){ // same gender, count the rank</span>
+<span class="fc" id="L187">                this_frequency = Integer.parseInt(rec.get(2));</span>
+<span class="fc bfc" id="L188" title="All 2 branches covered.">                if (this_frequency &lt; last_frequency){ // new frequency, new rank</span>
+<span class="fc" id="L189">                    current_rank++;</span>
+<span class="fc" id="L190">                    last_frequency = this_frequency;</span>
+                }
+            }
+            
+<span class="fc bfc" id="L194" title="All 2 branches covered.">            if (RemoveSpecialCharacter(rec.get(0)).equals(name)) {</span>
+                // if current has the same name with the target
+<span class="fc bfc" id="L196" title="All 2 branches covered.">                if (same_gender){ // same gender too</span>
+<span class="fc" id="L197">                    return current_rank;</span>
+                }
+<span class="fc" id="L199">                foundName = true; // found name but diff gender</span>
+            }
+<span class="fc" id="L201">        }</span>
+
+<span class="fc bfc" id="L203" title="All 2 branches covered.">        if (foundName)</span>
+<span class="fc" id="L204">            return -1; //Name found, Gender mismatch</span>
+        else
+<span class="fc" id="L206">            return -2; //Name not found</span>
+    }
+
+    /**
+     *  Implementation of getName of a rank in a year by looping through the csv file.
+     *  @author Frankie
+     *  @param year Year to get name.
+     *  @param rank Rank to get name.
+     *  @param gender Gender of the name.
+     *  @return The the name string or error null (Rank out of bound)
+     */
+    private static String getName(int year, int rank, String gender) {
+<span class="fc" id="L218">        int currentRank = 0;</span>
+<span class="pc bpc" id="L219" title="1 of 2 branches missed.">        for (CSVRecord rec : getFileParser(year)) {</span>
+            // Get its rank if gender matches param
+<span class="fc bfc" id="L221" title="All 2 branches covered.">            if (rec.get(1).equals(gender)) {</span>
+                // Get the name whose rank matches param
+<span class="fc" id="L223">                currentRank++;</span>
+<span class="fc bfc" id="L224" title="All 2 branches covered.">                if (currentRank == rank) {</span>
+<span class="fc" id="L225">                    return rec.get(0);</span>
+                }
+            }
+<span class="fc" id="L228">        }</span>
+<span class="nc" id="L229">        return null; //rank input &gt; rank of gender in year csv</span>
+    }
+
+    /**
+     * Get the names with the given rank in the given year.
+     * Different name with the same frequency to have the same rank. 
+     * (Modified from getName() by Maisy)
+     * @param year The given year to search with.
+     * @param given_rank The given year to search with.
+     * @param gender The gender of the name should be corresponding to.
+     * @return An ArrayList with the target names. It may continue 0 to 
+     * &quot;count of names with the given rank in the given year&quot; items. 
+     */
+    private static ArrayList getNameSameFrequencySameRank(int year, int given_rank, String gender) {
+<span class="fc" id="L243">        int current_rank = 0, last_frequency = Integer.MAX_VALUE, this_frequency = 0;</span>
+<span class="fc" id="L244">        ArrayList&lt;String&gt; target_names = new ArrayList&lt;String&gt;();</span>
+<span class="fc bfc" id="L245" title="All 2 branches covered.">        for (CSVRecord rec : getFileParser(year)) {</span>
+<span class="fc bfc" id="L246" title="All 2 branches covered.">            if (rec.get(1).equals(gender)){ // go to the correct gender</span>
+<span class="fc" id="L247">                this_frequency = Integer.parseInt(rec.get(2));</span>
+<span class="fc bfc" id="L248" title="All 2 branches covered.">                if (this_frequency &lt; last_frequency){ // new frequency, new rank</span>
+<span class="fc" id="L249">                    current_rank++;</span>
+<span class="fc" id="L250">                    last_frequency = this_frequency;</span>
+                }
+<span class="fc bfc" id="L252" title="All 2 branches covered.">                if (current_rank == given_rank){ // if it fits the target rank</span>
+<span class="fc" id="L253">                    target_names.add(RemoveSpecialCharacter(rec.get(0))); // add the name to the result</span>
+                }
+            }
+<span class="fc" id="L256">        }</span>
+<span class="fc" id="L257">        return target_names;</span>
+    }
+
+    /**
+     * For task 3. Get a list of records (in form of DataRecord instances) that fit the condition: &lt;br&gt;
+     * - In the given year. &lt;br&gt;
+     * - Corresponding to given gender. &lt;br&gt;
+     * - Is the top N names in that year, where names with the same frequency have the same rank.
+     * 
+     * @param year The given year to search with.
+     * @param gender The given gender to search with.
+     * @param top_N The given range of rank to search with.
+     * @return An ArrayList of records (in form of DataRecord instances).
+     * 
+     * (Maisy)
+     */
+    private static ArrayList getRecordOfTopN(int year, String gender, int top_N){
+<span class="fc" id="L274">        ArrayList&lt;DataRecord&gt; target_records = new ArrayList&lt;DataRecord&gt;();</span>
+<span class="fc" id="L275">        int current_rank = 1, last_frequency = Integer.MAX_VALUE;</span>
+
+<span class="pc bpc" id="L277" title="1 of 2 branches missed.">        for (CSVRecord rec : getFileParser(year)) { // get the year csv file</span>
+<span class="fc bfc" id="L278" title="All 2 branches covered.">            if (rec.get(1).equals(gender)){ // go to the correct gender section</span>
+<span class="fc bfc" id="L279" title="All 2 branches covered.">                if (current_rank &lt;= top_N){ // if still in range of top N</span>
+                    // fit all condition, include this record in the result
+<span class="fc" id="L281">                    DataRecord this_rec = new DataRecord(rec, current_rank);</span>
+<span class="fc" id="L282">                    target_records.add(this_rec);</span>
+
+<span class="pc bpc" id="L284" title="1 of 2 branches missed.">                    if (this_rec.frequency &lt; last_frequency){</span>
+                        // update the current rank if the frequency changed (decreased)
+<span class="fc" id="L286">                        current_rank++;</span>
+<span class="fc" id="L287">                        last_frequency = this_rec.frequency;</span>
+                    }
+                } else { // more than top N, no need to read the rest
+                    break;
+                }
+            }
+<span class="fc" id="L293">        }</span>
+<span class="fc" id="L294">        return target_records;</span>
+    }
+    /*
+    public static int getCount_alternative(int year, String name, Gender gender)
+    throws IOException {
+        Optional&lt;CSVRecord&gt; record = getFileParser(year).getRecords().stream()
+                                                        .filter(r -&gt; r.get(0).equals(name))
+                                                        .findFirst();
+        if (record.isEmpty()) {
+            throw new IllegalArgumentException(&quot;Name not found.&quot;);
+        } else if (!record.get().get(1).equals(gender.toString())) {
+            throw new IllegalArgumentException(&quot;Gender mismatch&quot;);
+        } else {
+            return Integer.parseInt(record.get().get(2));
+        }
+    }
+
+    public static int getTotalCount_alternative(int year, Gender gender)
+    throws IOException {
+        int sum = getFileParser(year).getRecords().stream()
+                                     .filter(r -&gt; r.get(1).equals(gender.toString()))
+                                     .mapToInt(r -&gt; Integer.parseInt(r.get(2)))
+                                     .sum();
+        if (sum == 0)
+            throw new IllegalArgumentException(&quot;Cannot find total count.&quot;);
+        else
+            return sum;
+    }
+
+    public static int getRank_alternative(int year, String name, Gender gender)
+    throws IOException {
+        List&lt;CSVRecord&gt; records = getFileParser(year).getRecords();
+        Optional&lt;CSVRecord&gt; rec = records.stream()
+                                         .filter(r -&gt; r.get(0).equals(name))
+                                         .findFirst();
+        if (rec.isEmpty()) {
+            throw new IllegalArgumentException(&quot;Name not found.&quot;);
+        } else if (!rec.get().get(1).equals(gender.toString())) {
+            throw new IllegalArgumentException(&quot;Gender mismatch&quot;);
+        } else {
+            return records.indexOf(rec) + 1;
+        }
+    }
+
+    public static String getName_alternative(int year, int rank, Gender gender)
+    throws IOException {
+        try {
+            return getFileParser(year).getRecords().stream()
+                                      .filter(r -&gt; r.get(1).equals(gender.toString()))
+                                      .collect(Collectors.toList())
+                                      .get(rank + 1).get(1);
+        } catch (IndexOutOfBoundsException e) {
+            throw new IllegalArgumentException(String.format(&quot;Rank is larger than total number of names in %d.&quot;, year));
+        }
+    }
+    */
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="comp3111.popnames.NamePopularityTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2020-12-05T13:55:35" hostname="Frankie-MacBook-Pro-7.local" time="2.701">
+  <properties/>
+  <testcase name="testOldAgeFemale" classname="comp3111.popnames.NamePopularityTest" time="0.58"/>
+  <testcase name="testIncorrectGender" classname="comp3111.popnames.NamePopularityTest" time="0.045"/>
+  <testcase name="testYoungAgeMale" classname="comp3111.popnames.NamePopularityTest" time="0.116"/>
+  <testcase name="testIncorrectName" classname="comp3111.popnames.NamePopularityTest" time="0.046"/>
+  <testcase name="testOldAgeMale" classname="comp3111.popnames.NamePopularityTest" time="1.281"/>
+  <testcase name="testMiddleAgeFemale" classname="comp3111.popnames.NamePopularityTest" time="0.195"/>
+  <testcase name="testMiddleAgeMale" classname="comp3111.popnames.NamePopularityTest" time="0.397"/>
+  <testcase name="testYoungAgeFemale" classname="comp3111.popnames.NamePopularityTest" time="0.04"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

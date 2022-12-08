@@ -1,15 +1,17 @@
 package comp3111.popnames;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class AnalyzeNamesTest {
 	
-    @Test 
+    @Test
     public void testGetRankNotFound() {
     	AnalyzeNames a = new AnalyzeNames();
     	int i = a.getRank(2019, "XXX", "M");
-		assertEquals(i, -1);
+		  assertEquals(i, -1);
     }
     
     @Test 

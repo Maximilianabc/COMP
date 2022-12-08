@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="comp3111.popnames.PredictCompatibleScoreTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2020-12-05T13:55:33" hostname="Frankie-MacBook-Pro-7.local" time="0.417">
+  <properties/>
+  <testcase name="validInput" classname="comp3111.popnames.PredictCompatibleScoreTest" time="0.415"/>
+  <testcase name="invalidInput" classname="comp3111.popnames.PredictCompatibleScoreTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

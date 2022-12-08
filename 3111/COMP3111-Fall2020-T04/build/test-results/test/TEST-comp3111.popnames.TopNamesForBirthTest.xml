@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="comp3111.popnames.TopNamesForBirthTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2020-12-05T13:55:34" hostname="Frankie-MacBook-Pro-7.local" time="0.543">
+  <properties/>
+  <testcase name="testInput" classname="comp3111.popnames.TopNamesForBirthTest" time="0.0"/>
+  <testcase name="testBreakdownMethods" classname="comp3111.popnames.TopNamesForBirthTest" time="0.104"/>
+  <testcase name="testCompute" classname="comp3111.popnames.TopNamesForBirthTest" time="0.439"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

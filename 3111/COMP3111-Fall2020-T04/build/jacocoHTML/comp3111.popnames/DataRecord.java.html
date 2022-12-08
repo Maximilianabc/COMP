@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DataRecord.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">PopNames3111</a> &gt; <a href="index.source.html" class="el_package">comp3111.popnames</a> &gt; <span class="el_source">DataRecord.java</span></div><h1>DataRecord.java</h1><pre class="source lang-java linenums">package comp3111.popnames;
+import org.apache.commons.csv.*;
+
+/**
+ * For task 3. An DataRecord represent a row in the csv file (so that I don't have to 
+ * understand and get data I need from some string/CSVRecord). It is easy to order 
+ * a list of DataRecord instances by the name as well.
+ * @author Maisy
+ */
+public class DataRecord implements Comparable&lt;DataRecord&gt;{
+    public String name;
+    // public Gender gender;
+    public int frequency;
+    public int rank;
+
+    /**
+     * Create a DataRecord from a CSVRecord.
+     * @param rec The CSVRecord.
+     * @param rank The rank of the name in the record should be.
+     */
+<span class="fc" id="L21">    public DataRecord(CSVRecord rec, int rank){</span>
+        // rec: name, gender, frequency
+<span class="fc" id="L23">        name = DataParser.RemoveSpecialCharacter(rec.get(0));</span>
+        // gender = Gender.convertFromString(rec.get(1));
+<span class="fc" id="L25">        frequency = Integer.parseInt(rec.get(2));</span>
+<span class="fc" id="L26">        this.rank = rank;</span>
+<span class="fc" id="L27">    }</span>
+
+    /* public DataRecord(String name, int frequency, int rank){
+        this.name = name;
+        this.frequency = frequency;
+        this.rank = rank;
+    } */
+
+    /**
+     * For sorting DataRecord using name asc.
+     */
+    @Override
+    public int compareTo(DataRecord another) {
+<span class="fc" id="L40">        return this.name.compareTo(another.name);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

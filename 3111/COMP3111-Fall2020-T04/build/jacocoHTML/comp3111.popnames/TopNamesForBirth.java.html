@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TopNamesForBirth.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">PopNames3111</a> &gt; <a href="index.source.html" class="el_package">comp3111.popnames</a> &gt; <span class="el_source">TopNamesForBirth.java</span></div><h1>TopNamesForBirth.java</h1><pre class="source lang-java linenums">package comp3111.popnames;
+
+import org.apache.commons.csv.CSVParser;
+import java.io.IOException;
+import java.util.*;
+import java.util.Map.Entry;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+/**
+ * A class for computing the result for task 1.
+ * @author Max
+ */
+
+<span class="fc" id="L15">public class TopNamesForBirth {</span>
+
+<span class="fc" id="L17">    static final SortedMap&lt;Integer, List&lt;String&gt;&gt; years = new TreeMap&lt;&gt;();</span>
+    // &lt;rank, names of that rank in every year&gt;
+<span class="fc" id="L19">    static final SortedMap&lt;Integer, List&lt;String&gt;&gt; ranks = new TreeMap&lt;&gt;();</span>
+    // stores max length of each columns
+<span class="fc" id="L21">    static final List&lt;Integer&gt; max_lengths = new ArrayList&lt;&gt;();</span>
+    /**
+     * Generate a brief report in response to the queries on the most popular names registered at birth over a given period.
+     * @param t1y1 Lower bound of period, inclusive
+     * @param t1y2 Upper bound of period, inclusive
+     * @param topN The number of top most frequently registered names to be reported
+     * @param gender The gender of names to be reported
+     * @return String containing the summary and the result table
+     * @throws IOException if {@link CSVParser#getRecords()} failed to read the CSV file
+     */
+    public static String Compute(String t1y1, String t1y2, String topN, Gender gender)
+    throws IOException
+    {
+<span class="fc" id="L34">        Optional&lt;String&gt; err = validation(t1y1, t1y2, topN);</span>
+<span class="pc bpc" id="L35" title="1 of 2 branches missed.">        if (err.isPresent())</span>
+<span class="nc" id="L36">            return err.get();</span>
+
+<span class="fc" id="L38">        int y1 = Integer.parseInt(t1y1);</span>
+<span class="fc" id="L39">        int y2 = Integer.parseInt(t1y2);</span>
+<span class="fc" id="L40">        int top = Integer.parseInt(topN);</span>
+
+<span class="fc" id="L42">        addRecords(y1, y2, top, gender);</span>
+<span class="fc" id="L43">        loadIntoRanks(top);</span>
+<span class="fc" id="L44">        String summary = getSummary(y1, y2, getMostFrequent(), gender);</span>
+<span class="fc" id="L45">        storeMaxLengths();</span>
+<span class="fc" id="L46">        return summary + getResult(top);</span>
+    }
+
+    /**
+     * Validates input from the application. Params info are the same as {@link #Compute(String, String, String, Gender)}
+     * @return Error message, none if no error is found
+     */
+    public static Optional&lt;String&gt; validation(String t1y1, String t1y2, String topN) {
+<span class="pc bpc" id="L54" title="1 of 4 branches missed.">        if (!DataValidation.isValidYearString(t1y1) || !DataValidation.isValidYearString(t1y2)){</span>
+<span class="fc" id="L55">            return Optional.of(DataValidation.invalidYearString);</span>
+        }
+<span class="fc bfc" id="L57" title="All 2 branches covered.">        if (!DataValidation.isValidIntString(topN)) {</span>
+<span class="fc" id="L58">            return Optional.of(DataValidation.invalidIntString);</span>
+        }
+<span class="fc" id="L60">        int y1 = Integer.parseInt(t1y1);</span>
+<span class="fc" id="L61">        int y2 = Integer.parseInt(t1y2);</span>
+<span class="pc bpc" id="L62" title="1 of 4 branches missed.">        if (!DataValidation.checkYearInRange(y1) || !DataValidation.checkYearInRange(y2)) {</span>
+<span class="fc" id="L63">            return Optional.of(DataValidation.yearNotInRange);</span>
+        }
+<span class="fc bfc" id="L65" title="All 2 branches covered.">        if (!DataValidation.checkPeriod(y1, y2)) {</span>
+<span class="fc" id="L66">            return Optional.of(DataValidation.invalidPeriod);</span>
+        }
+<span class="fc" id="L68">        return Optional.empty();</span>
+    }
+
+    /**
+     * Add records to the SortedMap {@link #years}.
+     * Params and throw info are the same as {@link #Compute(String, String, String, Gender)}
+     */
+    public static void addRecords(int y1, int y2, int top, Gender gender)
+    throws IOException
+    {
+<span class="fc" id="L78">        years.clear();</span>
+<span class="fc bfc" id="L79" title="All 2 branches covered.">        for (int i = y1; i &lt;= y2; i++) {</span>
+<span class="fc" id="L80">            years.put(i, DataParser.getFileParser(i).getRecords() // get all records of the year</span>
+<span class="fc" id="L81">                                   .stream()</span>
+<span class="fc" id="L82">                                   .filter(r -&gt; r.get(1).equals(gender.toString())) // filter same gender</span>
+<span class="fc" id="L83">                                   .limit(top) // limit the list to first n elements</span>
+<span class="fc" id="L84">                                   .map(r -&gt; r.get(0)) // map to another stream containing the names only</span>
+<span class="fc" id="L85">                                   .collect(Collectors.toList())); // cast back to list</span>
+        }
+<span class="fc" id="L87">    }</span>
+
+    /**
+     * Load records from {@link #years} to {@link #ranks}
+     */
+    public static void loadIntoRanks(int top) {
+<span class="fc" id="L93">        ranks.clear();</span>
+        // init ranks map
+<span class="fc bfc" id="L95" title="All 2 branches covered.">        for (int j = 1; j &lt;= top; j++) {</span>
+<span class="fc" id="L96">            ranks.put(j, new ArrayList&lt;&gt;());</span>
+        }
+
+<span class="fc bfc" id="L99" title="All 2 branches covered.">        for (List&lt;String&gt; names : years.values()) {</span>
+<span class="fc bfc" id="L100" title="All 2 branches covered.">            for (int k = 1; k &lt;= top; k++) {</span>
+<span class="pc bpc" id="L101" title="1 of 2 branches missed.">                if (k &gt; names.size())</span>
+<span class="nc" id="L102">                    break;</span>
+<span class="fc" id="L103">                ranks.get(k).add(names.get(k - 1)); // add the name at rank k to ranks</span>
+            }
+<span class="fc" id="L105">        }</span>
+<span class="fc" id="L106">    }</span>
+
+    /**
+     * Get the name that held the top place most often in the period in {@link #years}
+     * @return The name and frequency of interest, stored in a key value pair.
+     */
+    public static Optional&lt;Entry&lt;String, Long&gt;&gt; getMostFrequent() {
+<span class="fc" id="L113">        return ranks.get(1).stream()</span>
+                    // group the elements by occurrence
+<span class="fc" id="L115">                    .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))</span>
+<span class="fc" id="L116">                    .entrySet()</span>
+<span class="fc" id="L117">                    .stream()</span>
+<span class="fc" id="L118">                    .max(Entry.comparingByValue()); // get the most frequent element and store it in a Map.Entry</span>
+    }
+
+    /**
+     * Store maximum lengths of each rank column in {@link #max_lengths}
+     */
+    public static void storeMaxLengths() {
+<span class="fc" id="L125">        max_lengths.clear();</span>
+<span class="fc bfc" id="L126" title="All 2 branches covered.">        for (List&lt;String&gt; rank : ranks.values()) {</span>
+<span class="pc bpc" id="L127" title="1 of 2 branches missed.">            if (rank.size() == 0) {</span>
+<span class="nc" id="L128">                max_lengths.add(0); // add dummy max length if the rank has no entries</span>
+<span class="nc" id="L129">                continue;</span>
+            }
+            // add the length of longest name in rank to max_length
+<span class="fc" id="L132">            max_lengths.add(Collections.max(rank, Comparator.comparing(String::length)).length());</span>
+<span class="fc" id="L133">        }</span>
+<span class="fc" id="L134">    }</span>
+
+    /**
+     * Get the summary of the result
+     * @param most_frequent The name that held the top place most often
+     * Other params info are the same as in {@link #Compute(String, String, String, Gender)}
+     * @return The summary string
+     */
+    public static String getSummary(int y1, int y2, Optional&lt;Entry&lt;String, Long&gt;&gt; most_frequent, Gender gender) {
+<span class="fc bfc" id="L143" title="All 2 branches covered.">        String g = gender == Gender.MALE ? &quot;male&quot; : &quot;female&quot;;</span>
+<span class="pc bpc" id="L144" title="1 of 2 branches missed.">        return most_frequent.isPresent()</span>
+<span class="fc" id="L145">               ? String.format(&quot;Over the period %1$d to %2$d, %3$s for %4$s has hold the top spot most often for a total of %5$d times.\n\n&quot;,</span>
+<span class="fc" id="L146">                                y1, y2, most_frequent.get().getKey(), g, most_frequent.get().getValue())</span>
+<span class="nc" id="L147">               : String.format(&quot;Over the period %1$d to %2$d, all names for %3$s have hold the top spot for equal times.\n\n&quot;,</span>
+<span class="nc" id="L148">                                y1, y2, g);</span>
+    }
+
+    /**
+     * Get the table representing the result
+     * @return The table in string with padding
+     */
+    public static StringBuilder getResult(int top) {
+<span class="fc" id="L156">        StringBuilder result = new StringBuilder(&quot;Year |&quot;);</span>
+<span class="fc bfc" id="L157" title="All 2 branches covered.">        for (int l = 1; l &lt;= top; l++) {</span>
+<span class="fc" id="L158">            String header = &quot;Top &quot; + l;</span>
+<span class="fc bfc" id="L159" title="All 2 branches covered.">            if (header.length() &gt; max_lengths.get(l - 1)) {</span>
+<span class="fc" id="L160">                max_lengths.set(l - 1, header.length());</span>
+            }
+<span class="fc" id="L162">            int repeats = max_lengths.get(l - 1) - header.length();</span>
+<span class="fc" id="L163">            result.append(header).append(&quot; &quot;.repeat(repeats)).append(&quot; |&quot;); // pad spaces until it reaches max length of that column</span>
+        }
+<span class="fc" id="L165">        result.append(&quot;\n&quot;);</span>
+
+<span class="fc bfc" id="L167" title="All 2 branches covered.">        for (Entry&lt;Integer, List&lt;String&gt;&gt; entry : years.entrySet()) {</span>
+<span class="fc" id="L168">            int m = 0;</span>
+<span class="fc" id="L169">            result.append(entry.getKey()).append(&quot; |&quot;);</span>
+<span class="fc bfc" id="L170" title="All 2 branches covered.">            for (String name : entry.getValue()) {</span>
+<span class="fc" id="L171">                int repeats = max_lengths.get(m) - name.length();</span>
+<span class="fc" id="L172">                result.append(name).append(&quot; &quot;.repeat(repeats)).append(&quot; |&quot;);</span>
+<span class="fc" id="L173">                m++;</span>
+<span class="fc" id="L174">            }</span>
+<span class="fc" id="L175">            result.append(&quot;\n&quot;);</span>
+<span class="fc" id="L176">        }</span>
+<span class="fc" id="L177">        return result;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

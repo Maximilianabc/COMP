@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="comp3111.popnames.AnalyzeNameTrendTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2020-12-05T13:55:38" hostname="Frankie-MacBook-Pro-7.local" time="0.961">
+  <properties/>
+  <testcase name="validInput1" classname="comp3111.popnames.AnalyzeNameTrendTest" time="0.031"/>
+  <testcase name="validInput2" classname="comp3111.popnames.AnalyzeNameTrendTest" time="0.924"/>
+  <testcase name="invalidInput" classname="comp3111.popnames.AnalyzeNameTrendTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

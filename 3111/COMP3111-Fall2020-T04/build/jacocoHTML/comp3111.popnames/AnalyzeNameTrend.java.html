@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AnalyzeNameTrend.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">PopNames3111</a> &gt; <a href="index.source.html" class="el_package">comp3111.popnames</a> &gt; <span class="el_source">AnalyzeNameTrend.java</span></div><h1>AnalyzeNameTrend.java</h1><pre class="source lang-java linenums">package comp3111.popnames;
+import java.util.ArrayList;
+import java.util.Collections;
+
+/** 
+ * A class for computing the result for task 3.
+ * @author Maisy
+ */
+
+public class AnalyzeNameTrend {
+	/**
+	 * A private class for task 3. Every instances represent a row in task 3's result.
+	 */
+	private class NameTrend{
+		/** The name of this record. */
+		public String name;
+		/** The highest rank the name every got in the given period. */
+		public int highest_rank;
+		/** The year corresponding to the highest rank. */
+		public int highest_rank_year;
+		/** The lowest rank (value of highest_rank &lt; value of lowest_rank) the name every got in the given period. */
+		public int lowest_rank;
+		/** The year corresponding to the lowest rank. */
+		public int lowest_rank_year;
+		/** A counter to count the name exist in how many year in the given period as Top N. */
+<span class="fc" id="L26">		public int exist_in_num_years = 1;</span>
+		/** The difference between highest_rank and lowest_rank. */
+<span class="fc" id="L28">		public int max_rank_diff = 0;</span>
+
+		/** The constructor. */
+<span class="fc" id="L31">		public NameTrend(String name, int rank, int year){</span>
+<span class="fc" id="L32">			this.name = name;</span>
+<span class="fc" id="L33">			this.highest_rank = this.lowest_rank = rank;</span>
+<span class="fc" id="L34">			this.highest_rank_year = this.lowest_rank_year = year;</span>
+<span class="fc" id="L35">		}</span>
+
+		/**
+		 * Update the highest / lowest rank (and corresponding year), given a new rank 
+		 * of the name (that has not used to update the rank before).
+		 * @param new_rank The new rank that maybe used to update highest_rank/lowest_rank.
+		 * @param new_rank_year The new year that maybe used to update highest_rank_year/lowest_rank_year.
+		 */
+		public void updateRank(int new_rank, int new_rank_year){
+<span class="fc bfc" id="L44" title="All 2 branches covered.">			if (new_rank &lt; highest_rank){</span>
+<span class="fc" id="L45">				highest_rank = new_rank;</span>
+<span class="fc" id="L46">				highest_rank_year = new_rank_year;</span>
+<span class="fc bfc" id="L47" title="All 2 branches covered.">			} else if (new_rank &gt; lowest_rank){</span>
+<span class="fc" id="L48">				lowest_rank = new_rank;</span>
+<span class="fc" id="L49">				lowest_rank_year = new_rank_year;</span>
+			}
+<span class="fc" id="L51">			exist_in_num_years++;</span>
+<span class="fc" id="L52">		}</span>
+
+		/** Compute the difference between highest_rank and lowest_rank */
+		public void calculateMaxRandDiff(){
+<span class="fc" id="L56">			max_rank_diff = lowest_rank - highest_rank;</span>
+<span class="fc" id="L57">		}</span>
+
+		/** Generate a text description of this record.
+		 * @return A string in form of &quot;FLAT&quot; / &quot;UP for %d&quot; / &quot;DOWN for %d&quot;.
+		 */
+		public String getTrendDescription(){
+<span class="fc bfc" id="L63" title="All 2 branches covered.">			if (lowest_rank_year == highest_rank_year){</span>
+<span class="fc" id="L64">				return String.format(&quot;FLAT&quot;);</span>
+			}
+<span class="fc bfc" id="L66" title="All 2 branches covered.">			if (lowest_rank_year &lt; highest_rank_year){</span>
+<span class="fc" id="L67">				return String.format(&quot;UP for %d&quot;, max_rank_diff);</span>
+			}
+<span class="fc" id="L69">			return String.format(&quot;DOWN for %d&quot;, max_rank_diff);</span>
+		}
+	}
+	
+	// Take those input (has been converted into suitable type) as properties 
+	// so that I don't have to pass them again and again among function.
+
+	/** The start of the given period. */
+	private int start_year;
+	/** The end of the given period. */
+	private int end_year;
+	/** The given gender the names should be correspond to. */
+	private Gender gender;
+	/** The given range of rank (top N) to search with. */
+	private int top_N;
+	/** The error message from the inputValidation() (if any). */
+<span class="fc" id="L85">	private String error_message = &quot;&quot;;</span>
+	/** A list to store all records that should be in the result/output. */
+<span class="fc" id="L87">	private ArrayList&lt;NameTrend&gt; result = new ArrayList&lt;NameTrend&gt;();</span>
+
+	/**
+	 * The private constructor which is only called by ComputeAndGetResult().
+	 */
+<span class="fc" id="L92">	private AnalyzeNameTrend(String start_year, String end_year, String gender, String top_N){</span>
+<span class="fc" id="L93">		inputValidationAndConversion(start_year, end_year, gender, top_N);</span>
+<span class="fc" id="L94">		this.gender = Gender.convertFromString(gender);</span>
+<span class="fc" id="L95">	}</span>
+	
+	/**
+	 * The only public method in this class. Called by Controller.
+	 * Get all input value and call the other method to &lt;br&gt;
+	 * - Do validation. &lt;br&gt;
+	 * - Compute result. &lt;br&gt;
+	 * - Phrase the result into a user-friendly output.
+	 * 
+	 * @return The error message or the result string to be placed on the UI as output.
+	 */
+	public static String ComputeAndGetResult(String start_year, String end_year, String gender, String top_N){
+<span class="fc" id="L107">		AnalyzeNameTrend name_trend = new AnalyzeNameTrend(start_year, end_year, gender, top_N);</span>
+		
+<span class="fc bfc" id="L109" title="All 2 branches covered.">		if (!name_trend.error_message.equals(&quot;&quot;)){ // if has error in input</span>
+<span class="fc" id="L110">			return name_trend.error_message;</span>
+		}
+<span class="fc" id="L112">		name_trend.computeTrend();</span>
+		
+<span class="fc" id="L114">		return name_trend.phraseOutput();</span>
+	}
+
+	/**
+	 * To check if all input are valid (input with minor mistake are also accepted after modified).
+	 * Set the related properties that may accepted modified input.
+	 * Set the error message (if any).
+	 */
+	private void inputValidationAndConversion(String start_year, String end_year, String gender, String top_N){
+		String alter_input;
+		// year
+<span class="fc" id="L125">		alter_input = start_year.trim();</span>
+<span class="fc bfc" id="L126" title="All 2 branches covered.">		if (!DataValidation.isValidYearString(alter_input)){</span>
+<span class="fc" id="L127">			error_message = &quot;Error for start year: &quot; + DataValidation.invalidYearString;</span>
+<span class="fc" id="L128">			return;</span>
+		}
+<span class="fc" id="L130">		this.start_year = Integer.parseInt(alter_input);</span>
+		
+<span class="fc" id="L132">		alter_input = end_year.trim();</span>
+<span class="fc bfc" id="L133" title="All 2 branches covered.">		if (!DataValidation.isValidYearString(alter_input)){</span>
+<span class="fc" id="L134">			error_message = &quot;Error for end year: &quot; + DataValidation.invalidYearString;</span>
+<span class="fc" id="L135">			return;</span>
+		}
+<span class="fc" id="L137">		this.end_year = Integer.parseInt(alter_input);</span>
+
+<span class="fc bfc" id="L139" title="All 2 branches covered.">		if (!DataValidation.checkPeriod(this.start_year, this.end_year)){</span>
+<span class="fc" id="L140">			error_message = &quot;Error for period: &quot; + DataValidation.invalidPeriod;</span>
+<span class="fc" id="L141">			return;</span>
+		}
+
+<span class="fc bfc" id="L144" title="All 2 branches covered.">		if (this.start_year == this.end_year){</span>
+<span class="fc" id="L145">			error_message = &quot;Error for period: Please input a period of at least two year.&quot;;</span>
+<span class="fc" id="L146">			return;</span>
+		}
+
+		// top_N
+<span class="fc" id="L150">		alter_input = top_N.trim();</span>
+<span class="fc bfc" id="L151" title="All 2 branches covered.">		if (!DataValidation.isValidIntString(alter_input)){</span>
+<span class="fc" id="L152">			error_message = &quot;Error for top N: &quot; + DataValidation.invalidIntString;</span>
+<span class="fc" id="L153">			return;</span>
+		}
+<span class="fc" id="L155">		this.top_N = Integer.parseInt(alter_input);</span>
+<span class="fc bfc" id="L156" title="All 2 branches covered.">		if (this.top_N &lt;= 0){</span>
+<span class="fc" id="L157">			error_message = &quot;Error for top N: Please input a integer &gt; 0.&quot;;</span>
+<span class="fc" id="L158">			return;</span>
+		}
+
+<span class="fc" id="L161">	}</span>
+
+	/**
+	 * Find and &quot;fill up&quot; all records that should included in the result.
+	 */
+	@SuppressWarnings(&quot;unchecked&quot;)
+	private void computeTrend(){
+		// get all record in the period with given gender and rank in top N.
+<span class="fc" id="L169">		int num_years_in_period = end_year - start_year + 1;</span>
+<span class="fc" id="L170">		ArrayList&lt;DataRecord&gt;[] all_years_records = new ArrayList[num_years_in_period];</span>
+<span class="fc bfc" id="L171" title="All 2 branches covered.">		for (int i = 0, this_year = start_year; this_year &lt;= end_year; i++, this_year++){</span>
+<span class="fc" id="L172">			all_years_records[i] = DataParser.getRecordOfTopN(this_year, gender, top_N);</span>
+			// sort the records according to name
+<span class="fc" id="L174">			Collections.sort(all_years_records[i]);</span>
+		}
+				
+		// find out the trend by the concept of merge sort
+
+		// Create a list of &quot;pointers&quot; that point to the fist un-visit records in each year records list.
+<span class="fc" id="L180">		int[] indexes = new int[num_years_in_period];</span>
+<span class="fc bfc" id="L181" title="All 2 branches covered.">		for (int i = 0; i &lt; num_years_in_period; i++){</span>
+<span class="fc" id="L182">			indexes[i] = 0;</span>
+		}
+
+		// for each name appear in the first year top N list
+<span class="fc bfc" id="L186" title="All 2 branches covered.">		for (DataRecord this_first_year_record : all_years_records[0]){</span>
+<span class="fc" id="L187">			NameTrend this_name_trend = new NameTrend(this_first_year_record.name, this_first_year_record.rank, start_year);</span>
+			
+			// for the rest of the year
+			// see if it exists in that year
+			// if yes, update the result record this_name_trend
+<span class="fc bfc" id="L192" title="All 2 branches covered.">			for (int i = 1, this_year = start_year+1; this_year &lt;= end_year; i++, this_year++){</span>
+				int compare;
+				do {
+					// if reach the end of the all_years_records[i]
+<span class="fc bfc" id="L196" title="All 2 branches covered.">					if (indexes[i] &gt;= all_years_records[i].size()){ </span>
+<span class="fc" id="L197">						break;</span>
+					}
+
+<span class="fc" id="L200">					DataRecord compare_to_record = all_years_records[i].get(indexes[i]);</span>
+<span class="fc" id="L201">					compare = compare_to_record.compareTo(this_first_year_record);</span>
+					
+<span class="fc bfc" id="L203" title="All 2 branches covered.">					if (compare == 0){ // same name</span>
+						// calculate the trend
+<span class="fc" id="L205">						this_name_trend.updateRank(compare_to_record.rank, this_year);</span>
+						// increase the index by 1 (for next name)
+<span class="fc" id="L207">						indexes[i]++;</span>
+<span class="fc bfc" id="L208" title="All 2 branches covered.">					} else if (compare &lt; 0 ){ // &quot;smaller&quot;, don't appear in 1st year</span>
+						// increase the index by 1 (for next name)
+<span class="fc" id="L210">						indexes[i]++;</span>
+					}
+
+<span class="fc bfc" id="L213" title="All 2 branches covered.">				} while (compare &lt;= 0); // until reach a &quot;larger&quot; name for next this_first_year_record</span>
+			}
+
+			// only include this_name_trend in the final result if the name appear in every year's top N list
+<span class="fc bfc" id="L217" title="All 2 branches covered.">			if (this_name_trend.exist_in_num_years == num_years_in_period){</span>
+<span class="fc" id="L218">				this.result.add(this_name_trend);</span>
+			}
+<span class="fc" id="L220">		}</span>
+	
+		// calculate the rank diff of all records that in the result
+<span class="fc bfc" id="L223" title="All 2 branches covered.">		for (NameTrend nt : result){</span>
+<span class="fc" id="L224">			nt.calculateMaxRandDiff();</span>
+<span class="fc" id="L225">		}</span>
+<span class="fc" id="L226">	}</span>
+
+	/**
+	 * Phrase the result into a user-friendly output.
+	 * @return The result string.
+	 */
+	private String phraseOutput(){
+		// return String.format(&quot;Hi from task 3&quot;);
+		//&quot;k names are found to be maintained at a high level of popularity within Top N 
+		// over the period from year y1 to year y2.&quot;
+<span class="fc" id="L236">		String final_result = String.format(&quot;%d names are found to be maintained at a high level of popularity within Top %d over the period from year %d to year %d.\n\n&quot;, result.size(), top_N, start_year, end_year);</span>
+
+		// Some strings for formatting the result
+<span class="fc" id="L239">		String line = &quot;----------------------------------------------------------------------------------\n&quot;;</span>
+<span class="fc" id="L240">		String format_title = &quot;| %-10s\t | %-15s\t | %-15s\t | %-10s\t |\n&quot;;</span>
+<span class="fc" id="L241">		String format = &quot;| %-10s\t | %6s%-6d%5d\t | %5s%-6d%5d\t | %-10s\t |\n&quot;;</span>
+		
+		// title
+<span class="fc" id="L244">		final_result += line;</span>
+<span class="fc" id="L245">		final_result += String.format(format_title, &quot;Name&quot;, &quot;Highest Rank[Year]&quot;, &quot;Lowest Rank[Year]&quot;, &quot;Gross Trend&quot;);</span>
+<span class="fc" id="L246">		final_result += line;</span>
+		
+		// records
+<span class="fc bfc" id="L249" title="All 2 branches covered.">		for (NameTrend name_trend : result){</span>
+<span class="fc" id="L250">			final_result += String.format(format, name_trend.name,&quot;&quot;, name_trend.highest_rank, name_trend.highest_rank_year, &quot;&quot;, name_trend.lowest_rank, name_trend.lowest_rank_year, name_trend.getTrendDescription());</span>
+<span class="fc" id="L251">		}</span>
+<span class="fc" id="L252">		final_result += line;</span>
+
+<span class="fc" id="L254">		return final_result;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

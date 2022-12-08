@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="comp3111.popnames.PairNamePredictionTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2020-12-05T13:55:34" hostname="Frankie-MacBook-Pro-7.local" time="0.233">
+  <properties/>
+  <testcase name="testOrankOutOfScope" classname="comp3111.popnames.PairNamePredictionTest" time="0.048"/>
+  <testcase name="testIncorrectGender" classname="comp3111.popnames.PairNamePredictionTest" time="0.024"/>
+  <testcase name="testMale1" classname="comp3111.popnames.PairNamePredictionTest" time="0.031"/>
+  <testcase name="testMale2" classname="comp3111.popnames.PairNamePredictionTest" time="0.033"/>
+  <testcase name="testMale3" classname="comp3111.popnames.PairNamePredictionTest" time="0.032"/>
+  <testcase name="testMale4" classname="comp3111.popnames.PairNamePredictionTest" time="0.031"/>
+  <testcase name="testIncorrectName" classname="comp3111.popnames.PairNamePredictionTest" time="0.03"/>
+  <testcase name="testSoulmateYoBtooLow" classname="comp3111.popnames.PairNamePredictionTest" time="0.001"/>
+  <testcase name="testSoulmateYoBtooHigh" classname="comp3111.popnames.PairNamePredictionTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

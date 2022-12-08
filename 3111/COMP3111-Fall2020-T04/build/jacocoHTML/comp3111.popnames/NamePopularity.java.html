@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NamePopularity.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">PopNames3111</a> &gt; <a href="index.source.html" class="el_package">comp3111.popnames</a> &gt; <span class="el_source">NamePopularity.java</span></div><h1>NamePopularity.java</h1><pre class="source lang-java linenums">package comp3111.popnames;
+
+/**
+ * A class for computing name popularity within a period for task 2.
+ * @author Frankie
+ */
+
+<span class="nc" id="L8">public class NamePopularity {</span>
+
+    /**
+     * A public method called by Controller to getSummary of the name's popularity in a period
+     * It is assumed that input is validated at controller class.
+     * @param name The name to be checked
+     * @param gender The gender of the name
+     * @param y1 The lower bound of the period
+     * @param y2 The upper bound of the period
+     * @return Error message or the summary and table string for the UI.
+     */
+
+    public static String getSummary(String name, String gender, int y1, int y2) {
+<span class="fc" id="L21">        String oReport = &quot;Report 2\n&quot;;</span>
+<span class="fc" id="L22">        int[] rank = new int[y2-y1+1];</span>
+<span class="fc" id="L23">        int[] count = new int[y2-y1+1];</span>
+<span class="fc" id="L24">        double[] percentage = new double[y2-y1+1];</span>
+<span class="fc" id="L25">        int highest = 0;</span>
+<span class="fc" id="L26">        int highestRank = DataParser.getRankSameFrequencySameRank(y1, name, Gender.convertFromString(gender));</span>
+
+<span class="fc bfc" id="L28" title="All 2 branches covered.">        for(int y = 0; y &lt; y2-y1+1; y++){</span>
+<span class="fc" id="L29">            rank[y] = DataParser.getRankSameFrequencySameRank(y1+y, name, Gender.convertFromString(gender));</span>
+<span class="fc bfc" id="L30" title="All 2 branches covered.">            if (rank[y] == -1){</span>
+<span class="fc" id="L31">                return String.format(&quot;Error: name found but gender mismatch in year %d&quot;, y1+y);</span>
+<span class="fc bfc" id="L32" title="All 2 branches covered.">            } else if (rank[y] == -2){</span>
+<span class="fc" id="L33">                return String.format(&quot;Error: name not found in year %d.&quot;, y1+y);</span>
+            } else{
+<span class="fc bfc" id="L35" title="All 2 branches covered.">                if (rank[y] &lt;= highestRank){</span>
+<span class="fc" id="L36">                    highestRank = rank[y];</span>
+<span class="fc" id="L37">                    highest = y;</span>
+                }
+            }
+
+<span class="fc" id="L41">            count[y] = DataParser.getCount(y1+y, name, Gender.convertFromString(gender));</span>
+<span class="pc bpc" id="L42" title="1 of 2 branches missed.">            if (count[y] == -1){</span>
+<span class="nc" id="L43">                return String.format(&quot;Error: name found but gender mismatch in year %d&quot;, y1+y);</span>
+<span class="pc bpc" id="L44" title="1 of 2 branches missed.">            } else if (count[y] == -2){</span>
+<span class="nc" id="L45">                return String.format(&quot;Error: name not found in year %d.&quot;, y1+y);</span>
+            }
+
+<span class="fc" id="L48">            int totalCount = DataParser.getTotalCount(y1+y, Gender.convertFromString(gender));</span>
+<span class="pc bpc" id="L49" title="1 of 2 branches missed.">            if (totalCount == -1){</span>
+<span class="nc" id="L50">                return String.format(&quot;Error: totalCount not found in year %d&quot;, y1+y);</span>
+            }
+<span class="fc" id="L52">            percentage[y] = count[y]*100.0/totalCount;</span>
+        }
+
+<span class="fc" id="L55">        oReport += String.format(&quot;In the year of %d, &quot;,y2);</span>
+<span class="fc" id="L56">        oReport += String.format(&quot;the number of birth with name %s is %d, &quot;, name, count[y2-y1]);</span>
+<span class="fc" id="L57">        oReport += String.format(&quot;which represents %g percent of total %s births in %d. &quot;, percentage[y2-y1], gender, y2);</span>
+<span class="fc" id="L58">        oReport += String.format(&quot;The year when the name %s was most popular is %d. &quot;, name, y1+highest);</span>
+<span class="fc" id="L59">        oReport += String.format(&quot;In that year, the number of births is %d, &quot;, count[highest]);</span>
+<span class="fc" id="L60">        oReport += String.format(&quot;which represents %g percent of the total %s birth in %d.\n\n&quot;, percentage[highest], gender, y1+highest);</span>
+<span class="fc" id="L61">        oReport += &quot;Year\t\t|\t\tRank\t|\t\tCount\t\t|\t\tPercentage\n&quot;;</span>
+<span class="fc bfc" id="L62" title="All 2 branches covered.">        for(int y = y2-y1; y &gt;= 0; y--){</span>
+<span class="fc" id="L63">            oReport += String.format(&quot;%d\t\t|\t\t%d\t\t|\t\t%d\t\t|\t\t%g\n&quot;, y1+y, rank[y], count[y], percentage[y]);</span>
+        }
+
+<span class="fc" id="L66">        return oReport;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

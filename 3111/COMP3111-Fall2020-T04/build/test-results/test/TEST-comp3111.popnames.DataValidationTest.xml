@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="comp3111.popnames.DataValidationTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2020-12-05T13:55:35" hostname="Frankie-MacBook-Pro-7.local" time="0.003">
+  <properties/>
+  <testcase name="checkYearInRangeTestFalse" classname="comp3111.popnames.DataValidationTest" time="0.0"/>
+  <testcase name="checkChoicenOneTestTrue" classname="comp3111.popnames.DataValidationTest" time="0.0"/>
+  <testcase name="isValidNameTest" classname="comp3111.popnames.DataValidationTest" time="0.0"/>
+  <testcase name="checkPeriodTestTrue" classname="comp3111.popnames.DataValidationTest" time="0.0"/>
+  <testcase name="checkChoicenOneTestFalse" classname="comp3111.popnames.DataValidationTest" time="0.0"/>
+  <testcase name="checkPeriodTestFalse" classname="comp3111.popnames.DataValidationTest" time="0.0"/>
+  <testcase name="checkYearInRangeTestTrue" classname="comp3111.popnames.DataValidationTest" time="0.0"/>
+  <testcase name="ChangeToValidNameTest" classname="comp3111.popnames.DataValidationTest" time="0.0"/>
+  <testcase name="isValidYearStringTest" classname="comp3111.popnames.DataValidationTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

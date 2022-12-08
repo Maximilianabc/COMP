@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AnalyzeNames.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">PopNames3111</a> &gt; <a href="index.source.html" class="el_package">comp3111.popnames</a> &gt; <span class="el_source">AnalyzeNames.java</span></div><h1>AnalyzeNames.java</h1><pre class="source lang-java linenums">package comp3111.popnames;
+
+import org.apache.commons.csv.*;
+import edu.duke.*;
+
+/**
+ * A sample skeleton class for simple reporting operation.
+ */
+
+<span class="fc" id="L10">public class AnalyzeNames {</span>
+
+	public static CSVParser getFileParser(int year) {
+<span class="fc" id="L13">     FileResource fr = new FileResource(String.format(&quot;dataset/yob%s.csv&quot;, year));</span>
+<span class="fc" id="L14">     return fr.getCSVParser(false);</span>
+	}
+ 
+	
+	public static String getSummary(int year) {
+<span class="nc" id="L19">		String oReport = &quot;&quot;;	</span>
+<span class="nc" id="L20">		int totalBirths = 0;</span>
+<span class="nc" id="L21">		int totalBoys = 0;</span>
+<span class="nc" id="L22">		int totalGirls = 0;</span>
+<span class="nc" id="L23">		int totalNames = 0;</span>
+<span class="nc" id="L24">		int uniqueBoys = 0;</span>
+<span class="nc" id="L25">		int uniqueGirls = 0;</span>
+		
+<span class="nc" id="L27">		oReport = String.format(&quot;Summary (Year of %d):\n&quot;, year);</span>
+<span class="nc bnc" id="L28" title="All 2 branches missed.">		for (CSVRecord rec : getFileParser(year)) {</span>
+<span class="nc" id="L29">			int numBorn = Integer.parseInt(rec.get(2));</span>
+<span class="nc" id="L30">			totalBirths += numBorn;</span>
+<span class="nc" id="L31">			totalNames += 1;</span>
+<span class="nc bnc" id="L32" title="All 2 branches missed.">			if (rec.get(1).equals(&quot;M&quot;)) {</span>
+<span class="nc" id="L33">				totalBoys += numBorn;</span>
+<span class="nc" id="L34">				uniqueBoys++;</span>
+			}
+			else {
+<span class="nc" id="L37">				totalGirls += numBorn;</span>
+<span class="nc" id="L38">				uniqueGirls++;</span>
+			}
+<span class="nc" id="L40">		}</span>
+		
+<span class="nc" id="L42">		oReport += String.format(&quot;Total Births = %,d\n&quot;, totalBirths);</span>
+<span class="nc" id="L43">		oReport += String.format(&quot;***Baby Girls = %,d\n&quot;, totalGirls);</span>
+<span class="nc" id="L44">		oReport += String.format(&quot;***Baby Boys = %,d\n&quot;, totalBoys);</span>
+		
+<span class="nc" id="L46">		oReport += String.format(&quot;Total Number of Unique Names = %,d\n&quot;, totalNames);</span>
+<span class="nc" id="L47">		oReport += String.format(&quot;***Unique Names (baby girls) = %,d\n&quot;, uniqueGirls);</span>
+<span class="nc" id="L48">		oReport += String.format(&quot;***Unique Names (baby boys) = %,d\n&quot;, uniqueBoys);</span>
+		
+<span class="nc" id="L50">		return oReport;</span>
+	}
+	
+	
+	 public static int getRank(int year, String name, String gender) {
+<span class="fc" id="L55">	     boolean found = false;</span>
+<span class="fc" id="L56">	     int oRank = 0;</span>
+<span class="fc" id="L57">	     int rank = 1;</span>
+<span class="fc bfc" id="L58" title="All 2 branches covered.">	     for (CSVRecord rec : getFileParser(year)) {</span>
+	         // Increment rank if gender matches param
+<span class="fc bfc" id="L60" title="All 2 branches covered.">	         if (rec.get(1).equals(gender)) {</span>
+	             // Return rank if name matches param
+<span class="fc bfc" id="L62" title="All 2 branches covered.">	             if (rec.get(0).equals(name)) {</span>
+<span class="fc" id="L63">	             	found = true;</span>
+<span class="fc" id="L64">	             	oRank = rank;</span>
+<span class="fc" id="L65">	             	break;</span>
+	             }
+<span class="fc" id="L67">	             rank++;</span>
+	         }
+<span class="fc" id="L69">	     }</span>
+<span class="fc bfc" id="L70" title="All 2 branches covered.">	     if (found)</span>
+<span class="fc" id="L71">	     	return oRank;</span>
+	     else
+<span class="fc" id="L73">	     	return -1;</span>
+	 }
+	 
+ 
+	 public static String getName(int year, int rank, String gender) {
+<span class="fc" id="L78">	 	boolean found = false;</span>
+<span class="fc" id="L79">	     String oName = &quot;&quot;;</span>
+<span class="fc" id="L80">	     int currentRank = 0;</span>
+	     
+	     // For every name entry in the CSV file
+<span class="pc bpc" id="L83" title="1 of 2 branches missed.">	     for (CSVRecord rec : getFileParser(year)) {</span>
+	         // Get its rank if gender matches param
+<span class="fc bfc" id="L85" title="All 2 branches covered.">	         if (rec.get(1).equals(gender)) {</span>
+	             // Get the name whose rank matches param
+<span class="fc" id="L87">	         	currentRank++;</span>
+<span class="fc bfc" id="L88" title="All 2 branches covered.">	            if (currentRank == rank) {</span>
+<span class="fc" id="L89">	             	found = true;</span>
+<span class="fc" id="L90">	             	oName = rec.get(0);</span>
+<span class="fc" id="L91">	                break;</span>
+	            }
+	         }
+<span class="fc" id="L94">	     }     </span>
+<span class="pc bpc" id="L95" title="1 of 2 branches missed.">	     if (found)</span>
+<span class="fc" id="L96">	     	return oName;</span>
+	     else
+<span class="nc" id="L98">	     	return &quot;information on the name at the specified rank is not available&quot;;</span>
+	 }
+ 
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

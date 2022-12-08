@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PredictCompatibleScore.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">PopNames3111</a> &gt; <a href="index.source.html" class="el_package">comp3111.popnames</a> &gt; <span class="el_source">PredictCompatibleScore.java</span></div><h1>PredictCompatibleScore.java</h1><pre class="source lang-java linenums">package comp3111.popnames;
+import java.lang.Math;
+
+/** 
+ * A class for computing the result for task 6.
+ * @author Maisy
+ */
+
+public class PredictCompatibleScore {
+	/**
+	 * The enum to represent if the user prefer a younger or older soulmate.
+	 */
+<span class="fc" id="L13">	enum RelativeAge {</span>
+<span class="fc" id="L14">		YOUNGER, OLDER</span>
+	}
+
+	/**
+	 * The (input) string that represent if the user prefer a younger or older soulmate.
+	 */
+<span class="fc" id="L20">	private static String[] age = {&quot;Older&quot;, &quot;Younger&quot;};</span>
+
+	// Take those input (has been converted into suitable type) as properties 
+	// so that I don't have to pass them again and again among function.
+
+	/** The input name of the user. */
+	private String user_name;
+	/** The input year of birth of the user. */
+	private int user_YOB;
+	/** The input name of the soulmate. */
+	private String soulmate_name;
+	/** The input gender of the user. */
+	private Gender user_gender; 
+	/** The input gender of the soulmate. */
+	private Gender soulmate_gender; 
+	/** The input preference that the user prefer a younger or older soulmate. */
+	private RelativeAge soulmate_age;
+	/** The computed score in percentage. In range of [0,100]. */
+<span class="fc" id="L38">	private double score = 0;</span>
+	/** The error message from the inputValidation() (if any). */
+<span class="fc" id="L40">	private String error_message = &quot;&quot;;</span>
+
+	/**
+	 * The private constructor which is only called by ComputeAndGetResult().
+	 */
+<span class="fc" id="L45">	private PredictCompatibleScore(String user_name, String user_YOB, String soulmate_name, String user_gender, String soulmate_gender, String soulmate_age){</span>
+		// Do some simple operation (like trim) so that input with minor mistake are also accepted.
+<span class="fc" id="L47">		inputValidationAndConversion(user_name, user_YOB, soulmate_name, user_gender, soulmate_gender, soulmate_age);</span>
+<span class="fc" id="L48">		this.user_gender = Gender.convertFromString(user_gender);</span>
+<span class="fc" id="L49">		this.soulmate_gender = Gender.convertFromString(soulmate_gender);</span>
+<span class="fc" id="L50">		this.soulmate_age = mapRelativeAge(soulmate_age);</span>
+		
+<span class="fc" id="L52">	}</span>
+
+	/**
+	 * The only public method in this class. Called by Controller.
+	 * Get all input value and call the other method to &lt;br&gt;
+	 * - Do validation. &lt;br&gt;
+	 * - Compute result. &lt;br&gt;
+	 * - Phrase the result into a user-friendly output.
+	 * 
+	 * @return The error message or the result string to be placed on the UI as output.
+	 */
+	public static String ComputeAndGetResult(String user_name, String user_YOB, String soulmate_name, String user_gender, String soulmate_gender, String soulmate_age){
+<span class="fc" id="L64">		PredictCompatibleScore predict = new PredictCompatibleScore(user_name, user_YOB, soulmate_name, user_gender, soulmate_gender, soulmate_age);</span>
+		
+<span class="fc bfc" id="L66" title="All 2 branches covered.">		if (!predict.error_message.equals(&quot;&quot;)){ // if has error in input</span>
+<span class="fc" id="L67">			return predict.error_message;</span>
+		}
+<span class="fc" id="L69">		predict.computeScore();</span>
+		
+<span class="fc" id="L71">		return predict.phraseOutput();</span>
+	}
+
+	/**
+	 * Map a input string to a corresponding RelativeAge.
+	 * @param input The input string (younger / older).
+	 * @return The corresponding RelativeAge.
+	 */
+	private RelativeAge mapRelativeAge(String input){
+<span class="fc bfc" id="L80" title="All 2 branches covered.">		if (input.equals(age[0])){</span>
+<span class="fc" id="L81">			return RelativeAge.OLDER;</span>
+		}
+<span class="fc" id="L83">		return RelativeAge.YOUNGER;</span>
+	}
+
+	/**
+	 * To check if all input are valid (input with minor mistake are also accepted after modified).
+	 * Set the related properties that may accepted modified input.
+	 * Set the error message (if any).
+	 */
+	private void inputValidationAndConversion(String user_name, String user_YOB, String soulmate_name, String user_gender, String soulmate_gender, String soulmate_age){
+		// name 
+<span class="fc" id="L93">		String alter_input = DataValidation.ChangeToValidName(user_name);</span>
+<span class="fc bfc" id="L94" title="All 2 branches covered.">		if (alter_input.equals(&quot;&quot;)){ // invalid anyway</span>
+<span class="fc" id="L95">			error_message = &quot;Error for user name: &quot; + DataValidation.invalidName;</span>
+<span class="fc" id="L96">			return;</span>
+		}
+<span class="fc" id="L98">		this.user_name = alter_input;</span>
+
+<span class="fc" id="L100">		alter_input = DataValidation.ChangeToValidName(soulmate_name);</span>
+<span class="fc bfc" id="L101" title="All 2 branches covered.">		if (alter_input.equals(&quot;&quot;)){ // invalid anyway</span>
+<span class="fc" id="L102">			error_message = &quot;Error for soulmate name: &quot; + DataValidation.invalidName;</span>
+<span class="fc" id="L103">			return;</span>
+		}
+<span class="fc" id="L105">		this.soulmate_name = alter_input;</span>
+
+		// year
+<span class="fc" id="L108">		alter_input = user_YOB.trim();</span>
+<span class="fc bfc" id="L109" title="All 2 branches covered.">		if (!DataValidation.isValidYearString(alter_input)){</span>
+<span class="fc" id="L110">			error_message = &quot;Error for user YOB: &quot; + DataValidation.invalidYearString;</span>
+<span class="fc" id="L111">			return;</span>
+		}
+<span class="fc" id="L113">		this.user_YOB = Integer.parseInt(alter_input);</span>
+<span class="fc bfc" id="L114" title="All 2 branches covered.">		if (!DataValidation.checkYearInRange(this.user_YOB)){</span>
+<span class="fc" id="L115">			error_message = &quot;Error for user YOB: &quot; + DataValidation.yearNotInRange;</span>
+<span class="fc" id="L116">			return;</span>
+		}
+<span class="fc" id="L118">	}</span>
+
+	/**
+	 * Compute the compatible score using the NK-T6 (modified) Algorithm.
+	 */
+	private void computeScore(){
+		// oRank: user_rank
+<span class="fc" id="L125">		int user_rank = DataParser.getRankSameFrequencySameRank(user_YOB, user_name, user_gender);</span>
+		// check if the name has rank
+<span class="fc bfc" id="L127" title="All 2 branches covered.">		if (user_rank &lt; 0){ // if user_name doesn't has a rank in year user_YOB</span>
+			// set the user_rank to 5
+<span class="fc" id="L129">			user_rank = 5;</span>
+		}
+		
+		// oYOB: soulmate_YOB
+<span class="fc" id="L133">		int soulmate_YOB = user_YOB; //+- 1</span>
+<span class="pc bpc" id="L134" title="1 of 3 branches missed.">		switch (soulmate_age){</span>
+			case YOUNGER: // RelativeAge.YOUNGER:
+<span class="fc" id="L136">				soulmate_YOB = user_YOB + 1; break;</span>
+			case OLDER:
+<span class="fc" id="L138">				soulmate_YOB = user_YOB - 1; break;</span>
+		}
+		// check if soulmate_YOB out of range
+<span class="fc bfc" id="L141" title="All 2 branches covered.">		if (!DataValidation.checkYearInRange(soulmate_YOB)){ // if out of range</span>
+			// set it as the same as user_YOB
+<span class="fc" id="L143">			soulmate_YOB = user_YOB;</span>
+		}
+
+		// oRankMate
+<span class="fc" id="L147">		int soulmate_rank = DataParser.getRankSameFrequencySameRank(soulmate_YOB, soulmate_name, soulmate_gender);</span>
+		// check if the name has rank
+<span class="fc bfc" id="L149" title="All 2 branches covered.">		if (soulmate_rank &lt; 0){ // if soulmate_name doesn't has a rank in year soulmate_YOB</span>
+			// set the soulmate_rank to 5
+<span class="fc" id="L151">			soulmate_rank = 5;</span>
+		}
+
+		/* 
+		 * diff = abs(oRank – oRankMate)
+		 * sum = oRank + oRankMate
+		 * oScore = [1 - diff / (sum + 200 + diff)] * 100%
+		 * 
+		 * Explanation:
+		 * =&gt; Make it a higher compatible score so that users will be happy :)
+		 * # diff / (sum + 200 + diff)
+		 * 	 The factor showing the difference between their name rank.
+		 * 	 As diff &lt; (sum + 200 + diff),
+		 * 	 the factor will be &lt; 1, and should be not close to 1.
+		 * # 1 - factor 
+		 *   Then this should be not close to zero. 
+		 * # The 200 is used to make factor smaller when sum is very small.
+		 * # The diff is used to make factor smaller when diff is large.
+		 */
+<span class="fc" id="L170">		int rank_diff = Math.abs(user_rank - soulmate_rank);</span>
+<span class="fc" id="L171">		double diff_percentage = (double)rank_diff / (double)(user_rank + soulmate_rank + 200 + rank_diff);</span>
+<span class="fc" id="L172">		score =  Math.abs(1 - diff_percentage) * 100;</span>
+		//error_message = String.format(&quot;Test user_rank %d, s_rank %d, rank_diff %d, score %f\n&quot;, user_rank, soulmate_rank, rank_diff, score);
+<span class="fc" id="L174">	}</span>
+
+	/**
+	 * Phrase the result into a user-friendly output.
+	 * And I really don't know what to put in the output so I add some stupid sentences in it :)
+	 * @return The result string.
+	 */
+	private String phraseOutput(){
+		//String score_line = error_message + String.format(&quot;%s and %s are having a compatible score of %.1f%%.&quot;, user_name, soulmate_name, score);
+<span class="fc" id="L183">		String score_line = String.format(&quot;%s and %s are having a compatible score of %.1f%%.&quot;, user_name, soulmate_name, score);</span>
+		
+<span class="pc bpc" id="L185" title="1 of 2 branches missed.">		if (score &lt; 50){</span>
+<span class="nc" id="L186">			return &quot;Oops.\n&quot; + score_line + &quot;\nBut don't worry, love can solve everything.&quot;;</span>
+		}
+<span class="fc bfc" id="L188" title="All 2 branches covered.">		if (score &lt; 70){</span>
+<span class="fc" id="L189">			return &quot;No Bad!\n&quot; + score_line + &quot;\nWish you with luck.&quot;;</span>
+		}
+<span class="fc bfc" id="L191" title="All 2 branches covered.">		if (score &lt; 90){</span>
+<span class="fc" id="L192">			return &quot;Congratulations!\n&quot; + score_line;</span>
+		}
+<span class="fc" id="L194">		return &quot;Wow, a perfect match!\n&quot; + score_line;</span>
+		// return error_message + String.format(&quot;The score is %.1f%%.&quot;, score);
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NamesRecommendation.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">PopNames3111</a> &gt; <a href="index.source.html" class="el_package">comp3111.popnames</a> &gt; <span class="el_source">NamesRecommendation.java</span></div><h1>NamesRecommendation.java</h1><pre class="source lang-java linenums">package comp3111.popnames;
+
+import java.util.Optional;
+
+/**
+ * A class for computing the result for task 4.
+ * @author Max
+ */
+
+<span class="nc" id="L10">public class NamesRecommendation {</span>
+
+    /**
+     * Validates input from the application. Params info are the same as {@link #recommend(String, String, String, String, String)}
+     * @return Error message, none if no errors is found
+     */
+    public static Optional&lt;String&gt; validation(String dName, String mName, String dYOB, String mYOB, String vYear) {
+<span class="fc bfc" id="L17" title="All 6 branches covered.">        if (!DataValidation.isValidYearString(dYOB) || !DataValidation.isValidYearString(mYOB) || !DataValidation.isValidYearString(vYear)) {</span>
+<span class="fc" id="L18">            return Optional.of(DataValidation.invalidYearString);</span>
+        }
+<span class="fc bfc" id="L20" title="All 4 branches covered.">        if (!DataValidation.isValidName(dName) || !DataValidation.isValidName(mName)) {</span>
+<span class="fc" id="L21">            return Optional.of(DataValidation.invalidName);</span>
+        }
+        
+        int dy, my, vin;
+<span class="fc" id="L25">        dy = Integer.parseInt(dYOB);</span>
+<span class="fc" id="L26">        my = Integer.parseInt(mYOB);</span>
+<span class="fc" id="L27">        vin = Integer.parseInt(vYear);</span>
+<span class="fc bfc" id="L28" title="All 6 branches covered.">        if (!DataValidation.checkYearInRange(dy) || !DataValidation.checkYearInRange(my) || !DataValidation.checkYearInRange(vin)) {</span>
+<span class="fc" id="L29">            return Optional.of(DataValidation.yearNotInRange);</span>
+        }
+<span class="fc" id="L31">        return Optional.empty();</span>
+    }
+    /**
+     * Recommend baby boy's and girl's name based on dad's and mom's name and vintage year.
+     * @param dad_name Name of baby's dad
+     * @param mom_name Name of baby's mom
+     * @param dadYOB Year of birth of baby's dad
+     * @param momYOB Year of birth of baby's mum
+     * @param vintage_year The vintage year
+     * @return String containing the recommended names
+     */
+    public static String recommend(String dad_name, String mom_name, String dadYOB, String momYOB, String vintage_year) {
+<span class="fc bfc" id="L43" title="All 2 branches covered.">        if (vintage_year.isEmpty())</span>
+<span class="fc" id="L44">            vintage_year = &quot;2019&quot;;</span>
+        
+<span class="fc" id="L46">        Optional&lt;String&gt; err = validation(dad_name, mom_name, dadYOB, momYOB, vintage_year);</span>
+<span class="pc bpc" id="L47" title="1 of 2 branches missed.">        if (err.isPresent())</span>
+<span class="nc" id="L48">            return err.get();</span>
+        
+        int dadRank, momRank;
+        int dy, my, vin;
+<span class="fc" id="L52">        dy = Integer.parseInt(dadYOB);</span>
+<span class="fc" id="L53">        my = Integer.parseInt(momYOB);</span>
+<span class="fc" id="L54">        vin = Integer.parseInt(vintage_year);</span>
+        
+<span class="fc" id="L56">        dadRank = DataParser.getRankSameFrequencySameRank(dy, dad_name, Gender.MALE);</span>
+<span class="pc bpc" id="L57" title="1 of 2 branches missed.">        if (dadRank == -1) {</span>
+<span class="nc" id="L58">            return String.format(&quot;Error: dad's name found but gender mismatch in year %d&quot;, dy);</span>
+<span class="pc bpc" id="L59" title="1 of 2 branches missed.">        } else if (dadRank == -2) {</span>
+<span class="nc" id="L60">            dadRank = 1;</span>
+        }
+
+<span class="fc" id="L63">        momRank = DataParser.getRankSameFrequencySameRank(my, mom_name, Gender.FEMALE);</span>
+<span class="pc bpc" id="L64" title="1 of 2 branches missed.">        if (momRank == -1) {</span>
+<span class="nc" id="L65">            return String.format(&quot;Error: mom's name found but gender mismatch in year %d&quot;, my);</span>
+<span class="pc bpc" id="L66" title="1 of 2 branches missed.">        } else if (momRank == -2) {</span>
+<span class="nc" id="L67">            momRank = 1;</span>
+        }
+
+<span class="fc" id="L70">        String boy = DataParser.getName(vin, dadRank, Gender.MALE);</span>
+<span class="fc" id="L71">        String girl = DataParser.getName(vin, momRank, Gender.FEMALE);</span>
+<span class="fc" id="L72">        return String.format(&quot;Recommended boy's name: %1$s\nRecommended girl's name: %2$s&quot;, boy, girl);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

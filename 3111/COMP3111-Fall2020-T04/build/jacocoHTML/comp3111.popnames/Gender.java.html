@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Gender.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">PopNames3111</a> &gt; <a href="index.source.html" class="el_package">comp3111.popnames</a> &gt; <span class="el_source">Gender.java</span></div><h1>Gender.java</h1><pre class="source lang-java linenums">package comp3111.popnames;
+
+/**
+ * An enum to represent gender &quot;male&quot; / &quot;female&quot;
+ * so that we don't have to use string to represent it all around the program.
+ * @author Maisy 
+ */
+
+<span class="fc" id="L9">public enum Gender {</span>
+<span class="fc" id="L10">    MALE, </span>
+<span class="fc" id="L11">    FEMALE</span>
+    ;
+    /**
+     * String (in lower case) to represent the two gender.
+     */
+<span class="fc" id="L16">    private static String[] gender_in_string_all_lower = {&quot;MALE&quot;, &quot;FEMALE&quot;};</span>
+    
+    /**
+     * Symbol (a upper case letter) to represent the two gender. M for male and F for female.
+     */
+<span class="fc" id="L21">    private static String[] gender_symbol = {&quot;M&quot;, &quot;F&quot;};</span>
+
+    /**
+     * Get the corresponding Gender type given the string representing the gender. (Maisy)
+     * @param gender_string The string representing the gender. (e.g. Male/male and Female/female)
+     * @return The corresponding Gender.
+     */
+    public static Gender convertFromString(String gender_string){
+<span class="fc" id="L29">        gender_string = gender_string.trim().toUpperCase();</span>
+<span class="fc bfc" id="L30" title="All 4 branches covered.">        if (gender_string.equals(gender_in_string_all_lower[0]) || gender_string.equals(gender_symbol[0])){</span>
+<span class="fc" id="L31">            return MALE;</span>
+        }
+<span class="fc bfc" id="L33" title="All 4 branches covered.">        if (gender_string.equals(gender_in_string_all_lower[1]) || gender_string.equals(gender_symbol[1])){</span>
+<span class="fc" id="L34">            return FEMALE;</span>
+        }
+<span class="fc" id="L36">        throw new IllegalArgumentException(&quot;Gender is only used to represent male or female.&quot;);</span>
+    }
+    
+    /**
+     * Convert the Gender into a symbol (a upper case letter) to represent the gender. (Maisy)
+     * @return The symbol (a upper case letter) to represent the gender.
+     */
+    public String convertToSymbol(){
+<span class="fc bfc" id="L44" title="All 2 branches covered.">        if (this == MALE){</span>
+<span class="fc" id="L45">            return gender_symbol[0];</span>
+        }
+<span class="fc" id="L47">        return gender_symbol[1];</span>
+    }
+
+    /**
+     * An alternate method for {@link Gender#convertFromString(String)} using switch expression. (Max)
+     * @param gender The string representing the gender.
+     * @return The corresponding Gender.
+     * @throws IllegalArgumentException if the gender string is not valid.
+     */
+    public static Gender fromString(String gender)
+    {
+        // return switch (gender.toLowerCase().trim())
+        // {
+        //     case &quot;male&quot; -&gt; MALE;
+        //     case &quot;female&quot; -&gt; FEMALE;
+        //     default -&gt; throw new IllegalArgumentException(&quot;Gender is only used to represent male or female.&quot;);
+        // };
+<span class="nc" id="L64">        return convertFromString(gender);</span>
+    }
+
+    /**
+     * Override {@link Enum#toString()} to return gender symbol instead. (Max)
+     * @return The gender symbol.
+     * @throws IllegalArgumentException if the gender enum value is invalid.
+     */
+    @Override
+    public String toString()
+    {
+        // return switch (this)
+        // {
+        //     case MALE -&gt; &quot;M&quot;;
+        //     case FEMALE -&gt; &quot;F&quot;;
+        //     default -&gt; throw new IllegalStateException(&quot;Unknown value for gender enum.&quot;);
+        // };
+<span class="fc" id="L81">        return convertToSymbol();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

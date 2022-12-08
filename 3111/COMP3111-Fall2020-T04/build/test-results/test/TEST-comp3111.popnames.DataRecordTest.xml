@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="comp3111.popnames.DataRecordTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-12-05T13:55:33" hostname="Frankie-MacBook-Pro-7.local" time="0.057">
+  <properties/>
+  <testcase name="TestSort" classname="comp3111.popnames.DataRecordTest" time="0.057"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

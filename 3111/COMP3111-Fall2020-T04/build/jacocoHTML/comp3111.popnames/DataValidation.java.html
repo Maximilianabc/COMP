@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DataValidation.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">PopNames3111</a> &gt; <a href="index.source.html" class="el_package">comp3111.popnames</a> &gt; <span class="el_source">DataValidation.java</span></div><h1>DataValidation.java</h1><pre class="source lang-java linenums">package comp3111.popnames;
+import java.util.regex.Pattern;  
+
+/**
+ *  A class for doing input validation. Use for
+ * - Check if some String / value is valid
+ * - Get default error message.
+ * - Convert a &quot;semi-valid&quot; name string to valid string.
+ * 
+ * @author Maisy
+ */
+
+<span class="nc" id="L13">public class DataValidation {</span>
+	// Default error message.
+	// For example, you can use it like :
+	// if (!DataValidation.checkYearInRange(2000)){
+	//      return DataValidation.yearNotInRange;
+	// }
+	
+	/**
+	 * Default error message for checkYearInRange().
+	 */
+<span class="fc" id="L23">	public static String yearNotInRange = &quot;Please input a year in the range of 1880-2019.&quot;;</span>
+	
+	/**
+	 * Default error message for checkPeriod().
+	 */
+<span class="fc" id="L28">	public static String invalidPeriod = &quot;Please input a valid period. Both of the starting year and&quot; + </span>
+			   							 &quot; ending year need to be in range of 1880-2019. And the ending&quot; +
+			   							 &quot; year should not be earlier than the starting year.&quot;;
+
+	/**
+	 * Default error message for checkChoicenOne().
+	 */
+<span class="fc" id="L35">	public static String moreThanOneChoice = &quot;Please only select only on option.&quot;;</span>
+	
+	/**
+	 * Default error message for isValidName().
+	 */
+<span class="fc" id="L40">	public static String invalidName = &quot;Please enter a valid name. e.g. Amy, Bob (Capital for the first letter)&quot;;</span>
+	
+	/**
+	 * Default error message for isValidYearString().
+	 */
+<span class="fc" id="L45">	public static String invalidYearString = &quot;Please enter a valid year.&quot;;</span>
+	
+	/**
+	 * Default error message for isValidIntString().
+	 */
+<span class="fc" id="L50">	public static String invalidIntString = &quot;Please enter a non-negative integer.&quot;;</span>
+	
+	/**
+	 * Check if a year is in range of 1880-2019.
+	 * @param year The year to be checked.
+	 * 
+	 * @return Return true if the year is in range. &lt;br&gt;
+	 * Return false otherwise.
+	 */
+	public static boolean checkYearInRange(int year) {
+<span class="fc bfc" id="L60" title="All 4 branches covered.">		if (1880 &lt;= year &amp;&amp; year &lt;= 2019) {</span>
+<span class="fc" id="L61">			return true;</span>
+		}
+<span class="fc" id="L63">		return false;</span>
+	}
+	
+	/**
+	 * Check if a given period is true.
+	 * @param start_year The given starting year of the period.
+	 * @param end_year The given ending year of the period.
+	 * 
+	 * @return Return true if the period is valid. &lt;br&gt;
+	 * Return false otherwise.
+	 */
+	public static boolean checkPeriod(int start_year, int end_year) {
+<span class="pc bpc" id="L75" title="1 of 4 branches missed.">		if (checkYearInRange(start_year) &amp;&amp; checkYearInRange(end_year)){</span>
+<span class="fc bfc" id="L76" title="All 2 branches covered.">			if (start_year &lt;= end_year) {</span>
+<span class="fc" id="L77">				return true;</span>
+			}
+		}
+<span class="fc" id="L80">		return false;</span>
+	}
+	
+	/**
+	 * Check if only one of the two choices is selected. May not needed if use ToggleGroup in the UI.
+	 * @param choice1 One of the two choices. True means selected. False means unselected.
+	 * @param choice2 One of the two choices. 
+	 * 
+	 * @return Return true if only one of the two choices is selected. &lt;br&gt;
+	 * Return false otherwise.
+	 */
+	public static boolean checkChoicenOne(boolean choice1, boolean choice2) {
+<span class="fc bfc" id="L92" title="All 8 branches covered.">		if ((choice1 &amp;&amp; !choice2) || (!choice1 &amp;&amp; choice2)) {</span>
+<span class="fc" id="L93">			return true;</span>
+		}
+<span class="fc" id="L95">		return false;</span>
+	}
+	
+	/**
+	 * Check if a given string is a valid name. &lt;br&gt;
+	 * Valid is defined as  &lt;br&gt;
+	 * - Not null. &lt;br&gt;
+	 * - Should at least be two characters long. &lt;br&gt;
+	 * - Only contain letters (A-Z and a-z).  &lt;br&gt;
+	 * - Must start with one upper case and follow by all lower case. &lt;br&gt;
+	 * 
+	 * @param name The given name to be checked.
+	 * 
+	 * @return If the given string is a valid name, return true. &lt;br&gt;
+	 * Otherwise, return false. 
+	 */
+	public static boolean isValidName(String name) {
+<span class="fc" id="L112">		return Pattern.matches(&quot;^[A-Z][a-z]+$&quot;, name);</span>
+	}
+	
+	/**
+	 * Check if a given string is a valid year. &lt;br&gt;
+	 * Valid is defined as  &lt;br&gt;
+	 * - Not null. &lt;br&gt;
+	 * - Should be exactly 4 digits long. &lt;br&gt;
+	 * - Only contain number (0-9).  &lt;br&gt;
+	 * 
+	 * @param year_in_string The given year in String type.
+	 * 
+	 * @return If the given string is a valid year string, return true. &lt;br&gt;
+	 * Otherwise, return false.
+	 */
+	public static boolean isValidYearString(String year_in_string) {
+<span class="fc" id="L128">		return Pattern.matches(&quot;^[0-9]{4}$&quot;, year_in_string);</span>
+	}
+
+	/**
+	 * Check if a given string is a valid integer. &lt;br&gt;
+	 * Valid is defined as  &lt;br&gt;
+	 * - Not null. &lt;br&gt;
+	 * - Only contain number (0-9) and (optional) a negative sign &quot;-&quot; in the front.  &lt;br&gt;
+	 * 
+	 * @param int_in_string The given integer in String type.
+	 * 
+	 * @return If the given string is a valid integer string, return true. &lt;br&gt;
+	 * Otherwise, return false.
+	 */
+	public static boolean isValidIntString(String int_in_string) {
+<span class="fc" id="L143">		return Pattern.matches(&quot;-?[0-9]+$&quot;, int_in_string);</span>
+	}
+	
+	/**
+	 * Check if a given string is a valid name.  &lt;br&gt;
+	 * Valid is defined as  &lt;br&gt;
+	 * - Not null. &lt;br&gt;
+	 * - Should at least be two characters long. &lt;br&gt;
+	 * - Only contain letters (A-Z and a-z).  &lt;br&gt;
+	 * - Must start with one upper case and follow by all lower case. &lt;br&gt;
+	 * 
+	 * @param name The given name to be checked.
+	 * 
+	 * @return If the given string is valid return the it.  &lt;br&gt;
+	 *  &lt;br&gt;
+	 * If it is not valid but contain only character (no matter lower / upper case) and space,
+	 * change it to the format &quot;start with one upper case and follow by all lower case&quot;
+	 * and return the changed string. &lt;br&gt;
+	 *  &lt;br&gt; 
+	 * Otherwise, the name is invalid anyway, return empty string &quot;&quot;.
+	 */
+	public static String ChangeToValidName(String name) {
+<span class="fc bfc" id="L165" title="All 2 branches covered.">		if (isValidName(name)){</span>
+<span class="fc" id="L166">			return name;</span>
+		}
+<span class="fc" id="L168">		name = name.trim();</span>
+<span class="fc bfc" id="L169" title="All 2 branches covered.">		if (Pattern.matches(&quot;^[A-Z,a-z]{2,}$&quot;, name)){</span>
+<span class="fc" id="L170">			name = name.toLowerCase();</span>
+<span class="fc" id="L171">			name = name.substring(0, 1).toUpperCase() + name.substring(1);</span>
+<span class="fc" id="L172">			return name;</span>
+		}
+<span class="fc" id="L174">		return &quot;&quot;; // invalid name</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
