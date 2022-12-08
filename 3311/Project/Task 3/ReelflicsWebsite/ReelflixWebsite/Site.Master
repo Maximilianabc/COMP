@@ -1,0 +1,120 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.Master.cs" Inherits="ReelflicsWebsite.SiteMaster" %>
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %> - Reelflics Website</title>
+
+    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+    <webopt:BundleReference runat="server" Path="~/Content/css" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+</head>
+<body>
+    <form runat="server">
+        <asp:ScriptManager runat="server">
+            <Scripts>
+                <%--To learn more about bundling scripts in ScriptManager see https://go.microsoft.com/fwlink/?LinkID=301884 --%>
+                <%--Framework Scripts--%>
+                <asp:ScriptReference Name="MsAjaxBundle" />
+                <asp:ScriptReference Name="jquery" />
+                <asp:ScriptReference Name="bootstrap" />
+                <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
+                <asp:ScriptReference Name="WebUIValidation.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebUIValidation.js" />
+                <asp:ScriptReference Name="MenuStandards.js" Assembly="System.Web" Path="~/Scripts/WebForms/MenuStandards.js" />
+                <asp:ScriptReference Name="GridView.js" Assembly="System.Web" Path="~/Scripts/WebForms/GridView.js" />
+                <asp:ScriptReference Name="DetailsView.js" Assembly="System.Web" Path="~/Scripts/WebForms/DetailsView.js" />
+                <asp:ScriptReference Name="TreeView.js" Assembly="System.Web" Path="~/Scripts/WebForms/TreeView.js" />
+                <asp:ScriptReference Name="WebParts.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebParts.js" />
+                <asp:ScriptReference Name="Focus.js" Assembly="System.Web" Path="~/Scripts/WebForms/Focus.js" />
+                <asp:ScriptReference Name="WebFormsBundle" />
+                <%--Site Scripts--%>
+            </Scripts>
+        </asp:ScriptManager>
+
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" runat="server" href="~/">Reelflics</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <div id="search" class="nav navbar-nav" style="margin-top: 12px">
+                        <asp:TextBox ID="txtSearchReelflics" runat="server" CssClass="input-sm" placeholder="Search Reelflics" Height="32px"></asp:TextBox>
+                        <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn btn-sm" OnClick="BtnSearch_Click" CausesValidation="False" />
+                    </div>
+                    <ul class="nav navbar-nav">
+                        <li id="liWatchlist" runat="server"><a runat="server" href="~/Member/Watchlist.aspx">My Watchlist</a></li>
+                        <li id="liWatchHistory" runat="server"><a runat="server" href="~/Member/WatchHistory.aspx">My Watch History</a></li>
+                        <li id="liManageAccount" runat="server"><a runat="server" href="~/Member/ManageAccount.aspx">My Account</a></li>
+
+                        <li id="liEmployeeMovieDropDown" class="dropdown" runat="server">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Manage Movies<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li id="liAddMovie" runat="server"><a runat="server" href="~/Employee/AddMovie.aspx">Add Movie</a></li>
+                                <li id="liModifyMovie" runat="server"><a runat="server" href="~/Employee/ModifyMovie.aspx">Modify Movie</a></li>
+                            </ul>
+                        </li>
+
+                        <li id="liEmployeeMoviePersonDropDown" class="dropdown" runat="server">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Manage Cast/Directors<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li id="liAddCastDirector" runat="server"><a runat="server" href="~/Employee/AddCastDirector.aspx">Add Cast Member/Director</a></li>
+                                <li id="liModifyCastDirector" runat="server"><a runat="server" href="~/Employee/ModifyCastDirector.aspx">Modify Cast Member/Director</a></li>
+                                <li id="liAddCastDirectorAward" runat="server"><a runat="server" href="~/Employee/AddCastDirectorAward.aspx">Add Cast Member/Director Award</a></li>
+                            </ul>
+                        </li>
+
+                        <li id="liEmployeeReportsDropDown" class="dropdown" runat="server">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reports<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li id="liMemberInformationReport" runat="server"><a runat="server" href="~/Employee/MemberInformationReport.aspx">Member Information</a></li>
+                                <li id="liMemberActivityReport" runat="server"><a runat="server" href="~/Employee/MemberActivityReport.aspx">Member Activity</a></li>
+                                <li id="liMembershipStatisticsReport" runat="server"><a runat="server" href="~/Employee/MembershipStatisticsReport.aspx">Membership Statistics</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                    <asp:LoginView runat="server" ViewStateMode="Disabled">
+                        <AnonymousTemplate>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a runat="server" href="~/Account/Register">Register</a></li>
+                                <li><a runat="server" href="~/Account/Login">Log in</a></li>
+                            </ul>
+                        </AnonymousTemplate>
+                        <LoggedInTemplate>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a runat="server"><% if (Context.User.IsInRole("ReelflicsMember"))
+                                                                               { %> Welcome member <% } %>
+                                    <% else if (Context.User.IsInRole("Employee"))
+                                        { %> You are logged in as <% } %>
+                                    <%: Context.User.Identity.GetUserName() %>!</a></li>
+                                <li>
+                                    <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/" OnLoggingOut="Unnamed_LoggingOut" />
+                                </li>
+                            </ul>
+                        </LoggedInTemplate>
+                    </asp:LoginView>
+                </div>
+            </div>
+        </div>
+        <div class="container body-content">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+            <hr />
+            <footer>
+                <p>&copy; <%: DateTime.Now.Year %> - Reelflics</p>
+            </footer>
+        </div>
+    </form>
+</body>
+</html>

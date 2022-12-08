@@ -1,0 +1,1219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{64BA2B35-82F3-418D-8272-1978F6CA3E07}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ReelflixWebsite</RootNamespace>
+    <AssemblyName>ReelflixWebsite</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44378</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Oracle.DataAccess, Version=4.122.1.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Windows\Microsoft.NET\assembly\GAC_32\Oracle.DataAccess\v4.0_4.122.1.0__89b483f429c47342\Oracle.DataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="AspNet.ScriptManager.bootstrap">
+      <HintPath>..\packages\AspNet.ScriptManager.bootstrap.3.4.1\lib\net45\AspNet.ScriptManager.bootstrap.dll</HintPath>
+    </Reference>
+    <Reference Include="AspNet.ScriptManager.jQuery">
+      <HintPath>..\packages\AspNet.ScriptManager.jQuery.3.4.1\lib\net45\AspNet.ScriptManager.jQuery.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ScriptManager.MSAjax">
+      <HintPath>..\packages\Microsoft.AspNet.ScriptManager.MSAjax.5.0.0\lib\net45\Microsoft.ScriptManager.MSAjax.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ScriptManager.WebForms">
+      <HintPath>..\packages\Microsoft.AspNet.ScriptManager.WebForms.5.0.0\lib\net45\Microsoft.ScriptManager.WebForms.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Web.Optimization.WebForms">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.WebForms.1.1.3\lib\net45\Microsoft.AspNet.Web.Optimization.WebForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.FriendlyUrls">
+      <HintPath>..\packages\Microsoft.AspNet.FriendlyUrls.Core.1.0.2\lib\net45\Microsoft.AspNet.FriendlyUrls.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.3\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.3\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.3\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.4.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.4.0.1\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.4.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.4.0.1\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.4.0.1\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.4.0.1\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="About.aspx" />
+    <Content Include="Account\AddPhoneNumber.aspx" />
+    <Content Include="Account\Confirm.aspx" />
+    <Content Include="Account\Forgot.aspx" />
+    <Content Include="Account\Lockout.aspx" />
+    <Content Include="Account\Login.aspx" />
+    <Content Include="Account\Manage.aspx" />
+    <Content Include="Account\ManageLogins.aspx" />
+    <Content Include="Account\ManagePassword.aspx" />
+    <Content Include="Account\OpenAuthProviders.ascx" />
+    <Content Include="Account\Register.aspx" />
+    <Content Include="Account\RegisterExternalLogin.aspx" />
+    <Content Include="Account\ResetPassword.aspx" />
+    <Content Include="Account\ResetPasswordConfirmation.aspx" />
+    <Content Include="Account\TwoFactorAuthenticationSignIn.aspx" />
+    <Content Include="Account\VerifyPhoneNumber.aspx" />
+    <Content Include="App_Themes\ReelflicsTheme\bootstrap.css" />
+    <Content Include="App_Themes\ReelflicsTheme\bootstrap.min.css" />
+    <Content Include="Contact.aspx" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Default.aspx" />
+    <Content Include="Employee\AddCastDirectorAward.aspx" />
+    <Content Include="Employee\AddMovie.aspx" />
+    <Content Include="Employee\AddCastDirector.aspx" />
+    <Content Include="Employee\MemberActivityReport.aspx" />
+    <Content Include="Employee\MemberInformationReport.aspx" />
+    <Content Include="Employee\ModifyMovie.aspx" />
+    <Content Include="Employee\ModifyCastDirector.aspx" />
+    <Content Include="Employee\MembershipStatisticsReport.aspx" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Account\Web.config" />
+    <Content Include="Employee\Web.config" />
+    <Content Include="images\people\451-Sian-Heder.jpg" />
+    <Content Include="images\people\452-Emilia-Jones.jpg" />
+    <Content Include="images\people\453-Marlee-Matlin.jpg" />
+    <Content Include="images\people\454-Troy-Kotsur.jpg" />
+    <Content Include="images\people\455-Adam-McKay.jpg" />
+    <Content Include="images\people\456-Cate-Blanchett.jpg" />
+    <Content Include="images\people\457-Tom-Cruise.jpg" />
+    <Content Include="images\people\458-Olga-Kurylenko.jpg" />
+    <Content Include="images\people\459-Andrea-Riseborough.jpg" />
+    <Content Include="images\people\460-Joseph-Kosinski.jpg" />
+    <Content Include="images\people\461-Emily-Blunt.jpg" />
+    <Content Include="images\people\462-Bill-Paxton.jpg" />
+    <Content Include="images\people\463-Doug-Liman.jpg" />
+    <Content Include="images\people\464-Kelly-McGillis.jpg" />
+    <Content Include="images\people\465-Val-Kilmer.jpg" />
+    <Content Include="images\people\466-Tony-Scott.jpg" />
+    <Content Include="images\people\467-Benedict-Cumberbatch.jpg" />
+    <Content Include="images\people\468-Elizabeth-Olsen.jpg" />
+    <Content Include="images\people\469-Benedict-Wong.jpg" />
+    <Content Include="images\people\470-Sam-Raimi.jpg" />
+    <Content Include="images\posters\144-CODA.jpg" />
+    <Content Include="images\posters\145-Dont-Look-Up.jpg" />
+    <Content Include="images\posters\146-Oblivion.jpg" />
+    <Content Include="images\posters\147-Edge-of-Tomorrow.jpg" />
+    <Content Include="images\posters\148-Top-Gun.jpg" />
+    <Content Include="images\posters\149-Top-Gun-Maverick.jpg" />
+    <Content Include="images\posters\150-Doctor-Strange-in-the-Multiverse-of-Madness.jpg" />
+    <Content Include="images\splashscreen.jpg" />
+    <Content Include="Member\ManageAccount.aspx" />
+    <Content Include="Member\RecommendedMovies.aspx" />
+    <Content Include="Member\Web.config" />
+    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="images\enjoy.jpg" />
+    <Content Include="images\oscar.png" />
+    <Content Include="images\people\1-Tim-Robbins.jpg" />
+    <Content Include="images\people\10-Robert-De-Niro.jpg" />
+    <Content Include="images\people\100-Natalie-Portman.jpg" />
+    <Content Include="images\people\101-Matthew-Broderick.jpg" />
+    <Content Include="images\people\102-Jeremy-Irons.jpg" />
+    <Content Include="images\people\103-James-Earl-Jones.jpg" />
+    <Content Include="images\people\104-Arnold-Schwarzenegger.jpg" />
+    <Content Include="images\people\105-Linda-Hamilton.jpg" />
+    <Content Include="images\people\106-Philippe-Noiret.jpg" />
+    <Content Include="images\people\107-Enzo-Cannavale.jpg" />
+    <Content Include="images\people\108-Antonella-Attili.jpg" />
+    <Content Include="images\people\109-Tsutomu-Tatsumi.jpg" />
+    <Content Include="images\people\11-Robert-Duvall.jpg" />
+    <Content Include="images\people\110-Ayano-Shiraishi.jpg" />
+    <Content Include="images\people\111-Akemi-Yamaguchi.jpg" />
+    <Content Include="images\people\112-Michael-J-Fox.jpg" />
+    <Content Include="images\people\113-Christopher-Lloyd.jpg" />
+    <Content Include="images\people\114-Lea-Thompson.jpg" />
+    <Content Include="images\people\115-Charles-Bronson.jpg" />
+    <Content Include="images\people\116-Claudia-Cardinale.jpg" />
+    <Content Include="images\people\117-Anthony-Perkins.jpg" />
+    <Content Include="images\people\118-Janet-Leigh.jpg" />
+    <Content Include="images\people\119-Vera-Miles.jpg" />
+    <Content Include="images\people\12-Henry-Fonda.jpg" />
+    <Content Include="images\people\120-Grace-Kelly.jpg" />
+    <Content Include="images\people\121-Wendell-Corey.jpg" />
+    <Content Include="images\people\122-Humphrey-Bogart.jpg" />
+    <Content Include="images\people\123-Ingrid-Bergman.jpg" />
+    <Content Include="images\people\124-Paul-Henreid.jpg" />
+    <Content Include="images\people\125-Charles-Chaplin.jpg" />
+    <Content Include="images\people\126-Paulette-Goddard.jpg" />
+    <Content Include="images\people\127-Henry-Bergman.jpg" />
+    <Content Include="images\people\128-Virginia-Cherrill.jpg" />
+    <Content Include="images\people\129-Florence-Lee.jpg" />
+    <Content Include="images\people\13-Lee-J-Cobb.jpg" />
+    <Content Include="images\people\130-LinManuel-Miranda.jpg" />
+    <Content Include="images\people\131-Phillipa-Soo.jpg" />
+    <Content Include="images\people\132-Leslie-Odom-Jr.jpg" />
+    <Content Include="images\people\133-Zain-Al-Rafeea.jpg" />
+    <Content Include="images\people\134-Yordanos-Shiferaw.jpg" />
+    <Content Include="images\people\135-Boluwatife-Treasure-Bankole.jpg" />
+    <Content Include="images\people\136-Zazie-Beetz.jpg" />
+    <Content Include="images\people\137-Ryunosuke-Kamiki.jpg" />
+    <Content Include="images\people\138-Mone-Kamishiraishi.jpg" />
+    <Content Include="images\people\139-Ryo-Narita.jpg" />
+    <Content Include="images\people\14-Martin-Balsam.jpg" />
+    <Content Include="images\people\140-Shameik-Moore.jpg" />
+    <Content Include="images\people\141-Jake-Johnson.jpg" />
+    <Content Include="images\people\142-Hailee-Steinfeld.jpg" />
+    <Content Include="images\people\143-Robert-Downey-Jr.jpg" />
+    <Content Include="images\people\144-Chris-Evans.jpg" />
+    <Content Include="images\people\145-Mark-Ruffalo.jpg" />
+    <Content Include="images\people\146-Chris-Hemsworth.jpg" />
+    <Content Include="images\people\147-Anthony-Gonzalez.jpg" />
+    <Content Include="images\people\148-Gael-Garcia-Bernal.jpg" />
+    <Content Include="images\people\149-Benjamin-Bratt.jpg" />
+    <Content Include="images\people\15-Elijah-Wood.jpg" />
+    <Content Include="images\people\150-Jamie-Foxx.jpg" />
+    <Content Include="images\people\151-Christoph-Waltz.jpg" />
+    <Content Include="images\people\152-Tom-Hardy.jpg" />
+    <Content Include="images\people\153-Aamir-Khan.jpg" />
+    <Content Include="images\people\154-Madhavan.jpg" />
+    <Content Include="images\people\155-Mona-Singh.jpg" />
+    <Content Include="images\people\156-Darsheel-Safary.jpg" />
+    <Content Include="images\people\157-Tisca-Chopra.jpg" />
+    <Content Include="images\people\158-Ben-Burtt.jpg" />
+    <Content Include="images\people\159-Elissa-Knight.jpg" />
+    <Content Include="images\people\16-Viggo-Mortensen.jpg" />
+    <Content Include="images\people\160-Jeff-Garlin.jpg" />
+    <Content Include="images\people\161-Ulrich-Muhe.jpg" />
+    <Content Include="images\people\162-Martina-Gedeck.jpg" />
+    <Content Include="images\people\163-Sebastian-Koch.jpg" />
+    <Content Include="images\people\164-Minsik-Choi.jpg" />
+    <Content Include="images\people\165-JiTae-Yoo.jpg" />
+    <Content Include="images\people\166-Hyejeong-Kang.jpg" />
+    <Content Include="images\people\167-Guy-Pearce.jpg" />
+    <Content Include="images\people\168-Joe-Pantoliano.jpg" />
+    <Content Include="images\people\169-Yoji-Matsuda.jpg" />
+    <Content Include="images\people\17-Ian-McKellen.jpg" />
+    <Content Include="images\people\170-Yuriko-Ishida.jpg" />
+    <Content Include="images\people\171-Yuko-Tanaka.jpg" />
+    <Content Include="images\people\172-Karen-Allen.jpg" />
+    <Content Include="images\people\173-Paul-Freeman.jpg" />
+    <Content Include="images\people\174-Shelley-Duvall.jpg" />
+    <Content Include="images\people\175-Danny-Lloyd.jpg" />
+    <Content Include="images\people\176-Martin-Sheen.jpg" />
+    <Content Include="images\people\177-Sigourney-Weaver.jpg" />
+    <Content Include="images\people\178-Tom-Skerritt.jpg" />
+    <Content Include="images\people\179-John-Hurt.jpg" />
+    <Content Include="images\people\18-John-Travolta.jpg" />
+    <Content Include="images\people\180-Yutaka-Sada.jpg" />
+    <Content Include="images\people\181-Peter-Sellers.jpg" />
+    <Content Include="images\people\182-George-C-Scott.jpg" />
+    <Content Include="images\people\183-Sterling-Hayden.jpg" />
+    <Content Include="images\people\184-Tyrone-Power.jpg" />
+    <Content Include="images\people\185-Marlene-Dietrich.jpg" />
+    <Content Include="images\people\186-Charles-Laughton.jpg" />
+    <Content Include="images\people\187-Kirk-Douglas.jpg" />
+    <Content Include="images\people\188-Ralph-Meeker.jpg" />
+    <Content Include="images\people\189-Adolphe-Menjou.jpg" />
+    <Content Include="images\people\19-Uma-Thurman.jpg" />
+    <Content Include="images\people\190-William-Holden.jpg" />
+    <Content Include="images\people\191-Gloria-Swanson.jpg" />
+    <Content Include="images\people\192-Erich-von-Stroheim.jpg" />
+    <Content Include="images\people\193-Jack-Oakie.jpg" />
+    <Content Include="images\people\194-Mads-Mikkelsen.jpg" />
+    <Content Include="images\people\195-Thomas-Bo-Larsen.jpg" />
+    <Content Include="images\people\196-Annika-Wedderkopp.jpg" />
+    <Content Include="images\people\197-Diane-Kruger.jpg" />
+    <Content Include="images\people\198-Eli-Roth.jpg" />
+    <Content Include="images\people\199-Jim-Carrey.jpg" />
+    <Content Include="images\people\2-Morgan-Freeman.jpg" />
+    <Content Include="images\people\20-Samuel-L-Jackson.jpg" />
+    <Content Include="images\people\200-Kate-Winslet.jpg" />
+    <Content Include="images\people\201-Tom-Wilkinson.jpg" />
+    <Content Include="images\people\202-Ellen-Burstyn.jpg" />
+    <Content Include="images\people\203-Jared-Leto.jpg" />
+    <Content Include="images\people\204-Jennifer-Connelly.jpg" />
+    <Content Include="images\people\205-Robin-Williams.jpg" />
+    <Content Include="images\people\206-Ben-Affleck.jpg" />
+    <Content Include="images\people\207-Annette-Bening.jpg" />
+    <Content Include="images\people\208-Thora-Birch.jpg" />
+    <Content Include="images\people\209-Tim-Allen.jpg" />
+    <Content Include="images\people\21-Liam-Neeson.jpg" />
+    <Content Include="images\people\210-Don-Rickles.jpg" />
+    <Content Include="images\people\211-Mel-Gibson.jpg" />
+    <Content Include="images\people\212-Sophie-Marceau.jpg" />
+    <Content Include="images\people\213-Patrick-McGoohan.jpg" />
+    <Content Include="images\people\214-Harvey-Keitel.jpg" />
+    <Content Include="images\people\215-Tim-Roth.jpg" />
+    <Content Include="images\people\216-Michael-Madsen.jpg" />
+    <Content Include="images\people\217-Aleksey-Kravchenko.jpg" />
+    <Content Include="images\people\218-Olga-Mironova.jpg" />
+    <Content Include="images\people\219-Liubomiras-Laucevicius.jpg" />
+    <Content Include="images\people\22-Ralph-Fiennes.jpg" />
+    <Content Include="images\people\220-Michael-Biehn.jpg" />
+    <Content Include="images\people\221-Carrie-Henn.jpg" />
+    <Content Include="images\people\222-James-Woods.jpg" />
+    <Content Include="images\people\223-Elizabeth-McGovern.jpg" />
+    <Content Include="images\people\224-F-Murray-Abraham.jpg" />
+    <Content Include="images\people\225-Tom-Hulce.jpg" />
+    <Content Include="images\people\226-Elizabeth-Berridge.jpg" />
+    <Content Include="images\people\227-Jurgen-Prochnow.jpg" />
+    <Content Include="images\people\228-Herbert-Gronemeyer.jpg" />
+    <Content Include="images\people\229-Klaus-Wennemann.jpg" />
+    <Content Include="images\people\23-Ben-Kingsley.jpg" />
+    <Content Include="images\people\230-Keir-Dullea.jpg" />
+    <Content Include="images\people\231-Gary-Lockwood.jpg" />
+    <Content Include="images\people\232-William-Sylvester.jpg" />
+    <Content Include="images\people\233-Cary-Grant.jpg" />
+    <Content Include="images\people\234-Eva-Marie-Saint.jpg" />
+    <Content Include="images\people\235-James-Mason.jpg" />
+    <Content Include="images\people\236-Kim-Novak.jpg" />
+    <Content Include="images\people\237-Barbara-Bel-Geddes.jpg" />
+    <Content Include="images\people\238-Gene-Kelly.jpg" />
+    <Content Include="images\people\239-Donald-OConnor.jpg" />
+    <Content Include="images\people\24-Leonardo-DiCaprio.jpg" />
+    <Content Include="images\people\240-Debbie-Reynolds.jpg" />
+    <Content Include="images\people\241-Lamberto-Maggiorani.jpg" />
+    <Content Include="images\people\242-Enzo-Staiola.jpg" />
+    <Content Include="images\people\243-Lianella-Carell.jpg" />
+    <Content Include="images\people\244-Orson-Welles.jpg" />
+    <Content Include="images\people\245-Joseph-Cotton.jpg" />
+    <Content Include="images\people\246-Dorothy-Comingore.jpg" />
+    <Content Include="images\people\247-Peter-Lorre.jpg" />
+    <Content Include="images\people\248-Ellen-Widmann.jpg" />
+    <Content Include="images\people\249-Inge-Landgut.jpg" />
+    <Content Include="images\people\25-Joseph-GordonLevitt.jpg" />
+    <Content Include="images\people\250-Frances-McDormand.jpg" />
+    <Content Include="images\people\251-David-Strathairn.jpg" />
+    <Content Include="images\people\252-Mahershala-Ali.jpg" />
+    <Content Include="images\people\253-Linda-Cardellini.jpg" />
+    <Content Include="images\people\254-Sally-Hawkins.jpg" />
+    <Content Include="images\people\255-Octavia-Spencer.jpg" />
+    <Content Include="images\people\256-Michael-Shannon.jpg" />
+    <Content Include="images\people\257-Naomie-Harris.jpg" />
+    <Content Include="images\people\258-Trevante-Rhodes.jpg" />
+    <Content Include="images\people\259-Michael-Keaton.jpg" />
+    <Content Include="images\people\26-Elliot-Page.jpg" />
+    <Content Include="images\people\260-Rachel-McAdams.jpg" />
+    <Content Include="images\people\261-Zach-Galifianakis.jpg" />
+    <Content Include="images\people\262-Chiwetel-Ejiofor.jpg" />
+    <Content Include="images\people\263-Michael-Kenneth-Williams.jpg" />
+    <Content Include="images\people\264-Michael-Fassbender.jpg" />
+    <Content Include="images\people\265-Bryan-Cranston.jpg" />
+    <Content Include="images\people\266-John-Goodman.jpg" />
+    <Content Include="images\people\267-Jean-Dujardin.jpg" />
+    <Content Include="images\people\268-Berenice-Bejo.jpg" />
+    <Content Include="images\people\269-Colin-Firth.jpg" />
+    <Content Include="images\people\27-Brad-Pitt.jpg" />
+    <Content Include="images\people\270-Geoffrey-Rush.jpg" />
+    <Content Include="images\people\271-Helen-Bonham-Carter.jpg" />
+    <Content Include="images\people\272-Jeremy-Renner.jpg" />
+    <Content Include="images\people\273-Anthony-Mackie.jpg" />
+    <Content Include="images\people\274-Brian-Geraghty.jpg" />
+    <Content Include="images\people\275-Dev-Patel.jpg" />
+    <Content Include="images\people\276-Freida-Pinto.jpg" />
+    <Content Include="images\people\277-Saurabh-Shukla.jpg" />
+    <Content Include="images\people\278-Tommy-Lee-Jones.jpg" />
+    <Content Include="images\people\279-Javier-Bardem.jpg" />
+    <Content Include="images\people\28-Edward-Norton.jpg" />
+    <Content Include="images\people\280-Josh-Brolin.jpg" />
+    <Content Include="images\people\281-Don-Cheadle.jpg" />
+    <Content Include="images\people\282-Sandra-Bullock.jpg" />
+    <Content Include="images\people\283-Thandiwe-Newton.jpg" />
+    <Content Include="images\people\284-Hilary-Swank.jpg" />
+    <Content Include="images\people\285-Renee-Zellweger.jpg" />
+    <Content Include="images\people\286-Catherine-ZetaJones.jpg" />
+    <Content Include="images\people\287-Richard-Gere.jpg" />
+    <Content Include="images\people\288-Ed-Harris.jpg" />
+    <Content Include="images\people\289-Gwyneth-Paltrow.jpg" />
+    <Content Include="images\people\29-Meat-Loaf.jpg" />
+    <Content Include="images\people\290-Joseph-Fiennes.jpg" />
+    <Content Include="images\people\291-Billy-Zane.jpg" />
+    <Content Include="images\people\292-Juliette-Binoche.jpg" />
+    <Content Include="images\people\293-Willem-Dafoe.jpg" />
+    <Content Include="images\people\294-Gene-Hackman.jpg" />
+    <Content Include="images\people\295-Jessica-Tandy.jpg" />
+    <Content Include="images\people\296-Dan-Aykroyd.jpg" />
+    <Content Include="images\people\297-Bradley-Cooper.jpg" />
+    <Content Include="images\people\298-Jennifer-Lawrence.jpg" />
+    <Content Include="images\people\299-Amy-Adams.jpg" />
+    <Content Include="images\people\3-Bob-Gunton.jpg" />
+    <Content Include="images\people\30-Orlando-Bloom.jpg" />
+    <Content Include="images\people\300-Chris-Pratt.jpg" />
+    <Content Include="images\people\301-Vin-Diesel.jpg" />
+    <Content Include="images\people\302-Zoe-Saldana.jpg" />
+    <Content Include="images\people\303-Lady-Gaga.jpg" />
+    <Content Include="images\people\304-Sam-Elliott.jpg" />
+    <Content Include="images\people\305-Brabara-Streisand.jpg" />
+    <Content Include="images\people\306-Kris-Kristofferson.jpg" />
+    <Content Include="images\people\307-Gary-Busey.jpg" />
+    <Content Include="images\people\308-Judy-Garland.jpg" />
+    <Content Include="images\people\309-Jack-Carson.jpg" />
+    <Content Include="images\people\31-Tom-Hanks.jpg" />
+    <Content Include="images\people\310-Janet-Gyanor.jpg" />
+    <Content Include="images\people\311-Fredric-March.jpg" />
+    <Content Include="images\people\312-Michael-Sheen.jpg" />
+    <Content Include="images\people\313-Yul-Brynner.jpg" />
+    <Content Include="images\people\314-Steve-McQueen.jpg" />
+    <Content Include="images\people\315-Denzel-Washington.jpg" />
+    <Content Include="images\people\316-Ethan-Hawke.jpg" />
+    <Content Include="images\people\317-John-Wayne.jpg" />
+    <Content Include="images\people\318-Kim-Darby.jpg" />
+    <Content Include="images\people\319-Glen-Campbell.jpg" />
+    <Content Include="images\people\32-Robin-Wright.jpg" />
+    <Content Include="images\people\320-Jeff-Bridges.jpg" />
+    <Content Include="images\people\321-Susanne-Lothar.jpg" />
+    <Content Include="images\people\322-Arno-Frisch.jpg" />
+    <Content Include="images\people\323-Naomi-Watts.jpg" />
+    <Content Include="images\people\324-Michael-Pitt.jpg" />
+    <Content Include="images\people\325-Diane-Keaton.jpg" />
+    <Content Include="images\people\326-Hugo-Weaving.jpg" />
+    <Content Include="images\people\327-Michael-Caine.jpg" />
+    <Content Include="images\people\328-Marion-Cotillard.jpg" />
+    <Content Include="images\people\329-Quentin-Tarantino.jpg" />
+    <Content Include="images\people\33-Gary-Sinise.jpg" />
+    <Content Include="images\people\330-Emma-Stone.jpg" />
+    <Content Include="images\people\331-Daniel-DayLewis.jpg" />
+    <Content Include="images\people\332-Paul-Dano.jpg" />
+    <Content Include="images\people\333-Ciaran-Hinds.jpg" />
+    <Content Include="images\people\334-Sally-Field.jpg" />
+    <Content Include="images\people\335-Brenda-Fricker.jpg" />
+    <Content Include="images\people\336-Woody-Harrelson.jpg" />
+    <Content Include="images\people\337-Sam-Rockwell.jpg" />
+    <Content Include="images\people\338-William-H-Macy.jpg" />
+    <Content Include="images\people\339-Steve-Buscemi.jpg" />
+    <Content Include="images\people\34-Clint-Eastwood.jpg" />
+    <Content Include="images\people\340-Lupita-Nyongo.jpg" />
+    <Content Include="images\people\341-Chloe-Zhao.jpg" />
+    <Content Include="images\people\342-Amole-Gupte.jpg" />
+    <Content Include="images\people\343-Akira-Kurosawa.jpg" />
+    <Content Include="images\people\344-Alejandro-G-Inarritu.jpg" />
+    <Content Include="images\people\345-Alfred-Hitchcock.jpg" />
+    <Content Include="images\people\346-Andrew-Stanton.jpg" />
+    <Content Include="images\people\347-Anthony-Minghella.jpg" />
+    <Content Include="images\people\348-Anthony-Russo.jpg" />
+    <Content Include="images\people\349-Joe-Russo.jpg" />
+    <Content Include="images\people\35-Elijah-Wallach.jpg" />
+    <Content Include="images\people\350-Antoine-Fuqua.jpg" />
+    <Content Include="images\people\351-Barry-Jenkins.jpg" />
+    <Content Include="images\people\352-Billy-Wilder.jpg" />
+    <Content Include="images\people\353-Bob-Persichetti.jpg" />
+    <Content Include="images\people\354-Peter-Ramsey.jpg" />
+    <Content Include="images\people\355-Rodney-Rothman.jpg" />
+    <Content Include="images\people\356-Bong-Joon-Ho.jpg" />
+    <Content Include="images\people\357-Bruce-Beresford.jpg" />
+    <Content Include="images\people\358-Bryan-Singer.jpg" />
+    <Content Include="images\people\359-Christopher-Nolan.jpg" />
+    <Content Include="images\people\36-Lee-Van-Cleef.jpg" />
+    <Content Include="images\people\360-Damien-Chazelle.jpg" />
+    <Content Include="images\people\361-Danny-Boyle.jpg" />
+    <Content Include="images\people\362-Loveleen-Tandan.jpg" />
+    <Content Include="images\people\363-Darren-Aronofsky.jpg" />
+    <Content Include="images\people\364-David-Fincher.jpg" />
+    <Content Include="images\people\365-David-O-Russell.jpg" />
+    <Content Include="images\people\366-Elem-Klimov.jpg" />
+    <Content Include="images\people\367-Ethan-Coen.jpg" />
+    <Content Include="images\people\368-Joel-Coen.jpg" />
+    <Content Include="images\people\369-Fernando-Meirelles.jpg" />
+    <Content Include="images\people\37-Keanu-Reeves.jpg" />
+    <Content Include="images\people\370-Katia-Lund.jpg" />
+    <Content Include="images\people\371-Florian-Henckel-von-Donnersmarck.jpg" />
+    <Content Include="images\people\372-Francis-Ford-Coppola.jpg" />
+    <Content Include="images\people\373-Frank-Capra.jpg" />
+    <Content Include="images\people\374-Frank-Darabont.jpg" />
+    <Content Include="images\people\375-Frank-Pierson.jpg" />
+    <Content Include="images\people\376-Fritz-Lang.jpg" />
+    <Content Include="images\people\377-George-Cukor.jpg" />
+    <Content Include="images\people\378-George-Lucas.jpg" />
+    <Content Include="images\people\379-Guillermo-del-Toro.jpg" />
+    <Content Include="images\people\38-Laurence-Fishburne.jpg" />
+    <Content Include="images\people\380-Guiseppe-Tornatore.jpg" />
+    <Content Include="images\people\381-Gus-Van-Sant.jpg" />
+    <Content Include="images\people\382-Hayao-Miyazaki.jpg" />
+    <Content Include="images\people\383-Henry-Hathaway.jpg" />
+    <Content Include="images\people\384-Irvin-Kershner.jpg" />
+    <Content Include="images\people\385-Isao-Takahata.jpg" />
+    <Content Include="images\people\386-James-Cameron.jpg" />
+    <Content Include="images\people\387-James-Gunn.jpg" />
+    <Content Include="images\people\388-John-Lasseter.jpg" />
+    <Content Include="images\people\389-John-Madden.jpg" />
+    <Content Include="images\people\39-CarrieAnne-Moss.jpg" />
+    <Content Include="images\people\390-John-Sturges.jpg" />
+    <Content Include="images\people\391-Jonathan-Demme.jpg" />
+    <Content Include="images\people\392-Kathryn-Bigelow.jpg" />
+    <Content Include="images\people\393-Lana-Wachowski.jpg" />
+    <Content Include="images\people\394-Lilly-Wachowski.jpg" />
+    <Content Include="images\people\395-Lee-Unkrich.jpg" />
+    <Content Include="images\people\396-Adrian-Molina.jpg" />
+    <Content Include="images\people\397-Luc-Besson.jpg" />
+    <Content Include="images\people\398-Makoto-Shinkai.jpg" />
+    <Content Include="images\people\399-Martin-Scorsese.jpg" />
+    <Content Include="images\people\4-Marlon-Brando.jpg" />
+    <Content Include="images\people\40-Ray-Liotta.jpg" />
+    <Content Include="images\people\400-Masaki-Kobayashi.jpg" />
+    <Content Include="images\people\401-Michael-Curtiz.jpg" />
+    <Content Include="images\people\402-Michael-Haneke.jpg" />
+    <Content Include="images\people\403-Michael-Hazanavicius.jpg" />
+    <Content Include="images\people\404-Michel-Gondry.jpg" />
+    <Content Include="images\people\405-Milos-Forman.jpg" />
+    <Content Include="images\people\406-Morten-Tyldum.jpg" />
+    <Content Include="images\people\407-Nadine-Labaki.jpg" />
+    <Content Include="images\people\408-Olivier-Nakache.jpg" />
+    <Content Include="images\people\409-Eric-Toledano.jpg" />
+    <Content Include="images\people\41-Joe-Pesci.jpg" />
+    <Content Include="images\people\410-Park-ChanWook.jpg" />
+    <Content Include="images\people\411-Paul-Haggis.jpg" />
+    <Content Include="images\people\412-Peter-Farrelly.jpg" />
+    <Content Include="images\people\413-Peter-Jackson.jpg" />
+    <Content Include="images\people\414-Rajkumar-Hirani.jpg" />
+    <Content Include="images\people\415-Richard-Marquand.jpg" />
+    <Content Include="images\people\416-Ridley-Scott.jpg" />
+    <Content Include="images\people\417-Rob-Marshall.jpg" />
+    <Content Include="images\people\418-Robert-Zemeckis.jpg" />
+    <Content Include="images\people\419-Roger-Allers.jpg" />
+    <Content Include="images\people\42-Mark-Hamill.jpg" />
+    <Content Include="images\people\420-Rob-Minkoff.jpg" />
+    <Content Include="images\people\421-Roman-Polanski.jpg" />
+    <Content Include="images\people\422-Ron-Howard.jpg" />
+    <Content Include="images\people\423-Sam-Mendes.jpg" />
+    <Content Include="images\people\424-Sergio-Leone.jpg" />
+    <Content Include="images\people\425-Sidney-Lumet.jpg" />
+    <Content Include="images\people\426-Stanley-Donen.jpg" />
+    <Content Include="images\people\427-Stanley-Kubrick.jpg" />
+    <Content Include="images\people\428-Steve-McQueen.jpg" />
+    <Content Include="images\people\429-Steven-Spielberg.jpg" />
+    <Content Include="images\people\43-Harrison-Ford.jpg" />
+    <Content Include="images\people\430-Thomas-Kail.jpg" />
+    <Content Include="images\people\431-Thomas-Vinterberg.jpg" />
+    <Content Include="images\people\432-Tom-Hopper.jpg" />
+    <Content Include="images\people\433-Tom-McCarthy.jpg" />
+    <Content Include="images\people\434-Tony-Kaye.jpg" />
+    <Content Include="images\people\435-Todd-Phillips.jpg" />
+    <Content Include="images\people\436-Vittorio-De-Sica.jpg" />
+    <Content Include="images\people\437-William-A-Wellman.jpg" />
+    <Content Include="images\people\438-Jack-Conway.jpg" />
+    <Content Include="images\people\439-Victor-Fleming.jpg" />
+    <Content Include="images\people\44-Carrie-Fisher.jpg" />
+    <Content Include="images\people\440-Wolfgang-Petersen.jpg" />
+    <Content Include="images\people\441-Paul-Thomas-Anderson.jpg" />
+    <Content Include="images\people\442-Jim-Sheridan.jpg" />
+    <Content Include="images\people\443-Martin-McDonagh.jpg" />
+    <Content Include="images\people\444-Alan-J-Pakula.jpg" />
+    <Content Include="images\people\445-Robert-Benton.jpg" />
+    <Content Include="images\people\446-Meryl-Streep.jpg" />
+    <Content Include="images\people\447-Kevin-Kline.jpg" />
+    <Content Include="images\people\448-Peter-MacNicol.jpg" />
+    <Content Include="images\people\449-Jane-Alexander.jpg" />
+    <Content Include="images\people\45-Jack-Nicholson.jpg" />
+    <Content Include="images\people\450-Dustin-Hoffman.jpg" />
+    <Content Include="images\people\46-Louise-Fletcher.jpg" />
+    <Content Include="images\people\47-Michael-Berryman.jpg" />
+    <Content Include="images\people\48-Kangho-Song.jpg" />
+    <Content Include="images\people\49-Sunkyun-Lee.jpg" />
+    <Content Include="images\people\5-Al-Pacino.jpg" />
+    <Content Include="images\people\50-Yeojeong-Cho.jpg" />
+    <Content Include="images\people\51-Matthew-McConaughey.jpg" />
+    <Content Include="images\people\52-Anne-Hathaway.jpg" />
+    <Content Include="images\people\53-Jessica-Chastain.jpg" />
+    <Content Include="images\people\54-Alexandre-Rodrigues.jpg" />
+    <Content Include="images\people\55-Leandro-Firmino.jpg" />
+    <Content Include="images\people\56-Matheus-Nachtergaele.jpg" />
+    <Content Include="images\people\57-Daveigh-Chase.jpg" />
+    <Content Include="images\people\58-Suzanne-Pleshette.jpg" />
+    <Content Include="images\people\59-Miyu-Irino.jpg" />
+    <Content Include="images\people\6-James-Caan.jpg" />
+    <Content Include="images\people\60-Matt-Damon.jpg" />
+    <Content Include="images\people\61-Tom-Sizemore.jpg" />
+    <Content Include="images\people\62-Michael-Clarke-Duncan.jpg" />
+    <Content Include="images\people\63-David-Morse.jpg" />
+    <Content Include="images\people\64-Robert-Benigni.jpg" />
+    <Content Include="images\people\65-Nicoletta-Braschi.jpg" />
+    <Content Include="images\people\66-Giorgio-Cantarini.jpg" />
+    <Content Include="images\people\67-Kevin-Spacey.jpg" />
+    <Content Include="images\people\68-Jodie-Foster.jpg" />
+    <Content Include="images\people\69-Anthony-Hopkins.jpg" />
+    <Content Include="images\people\7-Christian-Bale.jpg" />
+    <Content Include="images\people\70-Lawrence-A-Bonney.jpg" />
+    <Content Include="images\people\71-Tatsuya-Nakadai.jpg" />
+    <Content Include="images\people\72-Akira-Ishihama.jpg" />
+    <Content Include="images\people\73-Shima-Iwashita.jpg" />
+    <Content Include="images\people\74-Toshiro-Mifune.jpg" />
+    <Content Include="images\people\75-Takashi-Shimura.jpg" />
+    <Content Include="images\people\76-Keiko-Tsushima.jpg" />
+    <Content Include="images\people\77-James-Stewart.jpg" />
+    <Content Include="images\people\78-Donna-Reed.jpg" />
+    <Content Include="images\people\79-Lionel-Barrymore.jpg" />
+    <Content Include="images\people\8-Heath-Ledger.jpg" />
+    <Content Include="images\people\80-Miles-Teller.jpg" />
+    <Content Include="images\people\81-JK-Simmons.jpg" />
+    <Content Include="images\people\82-Melissa-Benoist.jpg" />
+    <Content Include="images\people\83-Francois-Cluzet.jpg" />
+    <Content Include="images\people\84-Omar-Sy.jpg" />
+    <Content Include="images\people\85-Anne-Le-Ny.jpg" />
+    <Content Include="images\people\86-Hugh-Jackman.jpg" />
+    <Content Include="images\people\87-Scarlett-Johansson.jpg" />
+    <Content Include="images\people\88-Adrien-Brody.jpg" />
+    <Content Include="images\people\89-Thomas-Kretschmann.jpg" />
+    <Content Include="images\people\9-Aaron-Eckhart.jpg" />
+    <Content Include="images\people\90-Frank-Finlay.jpg" />
+    <Content Include="images\people\91-Russell-Crowe.jpg" />
+    <Content Include="images\people\92-Joaquin-Phoenix.jpg" />
+    <Content Include="images\people\93-Connie-Nielsen.jpg" />
+    <Content Include="images\people\94-Edward-Furlong.jpg" />
+    <Content Include="images\people\95-Beverly-DAngelo.jpg" />
+    <Content Include="images\people\96-Gabriel-Byrne.jpg" />
+    <Content Include="images\people\97-Chazz-Palminyeri.jpg" />
+    <Content Include="images\people\98-Jean-Reno.jpg" />
+    <Content Include="images\people\99-Gary-Oldman.jpg" />
+    <Content Include="images\posters\1-The-Shawshank-Redemption.jpg" />
+    <Content Include="images\posters\2-The-Godfather.jpg" />
+    <Content Include="images\posters\3-The-Dark-Knight.jpg" />
+    <Content Include="images\posters\4-The-Godfather-Part-II.jpg" />
+    <Content Include="images\posters\5-12-Angry-Men.jpg" />
+    <Content Include="images\posters\6-The-Lord-of-the-Rings-The-Return-of-the-King.jpg" />
+    <Content Include="images\posters\7-Pulp-Fiction.jpg" />
+    <Content Include="images\posters\74-Dr-Strangelove-or-How-I-Learned-to-Stop-Worrying-a.jpg" />
+    <Content Include="images\posters\8-Schindlers-List.jpg" />
+    <Content Include="images\posters\9-Inception.jpg" />
+    <Content Include="images\posters\10-Fight-Club.jpg" />
+    <Content Include="images\posters\100-M.jpg" />
+    <Content Include="images\posters\101-Nomadland.jpg" />
+    <Content Include="images\posters\102-Green-Book.jpg" />
+    <Content Include="images\posters\103-The-Shape-of-Water.jpg" />
+    <Content Include="images\posters\104-Moonlight.jpg" />
+    <Content Include="images\posters\105-Spotlight.jpg" />
+    <Content Include="images\posters\106-Birdman-or-The-Unexpected-Virtue-of-Ignorance.jpg" />
+    <Content Include="images\posters\107-12-Years-a-Slave.jpg" />
+    <Content Include="images\posters\108-Argo.jpg" />
+    <Content Include="images\posters\109-The-Artist.jpg" />
+    <Content Include="images\posters\11-The-Lord-of-the-Rings-The-Fellowship-of-the-Ring.jpg" />
+    <Content Include="images\posters\110-The-Kings-Speech.jpg" />
+    <Content Include="images\posters\111-The-Hurt-Locker.jpg" />
+    <Content Include="images\posters\112-Slumdog-Millionaire.jpg" />
+    <Content Include="images\posters\113-No-Country-for-Old-Men.jpg" />
+    <Content Include="images\posters\114-Crash.jpg" />
+    <Content Include="images\posters\115-Million-Dollar-Baby.jpg" />
+    <Content Include="images\posters\116-Chicago.jpg" />
+    <Content Include="images\posters\117-A-Beautiful-Mind.jpg" />
+    <Content Include="images\posters\118-Shakespeare-in-Love.jpg" />
+    <Content Include="images\posters\119-Titanic.jpg" />
+    <Content Include="images\posters\12-Forrest-Gump.jpg" />
+    <Content Include="images\posters\120-The-English-Patient.jpg" />
+    <Content Include="images\posters\121-Unforgiven.jpg" />
+    <Content Include="images\posters\122-Driving-Miss-Daisy.jpg" />
+    <Content Include="images\posters\123-Silver-Linings-Playbook.jpg" />
+    <Content Include="images\posters\124-American-Hustle.jpg" />
+    <Content Include="images\posters\125-Guardians-of-the-Galaxy.jpg" />
+    <Content Include="images\posters\126-A-Star-Is-Born.jpg" />
+    <Content Include="images\posters\127-A-Star-Is-Born.jpg" />
+    <Content Include="images\posters\128-A-Star-Is-Born.jpg" />
+    <Content Include="images\posters\129-A-Star-Is-Born.jpg" />
+    <Content Include="images\posters\13-The-Good-the-Bad-and-the-Ugly.jpg" />
+    <Content Include="images\posters\130-Passengers.jpg" />
+    <Content Include="images\posters\131-The-Magnificent-Seven.jpg" />
+    <Content Include="images\posters\132-The-Magnificent-Seven.jpg" />
+    <Content Include="images\posters\133-True-Grit.jpg" />
+    <Content Include="images\posters\134-True-Grit.jpg" />
+    <Content Include="images\posters\135-Funny-Games.jpg" />
+    <Content Include="images\posters\136-Funny-Games.jpg" />
+    <Content Include="images\posters\137-There-Will-Be-Blood.jpg" />
+    <Content Include="images\posters\138-Lincoln.jpg" />
+    <Content Include="images\posters\139-My-Left-Foot.jpg" />
+    <Content Include="images\posters\14-The-Lord-of-the-Rings-The-Two-Towers.jpg" />
+    <Content Include="images\posters\140-Three-Billboards-Outside-Ebbing-Missouri.jpg" />
+    <Content Include="images\posters\141-Fargo.jpg" />
+    <Content Include="images\posters\142-Sophies-Choice.jpg" />
+    <Content Include="images\posters\143-Kramer-vs-Kramer.jpg" />
+    <Content Include="images\posters\15-The-Matrix.jpg" />
+    <Content Include="images\posters\16-Goodfellas.jpg" />
+    <Content Include="images\posters\17-Star-Wars-Episode-V-The-Empire-Strikes-Back.jpg" />
+    <Content Include="images\posters\18-One-Flew-Over-the-Cuckoos-Nest.jpg" />
+    <Content Include="images\posters\19-Parasite.jpg" />
+    <Content Include="images\posters\20-Interstellar.jpg" />
+    <Content Include="images\posters\21-City-of-God.jpg" />
+    <Content Include="images\posters\22-Spirited-Away.jpg" />
+    <Content Include="images\posters\23-Saving-Private-Ryan.jpg" />
+    <Content Include="images\posters\24-The-Green-Mile.jpg" />
+    <Content Include="images\posters\25-Life-Is-Beautiful.jpg" />
+    <Content Include="images\posters\26-Se7en.jpg" />
+    <Content Include="images\posters\27-The-Silence-of-the-Lambs.jpg" />
+    <Content Include="images\posters\28-Star-Wars-Episode-IV-A-New-Hope.jpg" />
+    <Content Include="images\posters\29-HaraKiri.jpg" />
+    <Content Include="images\posters\30-Seven-Samurai.jpg" />
+    <Content Include="images\posters\31-Its-a-Wonderful-Life.jpg" />
+    <Content Include="images\posters\32-Whiplash.jpg" />
+    <Content Include="images\posters\33-The-Intouchables.jpg" />
+    <Content Include="images\posters\34-The-Prestige.jpg" />
+    <Content Include="images\posters\35-The-Departed.jpg" />
+    <Content Include="images\posters\36-The-Pianist.jpg" />
+    <Content Include="images\posters\37-Gladiator.jpg" />
+    <Content Include="images\posters\38-American-History-X.jpg" />
+    <Content Include="images\posters\39-The-Usual-Suspects.jpg" />
+    <Content Include="images\posters\40-Leon-The-Professional.jpg" />
+    <Content Include="images\posters\41-The-Lion-King.jpg" />
+    <Content Include="images\posters\42-Terminator-2-Judgment-Day.jpg" />
+    <Content Include="images\posters\43-Cinema-Paradiso.jpg" />
+    <Content Include="images\posters\44-Grave-of-the-Fireflies.jpg" />
+    <Content Include="images\posters\45-Back-to-the-Future.jpg" />
+    <Content Include="images\posters\46-Once-Upon-a-Time-in-the-West.jpg" />
+    <Content Include="images\posters\47-Psycho.jpg" />
+    <Content Include="images\posters\48-Rear-Window.jpg" />
+    <Content Include="images\posters\49-Casablanca.jpg" />
+    <Content Include="images\posters\50-Modern-Times.jpg" />
+    <Content Include="images\posters\51-City-Lights.jpg" />
+    <Content Include="images\posters\52-Hamilton.jpg" />
+    <Content Include="images\posters\53-Capernaum.jpg" />
+    <Content Include="images\posters\54-Joker.jpg" />
+    <Content Include="images\posters\55-Your-Name.jpg" />
+    <Content Include="images\posters\56-SpiderMan-Into-the-SpiderVerse.jpg" />
+    <Content Include="images\posters\57-Avengers-Endgame.jpg" />
+    <Content Include="images\posters\58-Avengers-Infinity-War.jpg" />
+    <Content Include="images\posters\59-Coco.jpg" />
+    <Content Include="images\posters\60-Django-Unchained.jpg" />
+    <Content Include="images\posters\61-The-Dark-Knight-Rises.jpg" />
+    <Content Include="images\posters\62-3-Idiots.jpg" />
+    <Content Include="images\posters\63-Like-Stars-on-Earth.jpg" />
+    <Content Include="images\posters\64-WALLE.jpg" />
+    <Content Include="images\posters\65-The-Lives-of-Others.jpg" />
+    <Content Include="images\posters\66-Oldboy.jpg" />
+    <Content Include="images\posters\67-Memento.jpg" />
+    <Content Include="images\posters\68-Princess-Mononoke.jpg" />
+    <Content Include="images\posters\69-Indiana-Jones-and-the-Raiders-of-the-Lost-Ark.jpg" />
+    <Content Include="images\posters\70-The-Shining.jpg" />
+    <Content Include="images\posters\71-Apocalypse-Now.jpg" />
+    <Content Include="images\posters\72-Alien.jpg" />
+    <Content Include="images\posters\73-High-and-Low.jpg" />
+    <Content Include="images\posters\75-Witness-for-the-Prosecution.jpg" />
+    <Content Include="images\posters\76-Paths-of-Glory.jpg" />
+    <Content Include="images\posters\77-Sunset-Boulevard.jpg" />
+    <Content Include="images\posters\78-The-Great-Dictator.jpg" />
+    <Content Include="images\posters\79-The-Hunt.jpg" />
+    <Content Include="images\posters\80-Inglourious-Basterds.jpg" />
+    <Content Include="images\posters\81-Eternal-Sunshine-of-the-Spotless-Mind.jpg" />
+    <Content Include="images\posters\82-Requiem-for-a-Dream.jpg" />
+    <Content Include="images\posters\83-American-Beauty.jpg" />
+    <Content Include="images\posters\84-Good-Will-Hunting.jpg" />
+    <Content Include="images\posters\85-Toy-Story.jpg" />
+    <Content Include="images\posters\86-Braveheart.jpg" />
+    <Content Include="images\posters\87-Reservoir-Dogs.jpg" />
+    <Content Include="images\posters\88-Come-and-See.jpg" />
+    <Content Include="images\posters\89-Aliens.jpg" />
+    <Content Include="images\posters\90-Once-Upon-a-Time-in-America.jpg" />
+    <Content Include="images\posters\91-Amadeus.jpg" />
+    <Content Include="images\posters\92-Star-Wars-Episode-VI-Return-of-the-Jedi.jpg" />
+    <Content Include="images\posters\93-Das-Boot.jpg" />
+    <Content Include="images\posters\94-2001-A-Space-Odyssey.jpg" />
+    <Content Include="images\posters\95-North-by-Northwest.jpg" />
+    <Content Include="images\posters\96-Vertigo.jpg" />
+    <Content Include="images\posters\97-Singin-in-the-Rain.jpg" />
+    <Content Include="images\posters\98-Bicycle-Thieves.jpg" />
+    <Content Include="images\posters\99-Citizen-Kane.jpg" />
+    <Content Include="Scripts\jquery.sumoselect.min.js" />
+    <Content Include="Member\CreateReview.aspx" />
+    <Content Include="Member\ModifyReview.aspx" />
+    <Content Include="Member\WatchHistory.aspx" />
+    <Content Include="Member\Watchlist.aspx" />
+    <Content Include="Member\WatchNow.aspx" />
+    <Content Include="Shared\MovieInformation.aspx" />
+    <Content Include="Shared\MoviePersonInformation.aspx" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\WebForms\DetailsView.js" />
+    <Content Include="Scripts\WebForms\Focus.js" />
+    <Content Include="Scripts\WebForms\GridView.js" />
+    <Content Include="Scripts\WebForms\Menu.js" />
+    <Content Include="Scripts\WebForms\MenuStandards.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjax.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxApplicationServices.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxComponentModel.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxCore.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxGlobalization.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxHistory.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxNetwork.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxSerialization.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxTimer.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxWebForms.js" />
+    <Content Include="Scripts\WebForms\MSAjax\MicrosoftAjaxWebServices.js" />
+    <Content Include="Scripts\WebForms\SmartNav.js" />
+    <Content Include="Scripts\WebForms\TreeView.js" />
+    <Content Include="Scripts\WebForms\WebForms.js" />
+    <Content Include="Scripts\WebForms\WebParts.js" />
+    <Content Include="Scripts\WebForms\WebUIValidation.js" />
+    <Content Include="Member\MemberSearchResult.aspx" />
+    <Content Include="Site.Master" />
+    <Content Include="Content\sumoselect.css" />
+    <Content Include="ViewSwitcher.ascx" />
+    <Content Include="Web.config" />
+    <Content Include="Bundle.config" />
+    <Content Include="Site.Mobile.Master" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Account\AddPhoneNumber.aspx.cs">
+      <DependentUpon>AddPhoneNumber.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\AddPhoneNumber.aspx.designer.cs">
+      <DependentUpon>AddPhoneNumber.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\Confirm.aspx.cs">
+      <DependentUpon>Confirm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\Confirm.aspx.designer.cs">
+      <DependentUpon>Confirm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\Forgot.aspx.cs">
+      <DependentUpon>Forgot.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\Forgot.aspx.designer.cs">
+      <DependentUpon>Forgot.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\Lockout.aspx.cs">
+      <DependentUpon>Lockout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\Lockout.aspx.designer.cs">
+      <DependentUpon>Lockout.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\Manage.aspx.cs">
+      <DependentUpon>Manage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\Manage.aspx.designer.cs">
+      <DependentUpon>Manage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\ManageLogins.aspx.cs">
+      <DependentUpon>ManageLogins.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\ManageLogins.aspx.designer.cs">
+      <DependentUpon>ManageLogins.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\ManagePassword.aspx.cs">
+      <DependentUpon>ManagePassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\ManagePassword.aspx.designer.cs">
+      <DependentUpon>ManagePassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\OpenAuthProviders.ascx.cs">
+      <DependentUpon>OpenAuthProviders.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\OpenAuthProviders.ascx.designer.cs">
+      <DependentUpon>OpenAuthProviders.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\Register.aspx.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\Register.aspx.designer.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\RegisterExternalLogin.aspx.cs">
+      <DependentUpon>RegisterExternalLogin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\RegisterExternalLogin.aspx.designer.cs">
+      <DependentUpon>RegisterExternalLogin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\ResetPassword.aspx.cs">
+      <DependentUpon>ResetPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\ResetPassword.aspx.designer.cs">
+      <DependentUpon>ResetPassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\ResetPasswordConfirmation.aspx.cs">
+      <DependentUpon>ResetPasswordConfirmation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\ResetPasswordConfirmation.aspx.designer.cs">
+      <DependentUpon>ResetPasswordConfirmation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\TwoFactorAuthenticationSignIn.aspx.cs">
+      <DependentUpon>TwoFactorAuthenticationSignIn.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\TwoFactorAuthenticationSignIn.aspx.designer.cs">
+      <DependentUpon>TwoFactorAuthenticationSignIn.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\VerifyPhoneNumber.aspx.cs">
+      <DependentUpon>VerifyPhoneNumber.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\VerifyPhoneNumber.aspx.designer.cs">
+      <DependentUpon>VerifyPhoneNumber.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Code\DBHelperMethods.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="App_Code\HelperMethods.cs" />
+    <Compile Include="App_Code\OracleDBAccess.cs" />
+    <Compile Include="App_Code\ReelflicsDBAccess.cs" />
+    <Compile Include="App_Code\StringExtension.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="About.aspx.cs">
+      <DependentUpon>About.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="About.aspx.designer.cs">
+      <DependentUpon>About.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Contact.aspx.cs">
+      <DependentUpon>Contact.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Contact.aspx.designer.cs">
+      <DependentUpon>Contact.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Employee\AddCastDirectorAward.aspx.cs">
+      <DependentUpon>AddCastDirectorAward.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Employee\AddCastDirectorAward.aspx.designer.cs">
+      <DependentUpon>AddCastDirectorAward.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Employee\AddMovie.aspx.cs">
+      <DependentUpon>AddMovie.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Employee\AddMovie.aspx.designer.cs">
+      <DependentUpon>AddMovie.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Employee\AddCastDirector.aspx.cs">
+      <DependentUpon>AddCastDirector.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Employee\AddCastDirector.aspx.designer.cs">
+      <DependentUpon>AddCastDirector.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Employee\MemberActivityReport.aspx.cs">
+      <DependentUpon>MemberActivityReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Employee\MemberActivityReport.aspx.designer.cs">
+      <DependentUpon>MemberActivityReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Employee\MemberInformationReport.aspx.cs">
+      <DependentUpon>MemberInformationReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Employee\MemberInformationReport.aspx.designer.cs">
+      <DependentUpon>MemberInformationReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Employee\ModifyMovie.aspx.cs">
+      <DependentUpon>ModifyMovie.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Employee\ModifyMovie.aspx.designer.cs">
+      <DependentUpon>ModifyMovie.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Employee\ModifyCastDirector.aspx.cs">
+      <DependentUpon>ModifyCastDirector.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Employee\ModifyCastDirector.aspx.designer.cs">
+      <DependentUpon>ModifyCastDirector.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Employee\MembershipStatisticsReport.aspx.cs">
+      <DependentUpon>MembershipStatisticsReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Employee\MembershipStatisticsReport.aspx.designer.cs">
+      <DependentUpon>MembershipStatisticsReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Member\CreateReview.aspx.cs">
+      <DependentUpon>CreateReview.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Member\CreateReview.aspx.designer.cs">
+      <DependentUpon>CreateReview.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Member\ModifyReview.aspx.cs">
+      <DependentUpon>ModifyReview.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Member\ModifyReview.aspx.designer.cs">
+      <DependentUpon>ModifyReview.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Member\ManageAccount.aspx.cs">
+      <DependentUpon>ManageAccount.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Member\ManageAccount.aspx.designer.cs">
+      <DependentUpon>ManageAccount.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Member\RecommendedMovies.aspx.cs">
+      <DependentUpon>RecommendedMovies.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Member\RecommendedMovies.aspx.designer.cs">
+      <DependentUpon>RecommendedMovies.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Member\WatchHistory.aspx.cs">
+      <DependentUpon>WatchHistory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Member\WatchHistory.aspx.designer.cs">
+      <DependentUpon>WatchHistory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Member\Watchlist.aspx.cs">
+      <DependentUpon>Watchlist.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Member\Watchlist.aspx.designer.cs">
+      <DependentUpon>Watchlist.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Member\WatchNow.aspx.cs">
+      <DependentUpon>WatchNow.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Member\WatchNow.aspx.designer.cs">
+      <DependentUpon>WatchNow.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Shared\MovieInformation.aspx.cs">
+      <DependentUpon>MovieInformation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Shared\MovieInformation.aspx.designer.cs">
+      <DependentUpon>MovieInformation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Shared\MoviePersonInformation.aspx.cs">
+      <DependentUpon>MoviePersonInformation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Shared\MoviePersonInformation.aspx.designer.cs">
+      <DependentUpon>MoviePersonInformation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Member\MemberSearchResult.aspx.cs">
+      <DependentUpon>MemberSearchResult.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Member\MemberSearchResult.aspx.designer.cs">
+      <DependentUpon>MemberSearchResult.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Site.Master.cs">
+      <DependentUpon>Site.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Site.Master.designer.cs">
+      <DependentUpon>Site.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Site.Mobile.Master.cs">
+      <DependentUpon>Site.Mobile.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Site.Mobile.Master.designer.cs">
+      <DependentUpon>Site.Mobile.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Startup.cs" />
+    <Compile Include="ViewSwitcher.ascx.cs">
+      <DependentUpon>ViewSwitcher.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSwitcher.ascx.designer.cs">
+      <DependentUpon>ViewSwitcher.ascx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.4.1.min.map" />
+    <Content Include="Shared\Web.config" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>22349</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44378/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
